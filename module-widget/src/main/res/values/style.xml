@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    等待加载风格-->
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!--    iOS风格-->
+    <style name="dialog_Common" parent="android:style/Theme.Dialog">
+        <!--说明提示框是否有边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--说明提示框是否有标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--设置提示框的背景颜色是什么-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否有遮盖-->
+        <item name="android:windowContentOverlay">@null</item>
+        <!--说明提示框是滞是透明的-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--说明是否充许对话框的背景变暗。为true则充许变暗-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--设置背景透明度-->
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+</resources>
