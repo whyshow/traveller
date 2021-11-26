@@ -24,7 +24,6 @@ import club.ccit.widget.R;
  */
 public class MessageDialog {
     private static Dialog loadingDialog;
-
     @SuppressLint("UseCompatLoadingForDrawables")
     public static void show(Context context, String title,String message,String ok,String cancel,OnDialogButtonClickListener onDialogButtonClickListener) {
         // 首先得到整个View
