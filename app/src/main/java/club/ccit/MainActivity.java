@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
@@ -26,14 +27,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // RequestImage.start("https://pic.miaoyibao.cn/534ba315-1e02-4140-9601-e8799f3d7232.jpg",binding.MainImageView);
-       MessageDialog.show(this, "提示", "确认签署合同？", "确认", "取消", new MessageDialog.OnDialogButtonClickListener() {
-           @Override
-           public boolean onClick(Dialog baseDialog, View v) {
-               myToast("你点击了确认");
-               return false;
-           }
-       });
     }
 
     @Override
@@ -64,4 +57,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         return true;
     }
 
+    /**
+     * 进入相机预览
+     * @param view
+     */
+    public void cameraActivity(View view) {
+        ARouter.getInstance().build(AppRouter.PATH_CAMERA_VIEW).navigation();
+    }
 }

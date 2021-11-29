@@ -15,5 +15,10 @@ public class AppRouter {
      * MainActivity 页面
      */
     public static final String PATH_APP_HOME = "/app/MainActivity";
+    /**
+     * 相机预览页面
+     */
+    public static final String PATH_CAMERA_VIEW = "/camera/CameraPreviewActivity";
+
 
 }

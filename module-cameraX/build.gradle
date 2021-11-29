@@ -28,6 +28,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     buildFeatures {
         viewBinding true
     }
@@ -37,10 +38,13 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
+    implementation "androidx.camera:camera-view:1.0.0-alpha27"
+    // CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:1.0.2"
+    // CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:1.0.2"
     implementation project(path: ':module-basic')
     implementation project(path: ':module-common')
-    implementation project(path: ':module-widget')
     implementation rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.annotationProcessors.arouter
-
 }
