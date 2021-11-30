@@ -16,5 +16,5 @@
         android:onClick="buttonImageView"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="100dp"
-        android:background="@mipmap/ok" />
+        android:background="@mipmap/icon_start" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

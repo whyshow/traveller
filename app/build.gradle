@@ -47,7 +47,7 @@ dependencies {
     implementation project(path: ':module-common')
     implementation project(path: ':module-widget')
     implementation project(path: ':module-home')
-    implementation project(path: ':module-cameraX')
+    implementation project(path: ':module-camera')
     //内存泄漏分析工具
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 }

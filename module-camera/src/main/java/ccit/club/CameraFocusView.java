@@ -11,10 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.camera.core.Camera;
 
 /**
- * Copyright (C), 2011-2021, 万臻生态科技有限公司
- * FileName: CameraFocusView
- *
- * @author: swzhang3
+ * @author: 张帅威
  * Date: 2021/11/29 1:33 下午
  * Description:
  * Version:
@@ -49,22 +46,37 @@ public class CameraFocusView extends AppCompatImageView {
         touchFocusPaint.setStrokeWidth(3);
     }
 
-    //对焦并绘制对焦矩形框
+    /**
+     * 对焦并绘制对焦矩形框
+     * @param x
+     * @param y
+     */
     public void setTouchFocusRect(float x, float y){
+        if (touchFocusRect != null){
+            disDrawTouchFocusRect();
+        }
         //以焦点为中心，宽度为200的矩形框
         touchFocusRect = new Rect((int)(x - 100), (int)(y - 100), (int)(x + 100), (int)(y + 100));
-
-       // postInvalidate();//刷新界面，调用onDraw(Canvas canvas)函数绘制矩形框
+        //刷新界面，调用onDraw(Canvas canvas)函数绘制矩形框
+        postInvalidate();
     }
 
-    //对焦完成后，清除对焦矩形框
+    /**
+     * 对焦完成后，清除对焦矩形框
+     */
     public void disDrawTouchFocusRect(){
-        touchFocusRect = null;//将对焦区域设置为null，刷新界面后对焦框消失
-        postInvalidate();//刷新界面，调用onDraw(Canvas canvas)函数
+        //将对焦区域设置为null，刷新界面后对焦框消失
+        touchFocusRect = null;
+        //刷新界面，调用onDraw(Canvas canvas)函数
+        postInvalidate();
     }
 
+    /**
+     * 在画布上绘图，postInvalidate()后自动调用
+     * @param canvas
+     */
     @Override
-    protected void onDraw(Canvas canvas){ //在画布上绘图，postInvalidate()后自动调用
+    protected void onDraw(Canvas canvas){
         drawTouchFocusRect(canvas);
         Log.i("LOG111","drawTouchFocusRect");
         super.onDraw(canvas);

@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize"
     android:gravity="center"
-    android:orientation="vertical">
-
-    <club.ccit.widget.CustomImageView
-        android:id="@+id/MainImageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        app:radius="12dp"/>
+    android:orientation="vertical"
+    android:paddingTop="?attr/actionBarSize">
     <Button
-        android:id="@+id/HomeActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="进入Home模块"/>
-
-  <Button
         android:id="@+id/cameraActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-      android:onClick="cameraActivity"
-        android:text="进入相机预览"/>
+        android:onClick="cameraActivity"
+        android:text="照片拍摄" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="videoActivity"
+        android:text="视频录制" />
 
 
 </LinearLayout>
