@@ -1,4 +1,4 @@
-package ccit.club;
+package club.ccit.camerax;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -17,7 +17,6 @@ import android.view.Surface;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +24,6 @@ import androidx.camera.core.Camera;
 import androidx.camera.core.CameraControl;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.FocusMeteringAction;
-import androidx.camera.core.FocusMeteringResult;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
@@ -37,16 +35,18 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.common.util.concurrent.ListenableFuture;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import ccit.club.databinding.AvtivityPhotographBinding;
 import club.ccit.basic.BaseActivity;
+import club.ccit.camerax.databinding.AvtivityPhotographBinding;
 import club.ccit.common.AppRouter;
 
 /**

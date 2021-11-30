@@ -1,4 +1,4 @@
-package ccit.club;
+package club.ccit.camerax;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.camera.core.Camera;
 
 /**
  * @author: 张帅威
