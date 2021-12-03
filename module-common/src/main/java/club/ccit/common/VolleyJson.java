@@ -16,7 +16,7 @@ import java.util.Map;
 import club.ccit.widget.dialog.WaitDialog;
 
 /**
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/11/18 16:07
  * Description: 网络请求封装
  * Version:

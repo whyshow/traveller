@@ -11,7 +11,7 @@ import android.widget.TextView;
 import club.ccit.widget.R;
 
 /**
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/11/24 10:19
  * Description: 等待弹窗
  * Version:

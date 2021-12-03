@@ -1,8 +1,14 @@
 package club.ccit;
+
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 
 import club.ccit.basic.BaseActivity;
 import club.ccit.common.AppRouter;
@@ -10,7 +16,7 @@ import club.ccit.common.AppRouter;
 import club.ccit.databinding.ActivityMainBinding;
 
 /**
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/11/18 13:17
  * Description:
  * Version:
@@ -21,6 +27,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 去除item长按显示 toast
+        cleanToast();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_drafts, R.id.navigation_my)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    /**
+     * 去除item长按显示 toast
+     */
+    private void cleanToast() {
+        View bottomBarView = binding.navView.getChildAt(0);
+        bottomBarView.findViewById(R.id.navigation_home).setOnLongClickListener(v -> true);
+        bottomBarView.findViewById(R.id.navigation_drafts).setOnLongClickListener(v -> true);
+        bottomBarView.findViewById(R.id.navigation_my).setOnLongClickListener(v -> true);
+
     }
 
     @Override
@@ -43,19 +67,4 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         return true;
     }
 
-    /**
-     * 进入相机预览
-     * @param view
-     */
-    public void cameraActivity(View view) {
-        ARouter.getInstance().build(AppRouter.PATH_CAMERA_PHOTOGRAPH).navigation();
-    }
-
-    /**
-     * 录制视频
-     * @param view
-     */
-    public void videoActivity(View view) {
-        ARouter.getInstance().build(AppRouter.PATH_CAMERA_VIDEO).navigation();
-    }
 }

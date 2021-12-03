@@ -5,7 +5,7 @@ import com.bumptech.glide.Glide;
 import club.ccit.widget.CustomImageView;
 
 /**
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/11/18 16:24
  * Description:
  * Version:

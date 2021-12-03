@@ -40,7 +40,7 @@ import club.ccit.camerax.databinding.AvtivityVideoBinding;
 import club.ccit.common.AppRouter;
 
 /**
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/11/30 9:36 上午
  * Description: 录制视频
  * Version:

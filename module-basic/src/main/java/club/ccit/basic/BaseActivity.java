@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewbinding.ViewBinding;
 
 /**
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/11/18 10:33
  * Description: Activity 基类
  * Version:

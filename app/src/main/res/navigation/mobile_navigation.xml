@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="club.ccit.ui.home.HomeFragment"
+        android:name="club.ccit.home.fragment.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="club.ccit.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_drafts"
+        android:name="club.ccit.drafts.DraftsFragment"
+        android:label="@string/title_drafts"
+        tools:layout="@layout/fragment_drafts" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="club.ccit.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_my"
+        android:name="club.ccit.user.MyFragment"
+        android:label="@string/title_my"
+        tools:layout="@layout/fragment_my" />
 </navigation>

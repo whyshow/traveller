@@ -6,7 +6,7 @@ import android.content.pm.ApplicationInfo;
 import com.alibaba.android.arouter.launcher.ARouter;
 
 /**
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/11/18 10:59
  * Description:
  * Version:

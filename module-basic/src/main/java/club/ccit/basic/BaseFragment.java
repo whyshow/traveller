@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewbinding.ViewBinding;
 
 /**
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/11/23 08:16
  * Description: Fragment 基类
  * Version:
@@ -25,6 +25,7 @@ public abstract class BaseFragment <T extends ViewBinding> extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = getViewBinding();
+        initListener();
         return binding.getRoot();
     }
 
@@ -40,7 +41,6 @@ public abstract class BaseFragment <T extends ViewBinding> extends Fragment {
      * @return ActivityXXXBinding.inflate(getLayoutInflater ());
      */
     protected abstract T getViewBinding();
-
 
     /**
      * 自定义Toast
@@ -61,8 +61,8 @@ public abstract class BaseFragment <T extends ViewBinding> extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         binding = null;
     }
 }

@@ -42,12 +42,16 @@ dependencies {
     // 路由
     implementation rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.annotationProcessors.arouter
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation project(path: ':module-basic')
     implementation project(path: ':module-common')
     implementation project(path: ':module-widget')
     implementation project(path: ':module-home')
+    implementation project(path: ':module-user')
+    implementation project(path: ':module-drafts')
     implementation project(path: ':module-camerax')
+    implementation project(path: ':module-resource')
     //内存泄漏分析工具
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 }
