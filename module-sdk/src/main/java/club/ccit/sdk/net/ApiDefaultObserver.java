@@ -1,6 +1,4 @@
-package club.ccit.sdk;
-
-import android.util.Log;
+package club.ccit.sdk.net;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.observers.DisposableObserver;
@@ -12,7 +10,10 @@ import retrofit2.HttpException;
  * Description: 接口回调 处理401 等代码
  * Version:
  */
-public abstract class BaseApiDefaultObserver<T> extends DisposableObserver<T> {
+public abstract class ApiDefaultObserver<T> extends DisposableObserver<T> {
+
+    private final int ERR401 = 401;
+
     @Override
     public void onNext(@NonNull T t) {
         accept(t);
@@ -22,7 +23,10 @@ public abstract class BaseApiDefaultObserver<T> extends DisposableObserver<T> {
     public void onError(@NonNull Throwable e) {
         if (e instanceof HttpException) {
             HttpException ex = (HttpException) e;
-            Log.i("LOG111",ex.toString());
+            if (ex.code() == ERR401){
+                // 业务逻辑
+
+            }
         }
     }
 
@@ -31,5 +35,10 @@ public abstract class BaseApiDefaultObserver<T> extends DisposableObserver<T> {
 
     }
 
+    /**
+     * 请求数据成功
+     * @param t
+     */
     protected abstract void accept(T t);
+
 }

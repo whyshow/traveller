@@ -1,4 +1,4 @@
-package club.ccit.sdk;
+package club.ccit.sdk.net;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
@@ -15,15 +15,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Description: 请求网络
  * Version:
  */
-public abstract class BaseAppApiProvider {
-    private final Retrofit mRetrofit;
-    private final WeakReference<Context> mContext;
+public abstract class AppApiProvider {
+    protected Retrofit mRetrofit;
+    private WeakReference<Context> mContext;
 
     /**
      * 实例化一些连接网络配置
      * @param context
      */
-    BaseAppApiProvider(Context context) {
+   public AppApiProvider(Context context) {
         mContext = new WeakReference<>(context.getApplicationContext());
         OkHttpClient builder = new OkHttpClient();
         OkHttpClient client = builder.newBuilder()
@@ -39,24 +39,28 @@ public abstract class BaseAppApiProvider {
                 // 加入配置
                 .client(client)
                 // 基本的域名
-                .baseUrl("https://api.miaoyibao.com/")
+                .baseUrl(baseUrl())
                 // 绑定RxJava
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 // 使用gson 自动解析数据
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
-
     }
 
     /**
      * 获取 Retrofit 实例
      * @return
      */
-    Retrofit getRetrofit() {
+    protected Retrofit getRetrofit() {
         return mRetrofit;
     }
 
+
+    /**
+     * ji
+     * @return
+     */
+    protected abstract String baseUrl();
 
     @Nullable
     protected Context getContext() {

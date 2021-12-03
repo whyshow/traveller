@@ -49,7 +49,7 @@ dependencies {
     implementation project(path: ':module-widget')
     implementation project(path: ':module-home')
     implementation project(path: ':module-user')
-    implementation project(path: ':module-drafts')
+    implementation project(path: ':module-draft')
     implementation project(path: ':module-camerax')
     implementation project(path: ':module-resource')
     //内存泄漏分析工具

@@ -1,4 +1,4 @@
-package club.ccit.sdk;
+package club.ccit.sdk.net;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
@@ -9,7 +9,6 @@ import io.reactivex.rxjava3.core.ObservableSource;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.internal.fuseable.HasUpstreamObservableSource;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-
 
 /**
  * @author: 瞌睡的牙签

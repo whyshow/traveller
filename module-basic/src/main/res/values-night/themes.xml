@@ -1,11 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Traveller" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- 状态栏颜色-->
-        <item name="android:statusBarColor">@color/white</item>
-        <!-- 不使用深色模式 -->
+    <style name="Theme.Traveller" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-
+        <item name="android:statusBarColor">@color/white</item>
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 </resources>

@@ -1,4 +1,4 @@
-package club.ccit.sdk;
+package club.ccit.sdk.net;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;

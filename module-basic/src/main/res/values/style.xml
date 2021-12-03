@@ -10,4 +10,12 @@
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">13dp</item>
     </style>
+
+    <!--    RecycleView滚动条样式-->
+    <style name="RecyclerViewStyle">
+        <!--        禁止显示滚动条-->
+        <item name="android:scrollbars">none</item>
+        <!--        禁止显示滚动阴影-->
+        <item name="android:overScrollMode">never</item>
+    </style>
 </resources>
