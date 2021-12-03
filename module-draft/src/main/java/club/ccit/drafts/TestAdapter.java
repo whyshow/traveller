@@ -20,6 +20,11 @@ import club.ccit.sdk.draft.NewsListBean;
  */
 public class TestAdapter extends BaseRecyclerViewAdapter<ItemTestBinding> {
     private List<NewsListBean.Result> list;
+
+    /**
+     * 实例化
+     * @param newsListBean
+     */
     public TestAdapter(NewsListBean newsListBean) {
         this.list = newsListBean.getResult();
     }
@@ -30,17 +35,27 @@ public class TestAdapter extends BaseRecyclerViewAdapter<ItemTestBinding> {
      */
     @Override
     protected void onBindingViewData(int position) {
+        // 设置文本数据
         binding.titleTextView.setText(list.get(position).getArticle_title());
         binding.timeTextView.setText(list.get(position).getArticle_date());
         binding.contentTextView.setText(list.get(position).getArticle_text());
         binding.authorTextView.setText(list.get(position).getArticle_user()+"/文");
     }
 
+    /**
+     * 绑定视图
+     * @param parent
+     * @return
+     */
     @Override
     protected ItemTestBinding getViewBinding(ViewGroup parent) {
         return ItemTestBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
     }
 
+    /**
+     * 设置条目数
+     * @return
+     */
     @Override
     protected int setItemCount() {
         return list.size();

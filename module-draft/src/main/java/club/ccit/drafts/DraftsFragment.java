@@ -27,13 +27,14 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (savedInstanceState == null){
+        // 请求网络数据
             NewsApi api = new DraftApiProvider(requireActivity()).getNewsList();
             AndroidObservable.create(api.getNewsList()).with(this).subscribe(new ApiDefaultObserver<NewsListBean>() {
                 @Override
                 protected void accept(NewsListBean newsListBean) {
+                    // 获取网络数据并解析完成
                     if (adapter == null){
+                        // 创建适配器显示
                         adapter = new TestAdapter(newsListBean);
                         binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
                         binding.draftRecyclerView.setAdapter(adapter);
@@ -41,7 +42,6 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
 
                 }
             });
-        }
     }
 
     @Override
