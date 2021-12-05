@@ -1,14 +1,12 @@
 package club.ccit.drafts;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import java.util.List;
-
 import club.ccit.basic.BaseRecyclerViewAdapter;
 import club.ccit.drafts.databinding.ItemTestBinding;
 import club.ccit.sdk.draft.NewsListBean;
-
 
 /**
  * FileName: TestAdapter
@@ -33,6 +31,7 @@ public class TestAdapter extends BaseRecyclerViewAdapter<ItemTestBinding> {
      * 绑定数据
      * @param position
      */
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindingViewData(int position) {
         // 设置文本数据
@@ -60,6 +59,4 @@ public class TestAdapter extends BaseRecyclerViewAdapter<ItemTestBinding> {
     protected int setItemCount() {
         return list.size();
     }
-
-
 }

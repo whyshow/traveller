@@ -3,6 +3,7 @@ package club.ccit.sdk.draft;
 import android.content.Context;
 
 import club.ccit.sdk.net.AppApiProvider;
+import retrofit2.Retrofit;
 
 /**
  * FileName: DraftApiProvider
@@ -13,6 +14,8 @@ import club.ccit.sdk.net.AppApiProvider;
  * Version:
  */
 public class DraftApiProvider extends AppApiProvider {
+
+    NewsApi newsApi;
     /**
      * 实例化一些连接网络配置
      *
@@ -20,6 +23,8 @@ public class DraftApiProvider extends AppApiProvider {
      */
     public DraftApiProvider(Context context) {
         super(context);
+        // 创建新闻API
+        newsApi = getRetrofit().create(NewsApi.class);
     }
 
     @Override
@@ -28,7 +33,7 @@ public class DraftApiProvider extends AppApiProvider {
     }
 
     public NewsApi getNewsList() {
-        return getRetrofit().create(NewsApi.class);
+        return newsApi;
     }
 
 }

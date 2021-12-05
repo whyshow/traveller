@@ -15,4 +15,6 @@ public interface NewsApi {
      */
     @GET(ApiUrls.API_NEW_LIST)
     Observable<NewsListBean> getNewsList();
+
+
 }

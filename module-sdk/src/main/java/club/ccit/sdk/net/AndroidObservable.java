@@ -13,7 +13,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 /**
  * @author: 瞌睡的牙签
  * Date: 2021/12/1 1:44 下午
- * Description: Android生命周期进行关联
+ * Description: Android 生命周期进行关联
  * Version:
  */
 public class AndroidObservable<T> extends Observable<T> implements HasUpstreamObservableSource<T> {

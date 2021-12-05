@@ -1,5 +1,6 @@
 package club.ccit.drafts;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -27,32 +28,31 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 请求网络数据
-            NewsApi api = new DraftApiProvider(requireActivity()).getNewsList();
-            AndroidObservable.create(api.getNewsList()).with(this).subscribe(new ApiDefaultObserver<NewsListBean>() {
-                @Override
-                protected void accept(NewsListBean newsListBean) {
-                    // 获取网络数据并解析完成
-                    if (adapter == null){
-                        // 创建适配器显示
-                        adapter = new TestAdapter(newsListBean);
-                        binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-                        binding.draftRecyclerView.setAdapter(adapter);
-                    }
 
-                }
-            });
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onStart() {
         super.onStart();
-        Log.i("LOG111","onStart()");
+        binding.draftSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        binding.draftSwipeRefresh.setRefreshing(true);
+        // 请求网络数据
+        NewsApi api = new DraftApiProvider(requireActivity()).getNewsList();
+        AndroidObservable.create(api.getNewsList()).with(this).subscribe(new ApiDefaultObserver<NewsListBean>() {
+            @Override
+            protected void accept(NewsListBean newsListBean) {
+                // 获取网络数据并解析完成
+                if (adapter == null){
+                    // 创建适配器显示
+                    adapter = new TestAdapter(newsListBean);
+                    binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+                    binding.draftRecyclerView.setAdapter(adapter);
+                    binding.draftSwipeRefresh.setRefreshing(false);
+                }
+
+            }
+        });
     }
 
     @Override

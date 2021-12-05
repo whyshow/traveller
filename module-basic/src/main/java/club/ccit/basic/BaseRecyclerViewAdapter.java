@@ -39,20 +39,20 @@ public abstract class BaseRecyclerViewAdapter <T extends ViewBinding> extends Re
 
     /**
      * 绑定数据
-     * @param position
+     * @param position 绑定
      */
     protected abstract void onBindingViewData(int position);
 
     /**
      * 绑定视图
-     * @return
-     * @param parent
+     * @return 实现
+     * @param parent 。
      */
     protected abstract T getViewBinding(ViewGroup parent);
 
     /**
      * 获取item数量
-     * @return
+     * @return 数量
      */
     protected abstract int setItemCount();
 }
