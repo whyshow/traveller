@@ -1,5 +1,6 @@
 package club.ccit.camerax;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -33,6 +34,8 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 import club.ccit.basic.BaseActivity;
 import club.ccit.camerax.databinding.AvtivityVideoBinding;
+import club.ccit.camerax.permission.PermissionListener;
+import club.ccit.camerax.permission.PermissionsUtil;
 import club.ccit.common.AppRouter;
 
 /**
@@ -64,16 +67,28 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
 //        window.setStatusBarColor(Color.TRANSPARENT);
 //        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 //                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        cameraProviderFuture = ProcessCameraProvider.getInstance(this);
-        cameraProviderFuture.addListener(() -> {
-            ProcessCameraProvider cameraProvider = null;
-            try {
-                cameraProvider = cameraProviderFuture.get();
-                bindPreview(cameraProvider);
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
+        // 申请拍照和录音权限
+        PermissionsUtil.requestPermission(getApplicationContext(), new PermissionListener() {
+            @Override
+            public void permissionGranted(@NonNull String[] permission) {
+                cameraProviderFuture = ProcessCameraProvider.getInstance(VideoActivity.this);
+                cameraProviderFuture.addListener(() -> {
+                    ProcessCameraProvider cameraProvider = null;
+                    try {
+                        cameraProvider = cameraProviderFuture.get();
+                        bindPreview(cameraProvider);
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }, ContextCompat.getMainExecutor(VideoActivity.this));
             }
-        }, ContextCompat.getMainExecutor(this));
+
+            @Override
+            public void permissionDenied(@NonNull String[] permission) {
+                finish();
+            }
+        }, Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO);
+
     }
 
     /**

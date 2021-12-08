@@ -16,6 +16,11 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'arm64-v8a' //, 'x86'
+        }
     }
 
     buildTypes {
@@ -46,5 +51,7 @@ dependencies {
     implementation project(path: ':module-basic')
     implementation project(path: ':module-common')
     implementation rootProject.ext.dependencies.arouter
-    annotationProcessor 'com.alibaba:arouter-compiler:1.5.2'
+    annotationProcessor rootProject.ext.annotationProcessors.arouter
+    implementation 'com.quickbirdstudios:opencv:4.5.2'
+
 }

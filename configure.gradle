@@ -23,6 +23,6 @@ ext {
     ]
     // 注解配置
     annotationProcessors = [
-            arouter    : 'com.alibaba:arouter-compiler:1.2.2'
+            arouter    : 'com.alibaba:arouter-compiler:1.5.2'
     ]
 }

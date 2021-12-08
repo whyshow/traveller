@@ -88,11 +88,4 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
         Log.i("LOG111", "onDestroyView()");
     }
 
-    /**
-     *
-     */
-    public void onActivityDestroy() {
-
-    }
-
 }

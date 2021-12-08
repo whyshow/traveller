@@ -18,8 +18,14 @@ import androidx.appcompat.widget.AppCompatImageView;
 public class CameraFocusView extends AppCompatImageView {
     private Context context;
 
-    private Rect touchFocusRect;//焦点附近设置矩形区域作为对焦区域
-    private Paint touchFocusPaint;//新建画笔
+    /**
+     * 焦点附近设置矩形区域作为对焦区域
+     */
+    private Rect touchFocusRect;
+    /**
+     * 新建画笔
+     */
+    private Paint touchFocusPaint;
 
     public CameraFocusView(Context context){
         this(context, null, 0);
@@ -77,7 +83,6 @@ public class CameraFocusView extends AppCompatImageView {
     @Override
     protected void onDraw(Canvas canvas){
         drawTouchFocusRect(canvas);
-        Log.i("LOG111","drawTouchFocusRect");
         super.onDraw(canvas);
     }
 
