@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import java.util.List;
 import club.ccit.basic.BaseRecyclerViewAdapter;
 import club.ccit.drafts.databinding.ItemTestBinding;
-import club.ccit.sdk.draft.NewsListBean;
+import club.ccit.sdk.demo.NewsListBean;
 
 /**
  * FileName: TestAdapter

@@ -1,5 +1,7 @@
 package club.ccit.sdk.net;
 
+import android.util.Log;
+
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.observers.DisposableObserver;
 import retrofit2.HttpException;
@@ -32,6 +34,7 @@ public abstract class ApiDefaultObserver<T> extends DisposableObserver<T> {
 
     @Override
     public void onComplete() {
+        Log.i("LOG111","onComplete()");
 
     }
 

@@ -13,7 +13,6 @@ import android.util.Size;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.core.Camera;
@@ -23,10 +22,8 @@ import androidx.camera.core.VideoCapture;
 import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.core.content.ContextCompat;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.common.util.concurrent.ListenableFuture;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,7 +31,6 @@ import java.util.Formatter;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
-
 import club.ccit.basic.BaseActivity;
 import club.ccit.camerax.databinding.AvtivityVideoBinding;
 import club.ccit.common.AppRouter;

@@ -4,15 +4,14 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.drafts.databinding.FragmentDraftsBinding;
-import club.ccit.sdk.draft.DraftApiProvider;
-import club.ccit.sdk.draft.NewsApi;
-import club.ccit.sdk.draft.NewsListBean;
+import club.ccit.sdk.demo.DraftApiProvider;
+import club.ccit.sdk.demo.NewsApi;
+import club.ccit.sdk.demo.NewsListBean;
 import club.ccit.sdk.net.AndroidObservable;
 import club.ccit.sdk.net.ApiDefaultObserver;
 

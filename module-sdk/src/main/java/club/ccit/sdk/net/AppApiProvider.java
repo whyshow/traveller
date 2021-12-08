@@ -17,11 +17,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public abstract class AppApiProvider {
     protected Retrofit mRetrofit;
-    private WeakReference<Context> mContext;
+    private final WeakReference<Context> mContext;
 
     /**
      * 实例化一些连接网络配置
-     * @param context
+     * @param context 上下文
      */
    public AppApiProvider(Context context) {
         mContext = new WeakReference<>(context.getApplicationContext());
@@ -49,7 +49,7 @@ public abstract class AppApiProvider {
 
     /**
      * 获取 Retrofit 实例
-     * @return
+     * @return Retrofit
      */
     protected Retrofit getRetrofit() {
         return mRetrofit;
@@ -57,8 +57,8 @@ public abstract class AppApiProvider {
 
 
     /**
-     * ji
-     * @return
+     * 设置域名
+     * @return 域名
      */
     protected abstract String baseUrl();
 

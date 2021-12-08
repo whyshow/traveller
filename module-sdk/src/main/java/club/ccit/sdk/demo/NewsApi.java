@@ -1,4 +1,4 @@
-package club.ccit.sdk.draft;
+package club.ccit.sdk.demo;
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
 /**

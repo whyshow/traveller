@@ -1,6 +1,7 @@
 package club.ccit.basic;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +20,34 @@ import androidx.viewbinding.ViewBinding;
  * Description: Fragment 基类
  * Version:
  */
-public abstract class BaseFragment <T extends ViewBinding> extends Fragment {
+public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
     protected T binding;
+    public View view;
+    public boolean isFragmentViewInit = false;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = getViewBinding();
-        initListener();
-        return binding.getRoot();
+        if (savedInstanceState == null){
+            binding = getViewBinding();
+            view = binding.getRoot();
+            initListener();
+            Log.i("LOG111", "onCreateView()");
+        }
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        if (!isFragmentViewInit) {
+            super.onViewCreated(view, savedInstanceState);
+            isFragmentViewInit = true;
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     /**
@@ -64,5 +85,14 @@ public abstract class BaseFragment <T extends ViewBinding> extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        Log.i("LOG111", "onDestroyView()");
     }
+
+    /**
+     *
+     */
+    public void onActivityDestroy() {
+
+    }
+
 }

@@ -1,9 +1,8 @@
-package club.ccit.sdk.draft;
+package club.ccit.sdk.demo;
 
 import android.content.Context;
 
 import club.ccit.sdk.net.AppApiProvider;
-import retrofit2.Retrofit;
 
 /**
  * FileName: DraftApiProvider
