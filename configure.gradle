@@ -25,4 +25,10 @@ ext {
     annotationProcessors = [
             arouter    : 'com.alibaba:arouter-compiler:1.5.2'
     ]
+
+    // ndk 配置
+    abiFilters = [
+            arm64 : 'arm64-v8a',
+            x86   : 'x86_64'
+    ]
 }

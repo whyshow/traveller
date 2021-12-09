@@ -146,7 +146,7 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
      */
     @SuppressLint("UnsafeOptInUsageError")
     private void bindPreview(ProcessCameraProvider cameraProvider) {
-        cameraExecutor = Executors.newSingleThreadExecutor();
+        cameraExecutor = Executors.newFixedThreadPool(4);
 
         // 创建 Preview
         preview = new Preview.Builder()

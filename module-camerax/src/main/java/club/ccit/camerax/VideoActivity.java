@@ -11,17 +11,24 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Size;
+import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.core.Camera;
+import androidx.camera.core.CameraControl;
 import androidx.camera.core.CameraSelector;
+import androidx.camera.core.FocusMeteringAction;
+import androidx.camera.core.MeteringPoint;
+import androidx.camera.core.MeteringPointFactory;
 import androidx.camera.core.Preview;
+import androidx.camera.core.SurfaceOrientedMeteringPointFactory;
 import androidx.camera.core.VideoCapture;
 import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -32,6 +39,8 @@ import java.util.Formatter;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+
 import club.ccit.basic.BaseActivity;
 import club.ccit.camerax.databinding.AvtivityVideoBinding;
 import club.ccit.camerax.permission.PermissionListener;
@@ -55,18 +64,24 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
     private Timer timer;
     File file = null;
     /**
+     * 录像分辨率
+     */
+    private Size size = new Size(1920,1080);
+    /**
+     * 帧率
+     */
+    private int frameRate = 30;
+    /**
+     * 码率
+     */
+    private int bitRate = 3 * 1024 * 1024;
+    /**
      * 是否处于录制中
      */
     private boolean isTranscribe = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Window window = getWindow();
-//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//        window.setStatusBarColor(Color.TRANSPARENT);
-//        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         // 申请拍照和录音权限
         PermissionsUtil.requestPermission(getApplicationContext(), new PermissionListener() {
             @Override
@@ -100,9 +115,9 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
         // 录像时配置
         mVideoCapture = new VideoCapture.Builder()
                 .setTargetRotation(binding.previewVideoView.getDisplay().getRotation())
-                .setVideoFrameRate(25)
-                .setBitRate(2 * 1024 * 1024)
-                .setMaxResolution(new Size(1280,720))
+                .setVideoFrameRate(frameRate)
+                .setBitRate(bitRate)
+                .setMaxResolution(size)
                 .setAudioRecordSource(MediaRecorder.AudioSource.MIC)
                 .build();
         initRevolve(mVideoCapture);
@@ -242,6 +257,48 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
             }
         };
         timer.schedule(timerTask,0,1000);
+    }
+
+    /**
+     * 按键监听
+     */
+    @Override
+    protected void initListener() {
+        super.initListener();
+        binding.previewVideoView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // 获取触摸的坐标
+                float x = event.getX();
+                float y = event.getY();
+                // 将对焦框以触摸坐标为中心显示出来。
+                PreviewView previewView = (PreviewView) findViewById(R.id.previewVideoView);
+                CameraFocusView cameraFocusView = new CameraFocusView(VideoActivity.this);
+                previewView.addView(cameraFocusView);
+                cameraFocusView.setTouchFocusRect(x,y);
+                // 创建监听
+                CameraControl cameraControl = camera.getCameraControl();
+                MeteringPointFactory factory = new SurfaceOrientedMeteringPointFactory(binding.previewVideoView.getWidth(), binding.previewVideoView.getHeight());
+                MeteringPoint point = factory.createPoint(x, y);
+                FocusMeteringAction action = new FocusMeteringAction.Builder(point, FocusMeteringAction.FLAG_AF)
+                        .addPoint(point, FocusMeteringAction.FLAG_AE) // could have many
+                        // auto calling cancelFocusAndMetering in 5 seconds
+                        .setAutoCancelDuration(5, TimeUnit.SECONDS)
+                        .build();
+
+                ListenableFuture future = cameraControl.startFocusAndMetering(action);
+                future.addListener( () -> {
+                    try {
+                        cameraFocusView.disDrawTouchFocusRect();
+                        // process the result
+                    } catch (Exception e) {
+                    }
+                } , ContextCompat.getMainExecutor(VideoActivity.this));
+
+
+                return false;
+            }
+        });
     }
 
     /**
