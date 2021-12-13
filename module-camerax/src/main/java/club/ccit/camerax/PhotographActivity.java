@@ -44,6 +44,7 @@ import androidx.camera.core.MeteringPoint;
 import androidx.camera.core.MeteringPointFactory;
 import androidx.camera.core.Preview;
 import androidx.camera.core.SurfaceOrientedMeteringPointFactory;
+import androidx.camera.core.SurfaceRequest;
 import androidx.camera.core.UseCaseGroup;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
@@ -92,8 +93,9 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
     private ImageCapture imageCapture;
     private File file;
     private int rotation;
+    private ImageAnalysis imageAnalysis;
     private Size size = new Size(1080,1920);
-
+    private Bitmap bitmap = null;
     /**
      * 线程池
      */
@@ -151,6 +153,7 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
         // 创建 Preview
         preview = new Preview.Builder()
                 .build();
+
         // 指定所需的相机 LensFacing 选项
         CameraSelector cameraSelector = new CameraSelector.Builder()
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
@@ -190,7 +193,7 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
      */
     private ImageAnalysis setImageAnalysis(){
 
-        ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
+        imageAnalysis = new ImageAnalysis.Builder()
                 .setTargetResolution(new Size(1080,1920))
                         .build();
         imageAnalysis.setAnalyzer(cameraExecutor,this);
@@ -220,8 +223,8 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
                 MeteringPointFactory factory = new SurfaceOrientedMeteringPointFactory(binding.previewView.getWidth(), binding.previewView.getHeight());
                 MeteringPoint point = factory.createPoint(x, y);
                 FocusMeteringAction action = new FocusMeteringAction.Builder(point, FocusMeteringAction.FLAG_AF)
-                        .addPoint(point, FocusMeteringAction.FLAG_AE) // could have many
-                        // auto calling cancelFocusAndMetering in 5 seconds
+                        .addPoint(point, FocusMeteringAction.FLAG_AE)
+                        // 设置自动取消时间，设置为5秒
                         .setAutoCancelDuration(5, TimeUnit.SECONDS)
                         .build();
 
@@ -332,8 +335,12 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
         if (cameraExecutor != null){
             cameraExecutor.shutdown();
         }
+        if (imageAnalysis != null){
+            imageAnalysis.clearAnalyzer();
+        }
+
     }
-    Bitmap bitmap = null;
+
     @Override
     public void analyze(@NonNull ImageProxy image) {
         @SuppressLint("UnsafeOptInUsageError") Image image1 = image.getImage();

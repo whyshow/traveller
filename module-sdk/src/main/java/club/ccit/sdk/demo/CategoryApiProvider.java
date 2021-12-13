@@ -12,27 +12,29 @@ import club.ccit.sdk.net.BaseApiProvider;
  * Description:
  * Version:
  */
-public class DraftApiProvider extends BaseApiProvider {
+public class CategoryApiProvider extends BaseApiProvider {
 
-    NewsApi newsApi;
+    CategoryApi categoryApi;
     /**
      * 实例化一些连接网络配置
      *
      * @param context
      */
-    public DraftApiProvider(Context context) {
+    public CategoryApiProvider(Context context) {
         super(context);
         // 创建新闻API
-        newsApi = getRetrofit().create(NewsApi.class);
+        categoryApi = getRetrofit().create(CategoryApi.class);
     }
 
     @Override
     protected String baseUrl() {
-        return "http://api.ccit.club/";
+        //return "https://api.miaoyibao.com";
+
+         return "http://47.118.80.138:9999";
     }
 
-    public NewsApi getNewsList() {
-        return newsApi;
+    public CategoryApi getAggregatePage() {
+        return categoryApi;
     }
 
 }

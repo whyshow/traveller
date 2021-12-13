@@ -1,11 +1,13 @@
-package club.ccit.drafts;
+package club.ccit.home;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import java.util.List;
+
 import club.ccit.basic.BaseRecyclerViewAdapter;
-import club.ccit.drafts.databinding.ItemTestBinding;
+import club.ccit.home.databinding.ItemTestBinding;
 import club.ccit.sdk.demo.NewsListBean;
 
 /**
@@ -30,7 +32,7 @@ public class TestAdapter extends BaseRecyclerViewAdapter<ItemTestBinding> {
     /**
      * 重新加载
      */
-    protected void onReload(List<NewsListBean.Result> list) {
+    public void onReload(List<NewsListBean.Result> list) {
 
     }
 

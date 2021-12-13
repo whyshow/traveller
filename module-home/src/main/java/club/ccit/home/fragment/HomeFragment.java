@@ -1,9 +1,6 @@
 package club.ccit.home.fragment;
 
-import android.Manifest;
 import android.view.View;
-
-import androidx.annotation.NonNull;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
@@ -36,6 +33,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 ARouter.getInstance().build(AppRouter.PATH_CAMERA_VIDEO).navigation();
 
 
+            }
+        });
+        binding.startHomeActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ARouter.getInstance().build(AppRouter.PATH_HOME_HOME).navigation();
             }
         });
 

@@ -12,6 +12,16 @@ import java.util.List;
  * Version:
  */
 public class NewsListBean {
+    @Override
+    public String toString() {
+        return "NewsListBean{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", page=" + page +
+                ", result=" + result +
+                ", time='" + time + '\'' +
+                '}';
+    }
 
     private int code;
     private String message;
@@ -60,6 +70,16 @@ public class NewsListBean {
     }
 
     public class Page {
+        @Override
+        public String toString() {
+            return "Page{" +
+                    "currpage=" + currpage +
+                    ", firstpage=" + firstpage +
+                    ", lastpage=" + lastpage +
+                    ", pages=" + pages +
+                    ", totalpages=" + totalpages +
+                    '}';
+        }
 
         private int currpage;
         private int firstpage;
@@ -120,6 +140,21 @@ public class NewsListBean {
         private String Article_date;
         private String Article_display;
         private int Article_hot;
+
+        @Override
+        public String toString() {
+            return "Result{" +
+                    "Article_id='" + Article_id + '\'' +
+                    ", Article_title='" + Article_title + '\'' +
+                    ", Article_user='" + Article_user + '\'' +
+                    ", Article_html='" + Article_html + '\'' +
+                    ", Article_text='" + Article_text + '\'' +
+                    ", Article_category='" + Article_category + '\'' +
+                    ", Article_date='" + Article_date + '\'' +
+                    ", Article_display='" + Article_display + '\'' +
+                    ", Article_hot=" + Article_hot +
+                    '}';
+        }
 
         public void setArticle_id(String Article_id) {
             this.Article_id = Article_id;

@@ -22,19 +22,14 @@ import androidx.viewbinding.ViewBinding;
  */
 public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
     protected T binding;
-    public View view;
     public boolean isFragmentViewInit = false;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (savedInstanceState == null){
-            binding = getViewBinding();
-            view = binding.getRoot();
-            initListener();
-            Log.i("LOG111", "onCreateView()");
-        }
-        return view;
+        binding = getViewBinding();
+        initListener();
+        return binding.getRoot();
     }
 
     @Override
@@ -43,11 +38,6 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
             super.onViewCreated(view, savedInstanceState);
             isFragmentViewInit = true;
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     /**
@@ -84,8 +74,8 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         binding = null;
-        Log.i("LOG111", "onDestroyView()");
     }
 
 }

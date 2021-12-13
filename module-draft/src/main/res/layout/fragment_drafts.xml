@@ -7,10 +7,15 @@
     android:background="@color/white"
     android:gravity="center|top">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/draftRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/RecyclerViewStyle"
-            android:paddingBottom="60dp"/>
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/draftRecyclerView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            style="@style/RecyclerViewStyle"-->
+<!--            android:paddingBottom="60dp"/>-->
+    <club.ccit.widget.CustomRecyclerView
+                android:id="@+id/draftRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="60dp"/>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

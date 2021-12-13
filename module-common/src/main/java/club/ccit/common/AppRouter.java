@@ -23,6 +23,10 @@ public class AppRouter {
      * 录制视频页面
      */
     public static final String PATH_CAMERA_VIDEO = "/camera/VideoActivity";
+    /**
+     * HomeActivity 页面
+     */
+    public static final String PATH_HOME_HOME = "/home/HomeActivity";
 
 
 }

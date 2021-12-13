@@ -1,7 +1,6 @@
 package club.ccit.sdk.demo;
 
 import io.reactivex.rxjava3.core.Observable;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -11,12 +10,11 @@ import retrofit2.http.POST;
  * Description: 新闻列表接口
  * Version:
  */
-public interface NewsApi {
-
+public interface CategoryApi {
     /**
-     * 新闻列表
+     * 选择品种-聚合页
      * @return
      */
-    @GET(ApiUrls.API_NEW_LIST)
-    Observable<NewsListBean> getNewsList();
+    @POST(ApiUrls.API_CATEGORY)
+    Observable<AggregatePageBean> getAggregatePage();
 }

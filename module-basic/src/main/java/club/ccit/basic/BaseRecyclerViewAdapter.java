@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
+import java.util.List;
+
 /**
  * @author: 张帅威
  * Date: 2021/12/3 1:03 下午
@@ -36,6 +38,8 @@ public abstract class BaseRecyclerViewAdapter <T extends ViewBinding> extends Re
             binding = itemView;
         }
     }
+
+
 
     /**
      * 绑定数据

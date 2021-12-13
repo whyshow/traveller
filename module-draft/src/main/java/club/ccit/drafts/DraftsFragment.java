@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.drafts.databinding.FragmentDraftsBinding;
@@ -13,7 +14,7 @@ import club.ccit.sdk.demo.DraftApiProvider;
 import club.ccit.sdk.demo.NewsApi;
 import club.ccit.sdk.demo.NewsListBean;
 import club.ccit.sdk.net.AndroidObservable;
-import club.ccit.sdk.net.ApiDefaultObserver;
+import club.ccit.sdk.net.DefaultApiObserver;
 
 /**
  * @author: 瞌睡的牙签
@@ -35,21 +36,36 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     public void onStart() {
         super.onStart();
         binding.draftSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         binding.draftSwipeRefresh.setRefreshing(true);
-        // 请求网络数据
-        NewsApi api = new DraftApiProvider(requireActivity()).getNewsList();
-        AndroidObservable.create(api.getNewsList()).with(this).subscribe(new ApiDefaultObserver<NewsListBean>() {
+        initData();
+        binding.draftSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            protected void accept(NewsListBean newsListBean) {
+            public void onRefresh() {
+                initData();
+            }
+        });
+    }
+
+    /**
+     * 请求网络数据
+     */
+    private void initData() {
+        NewsApi api = new DraftApiProvider(requireActivity()).getNewsList();
+        AndroidObservable.create(api.getNewsList()).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
+            @Override
+            protected void succeed(NewsListBean newsListBean) {
+                Log.i("LOG111",newsListBean.toString());
                 // 获取网络数据并解析完成
                 if (adapter == null){
                     // 创建适配器显示
                     adapter = new TestAdapter(newsListBean);
-                    binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
                     binding.draftRecyclerView.setAdapter(adapter);
-                    binding.draftSwipeRefresh.setRefreshing(false);
-                }
 
+                }else {
+                    adapter.onReload(newsListBean.getResult());
+                }
+                binding.draftSwipeRefresh.setRefreshing(false);
             }
         });
     }
@@ -62,6 +78,5 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("LOG111","onDestroy()");
     }
 }

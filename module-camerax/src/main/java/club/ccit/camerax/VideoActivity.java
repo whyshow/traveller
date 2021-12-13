@@ -4,17 +4,21 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.util.Size;
 import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
+import android.widget.MediaController;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.core.Camera;
@@ -30,8 +34,10 @@ import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.common.util.concurrent.ListenableFuture;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -66,7 +72,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
     /**
      * 录像分辨率
      */
-    private Size size = new Size(1920,1080);
+    private Size size = new Size(1920, 1080);
     /**
      * 帧率
      */
@@ -79,6 +85,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
      * 是否处于录制中
      */
     private boolean isTranscribe = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,12 +109,13 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
             public void permissionDenied(@NonNull String[] permission) {
                 finish();
             }
-        }, Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO);
+        }, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO);
 
     }
 
     /**
      * 绑定预览视图
+     *
      * @param cameraProvider
      */
     @SuppressLint("RestrictedApi")
@@ -132,15 +140,16 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
         // 将所选相机和任意用例绑定到生命周期
         preview.setSurfaceProvider(binding.previewVideoView.getSurfaceProvider());
 
-        camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview,mVideoCapture);
+        camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, mVideoCapture);
     }
 
     /**
      * 设置旋转
+     *
      * @param mVideoCapture
      */
     private void initRevolve(VideoCapture mVideoCapture) {
-        OrientationEventListener orientationEventListener = new OrientationEventListener((Context)this) {
+        OrientationEventListener orientationEventListener = new OrientationEventListener((Context) this) {
             @SuppressLint("RestrictedApi")
             @Override
             public void onOrientationChanged(int orientation) {
@@ -178,11 +187,12 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
 
     /**
      * 录制按钮
+     *
      * @param view
      */
     @SuppressLint({"RestrictedApi", "UseCompatLoadingForDrawables"})
     public void buttonVideo(View view) {
-        if (isTranscribe){
+        if (isTranscribe) {
             // 处于录制状态，停止录制视频
             // 设置开始录制图标
             binding.buttonStart.setBackgroundResource(R.mipmap.icon_start);
@@ -193,24 +203,24 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
             time = -1000;
             binding.timeTextView.setVisibility(View.GONE);
             mVideoCapture.stopRecording();
-        }else {
+        } else {
             // 未处于录制状态，开始录制视频
             // 设置正在录制图标
             binding.buttonStart.setBackgroundResource(R.mipmap.icon_stop);
             isTranscribe = true;
 
-            @SuppressLint("SimpleDateFormat") String imageName = "VID_"+new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()).toString();
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
+            @SuppressLint("SimpleDateFormat") String imageName = "VID_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()).toString();
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
                 // 大于Android 9.0 使用新的存储方式。
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(MediaStore.Video.Media.DISPLAY_NAME, imageName+".mp4");
+                contentValues.put(MediaStore.Video.Media.DISPLAY_NAME, imageName + ".mp4");
                 contentValues.put(MediaStore.Video.Media.MIME_TYPE, "video/mp4");
                 contentValues.put(MediaStore.Video.Media.RELATIVE_PATH, "DCIM/Camera/");
-                build =  new VideoCapture.OutputFileOptions.Builder(
+                build = new VideoCapture.OutputFileOptions.Builder(
                         getContentResolver(),
                         MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues)
                         .build();
-            }else {
+            } else {
                 // 小于Android 10使用旧的存储方式。
                 file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera/" + imageName + ".mp4").getAbsolutePath());
                 build = new VideoCapture.OutputFileOptions.Builder(file).build();
@@ -222,12 +232,33 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                 @Override
                 public void onVideoSaved(@NonNull VideoCapture.OutputFileResults outputFileResults) {
                     myToast("视频保存成功");
-                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                         // 通知相册有照片更新
                         String[] paths = new String[]{file.getAbsolutePath()};
                         MediaScannerConnection.scanFile(VideoActivity.this, paths, null, null);
                         file = null;
                     }
+                    /**
+                     binding.previewVideoView.setVisibility(View.GONE);
+                     binding.videoVideoView.setVisibility(View.VISIBLE);
+                     binding.videoVideoView.setVideoURI(outputFileResults.getSavedUri());
+                     binding.videoVideoView.setMediaController(new MediaController(VideoActivity.this));
+
+                     binding.videoVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override public void onPrepared(MediaPlayer mp) {
+                    Log.i("tag", "--------------视频准备完毕,可以进行播放.......");
+                    }
+                    });
+
+                     binding.videoVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override public void onCompletion(MediaPlayer mp) {
+                    Log.i("tag", "------------------视频播放完毕..........");
+
+                    binding.videoVideoView.start();
+                    }
+                    });
+                     //  binding.videoVideoView.start();
+                     **/
                 }
 
                 @Override
@@ -240,8 +271,9 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
 
     private long time = -1000;
     private TimerTask timerTask;
+
     private void setTimerTask() {
-        if (timer == null){
+        if (timer == null) {
             timer = new Timer();
         }
         timerTask = new TimerTask() {
@@ -256,7 +288,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                 });
             }
         };
-        timer.schedule(timerTask,0,1000);
+        timer.schedule(timerTask, 0, 1000);
     }
 
     /**
@@ -275,27 +307,25 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                 PreviewView previewView = (PreviewView) findViewById(R.id.previewVideoView);
                 CameraFocusView cameraFocusView = new CameraFocusView(VideoActivity.this);
                 previewView.addView(cameraFocusView);
-                cameraFocusView.setTouchFocusRect(x,y);
+                cameraFocusView.setTouchFocusRect(x, y);
                 // 创建监听
                 CameraControl cameraControl = camera.getCameraControl();
                 MeteringPointFactory factory = new SurfaceOrientedMeteringPointFactory(binding.previewVideoView.getWidth(), binding.previewVideoView.getHeight());
                 MeteringPoint point = factory.createPoint(x, y);
                 FocusMeteringAction action = new FocusMeteringAction.Builder(point, FocusMeteringAction.FLAG_AF)
-                        .addPoint(point, FocusMeteringAction.FLAG_AE) // could have many
-                        // auto calling cancelFocusAndMetering in 5 seconds
+                        .addPoint(point, FocusMeteringAction.FLAG_AE)
+                        // 设置自动取消时间，设置为5秒
                         .setAutoCancelDuration(5, TimeUnit.SECONDS)
                         .build();
 
                 ListenableFuture future = cameraControl.startFocusAndMetering(action);
-                future.addListener( () -> {
+                future.addListener(() -> {
                     try {
                         cameraFocusView.disDrawTouchFocusRect();
                         // process the result
                     } catch (Exception e) {
                     }
-                } , ContextCompat.getMainExecutor(VideoActivity.this));
-
-
+                }, ContextCompat.getMainExecutor(VideoActivity.this));
                 return false;
             }
         });
@@ -303,26 +333,27 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
 
     /**
      * 时间转 00：00：00 格式
+     *
      * @param timeMs
      * @return
      */
-    public String stringForTime(long timeMs){
-        long totalSeconds = timeMs/1000;
+    public String stringForTime(long timeMs) {
+        long totalSeconds = timeMs / 1000;
         long seconds = totalSeconds % 60;
-        long minutes = (totalSeconds/60)%60;
-        long hours = totalSeconds/3600;
-        return new Formatter().format("%02d:%02d",minutes,seconds).toString();
+        long minutes = (totalSeconds / 60) % 60;
+        long hours = totalSeconds / 3600;
+        return new Formatter().format("%02d:%02d", minutes, seconds).toString();
     }
 
     @SuppressLint("RestrictedApi")
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (timerTask != null){
+        if (timerTask != null) {
             timerTask.cancel();
             timerTask = null;
         }
-        if (timer != null){
+        if (timer != null) {
             timer.cancel();
             timer = null;
         }
