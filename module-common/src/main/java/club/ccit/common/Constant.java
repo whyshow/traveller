@@ -7,23 +7,14 @@ package club.ccit.common;
  * Version:
  */
 public class Constant {
-    private static VolleyJson volleyJson = null;
 
-    public static VolleyJson getVolleyJson() {
-        return volleyJson;
-    }
+    private static BaseApplication application = null;
 
-    public static void setVolleyJson(VolleyJson volleyJson) {
-        Constant.volleyJson = volleyJson;
-    }
-
-    private static MyApplication application = null;
-
-    public static MyApplication getApplication() {
+    public static BaseApplication getApplication() {
         return application;
     }
 
-    public static void setApplication(MyApplication application) {
+    public static void setApplication(BaseApplication application) {
         Constant.application = application;
     }
 }

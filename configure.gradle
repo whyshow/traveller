@@ -16,10 +16,16 @@ ext {
             constraintlayout: 'androidx.constraintlayout:constraintlayout:2.1.2',
             viewbinding     : 'androidx.databinding:viewbinding:7.0.3',
             gson            : 'com.google.code.gson:gson:2.8.9', // json 解析库
-            volley          : 'com.android.volley:volley:1.2.1', // 网络请求库
             arouter         : 'com.alibaba:arouter-api:1.5.2', // 路由库
             glide           : 'com.github.bumptech.glide:glide:4.12.0', // glide 库、
-            crash           : 'com.github.xuuhaoo:Android-DefenseCrash:4.0.2'  // Crash 异常捕获库
+            crash           : 'com.github.xuuhaoo:Android-DefenseCrash:4.0.2',  // Crash 异常捕获库
+            logging         : 'com.squareup.okhttp3:logging-interceptor:3.4.1', // okhttp3 打印日志
+            rxjava          : 'io.reactivex.rxjava3:rxjava:3.1.3', // rxjava3
+            rxandroid       : 'io.reactivex.rxjava3:rxandroid:3.0.0', // rxAndroid
+            retrofit        : 'com.squareup.retrofit2:retrofit:2.9.0', // retrofit 网络封装库
+            adapterRxjava3  : 'com.squareup.retrofit2:adapter-rxjava3:2.9.0', // rxjava 适配器
+            converterGson   : 'com.squareup.retrofit2:converter-gson:2.9.0', // gson 解析库
+            lifecycle       : 'com.trello.rxlifecycle4:rxlifecycle-android-lifecycle:4.0.2', // 生命周期库 与rxjava:3.1.3、retrofit:2.9.0版本配套
     ]
     // 注解配置
     annotationProcessors = [

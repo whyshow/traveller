@@ -11,12 +11,11 @@ import com.alibaba.android.arouter.launcher.ARouter;
  * Description:
  * Version:
  */
-public class MyApplication extends Application{
+public class BaseApplication extends Application{
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Constant.setVolleyJson(new VolleyJson(this));
         Constant.setApplication(this);
         if (isDebug()) {
             // 打印日志

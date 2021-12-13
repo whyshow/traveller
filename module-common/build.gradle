@@ -44,7 +44,6 @@ dependencies {
     implementation rootProject.ext.dependencies.constraintlayout
     implementation rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.annotationProcessors.arouter
-    implementation rootProject.ext.dependencies.volley
     implementation rootProject.ext.dependencies.glide
     implementation rootProject.ext.dependencies.crash
     implementation project(path: ':module-widget')
