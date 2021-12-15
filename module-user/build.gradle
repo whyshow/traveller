@@ -19,7 +19,7 @@ android {
 
         ndk {
             // 设置APP 类型
-            abiFilters rootProject.ext.abiFilters.arm64
+            abiFilters rootProject.ext.abiFilters.abi
         }
     }
 

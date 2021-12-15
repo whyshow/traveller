@@ -12,7 +12,7 @@ android {
         versionName rootProject.ext.android.versionName
         ndk {
             // 设置APP 类型
-            abiFilters rootProject.ext.abiFilters.arm64
+            abiFilters rootProject.ext.abiFilters.abi
         }
     }
 
@@ -35,4 +35,5 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.viewbinding
+
 }

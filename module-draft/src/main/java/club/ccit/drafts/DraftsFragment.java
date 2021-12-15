@@ -51,7 +51,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
      * 请求网络数据
      */
     private void initData() {
-        NewsApi api = new DraftApiProvider(requireActivity()).getNewsList();
+        NewsApi api = new DraftApiProvider().getNewsList();
         AndroidObservable.create(api.getNewsList()).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {

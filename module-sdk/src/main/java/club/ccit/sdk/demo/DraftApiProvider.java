@@ -20,8 +20,8 @@ public class DraftApiProvider extends BaseApiProvider {
      *
      * @param context
      */
-    public DraftApiProvider(Context context) {
-        super(context);
+    public DraftApiProvider() {
+        super();
         // 创建新闻API
         newsApi = getRetrofit().create(NewsApi.class);
     }
@@ -31,6 +31,10 @@ public class DraftApiProvider extends BaseApiProvider {
         return "http://api.ccit.club/";
     }
 
+    /**
+     * 获取新闻列表
+     * @return
+     */
     public NewsApi getNewsList() {
         return newsApi;
     }

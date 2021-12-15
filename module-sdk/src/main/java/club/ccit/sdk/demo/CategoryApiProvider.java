@@ -1,7 +1,6 @@
 package club.ccit.sdk.demo;
 
 import android.content.Context;
-
 import club.ccit.sdk.net.BaseApiProvider;
 
 /**
@@ -20,17 +19,17 @@ public class CategoryApiProvider extends BaseApiProvider {
      *
      * @param context
      */
-    public CategoryApiProvider(Context context) {
-        super(context);
+    public CategoryApiProvider() {
+        super();
         // 创建新闻API
         categoryApi = getRetrofit().create(CategoryApi.class);
     }
 
     @Override
     protected String baseUrl() {
-        //return "https://api.miaoyibao.com";
+        return "https://api.miaoyibao.com";
 
-         return "http://47.118.80.138:9999";
+        // return "http://47.118.80.138:9999";
     }
 
     public CategoryApi getAggregatePage() {

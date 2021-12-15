@@ -36,7 +36,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
         binding.homeSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.homeRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         binding.homeSwipeRefresh.setRefreshing(true);
-        CategoryApi api = new CategoryApiProvider(this).getAggregatePage();
+        CategoryApi api = new CategoryApiProvider().getAggregatePage();
         AndroidObservable.create(api.getAggregatePage()).with(this).subscribe(new DefaultApiObserver<AggregatePageBean>() {
             @Override
             protected void succeed(AggregatePageBean aggregatePageBean) {
@@ -57,7 +57,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
      * 请求网络数据
      */
     private void initData() {
-        NewsApi api = new DraftApiProvider(this).getNewsList();
+        NewsApi api = new DraftApiProvider().getNewsList();
         AndroidObservable.create(api.getNewsList()).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {

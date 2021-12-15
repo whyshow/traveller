@@ -3,6 +3,7 @@ package club.ccit.sdk.net;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
@@ -27,22 +28,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public abstract class BaseApiProvider {
     protected Retrofit mRetrofit;
-    private final WeakReference<Context> mContext;
 
     /**
      * 实例化一些连接网络配置
      *
      * @param context 上下文
      */
-    public BaseApiProvider(Context context) {
-        mContext = new WeakReference<>(context.getApplicationContext());
+    public BaseApiProvider() {
 
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                //打印retrofit日志
-                Log.i("OKHTTP", "retrofitBack = " + message);
-            }
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> {
+            //打印retrofit日志
+            Log.i("OKHTTP", "retrofitBack = " + message);
         });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
@@ -54,16 +50,13 @@ public abstract class BaseApiProvider {
                 // 流写入超时
                 .writeTimeout(120, TimeUnit.SECONDS);
 
-        builder.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request()
-                        .newBuilder()
-                        .addHeader("Authorization", "Bearer 1986f37e-083d-4d79-8f03-a66995168ec5")
-                        .addHeader("client-id", "app_myb_android")
-                        .build();
-                return chain.proceed(request);
-            }
+        builder.addInterceptor(chain -> {
+            Request request = chain.request()
+                    .newBuilder()
+                    .addHeader("Authorization", "1986f37e-083d-4d79-8f03-a66995168ec5")
+                    .addHeader("client-id", "app_myb_android")
+                    .build();
+            return chain.proceed(request);
         });
         // 如果是DEBUG模式设置打印日志
         if (BuildConfig.DEBUG) {
@@ -80,6 +73,7 @@ public abstract class BaseApiProvider {
                 // 使用gson 自动解析数据
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        Log.i("LOG111","构建完成");
     }
 
     /**
@@ -97,11 +91,5 @@ public abstract class BaseApiProvider {
      * @return 域名
      */
     protected abstract String baseUrl();
-
-    @Nullable
-    protected Context getContext() {
-        return mContext.get();
-    }
-
 
 }
