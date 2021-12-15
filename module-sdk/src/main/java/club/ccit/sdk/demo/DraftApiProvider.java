@@ -17,8 +17,6 @@ public class DraftApiProvider extends BaseApiProvider {
     NewsApi newsApi;
     /**
      * 实例化一些连接网络配置
-     *
-     * @param context
      */
     public DraftApiProvider() {
         super();

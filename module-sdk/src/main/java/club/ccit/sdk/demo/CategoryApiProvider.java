@@ -16,8 +16,6 @@ public class CategoryApiProvider extends BaseApiProvider {
     CategoryApi categoryApi;
     /**
      * 实例化一些连接网络配置
-     *
-     * @param context
      */
     public CategoryApiProvider() {
         super();

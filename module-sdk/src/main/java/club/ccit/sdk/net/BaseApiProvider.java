@@ -1,20 +1,10 @@
 package club.ccit.sdk.net;
-
-import android.content.Context;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 import club.ccit.sdk.BuildConfig;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
@@ -32,10 +22,8 @@ public abstract class BaseApiProvider {
     /**
      * 实例化一些连接网络配置
      *
-     * @param context 上下文
      */
     public BaseApiProvider() {
-
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> {
             //打印retrofit日志
             Log.i("OKHTTP", "retrofitBack = " + message);
