@@ -43,31 +43,20 @@ public class MessageDialog {
         dialogEnsure.setText(ok);
         dialogCancel.setText(cancel);
         // 取消
-        dialogCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (loadingDialog != null){
-                    onDismiss();
-                }
-            }
-        });
-        // 确认
-        dialogEnsure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (loadingDialog != null){
-                    onDismiss();
-                    onDialogButtonClickListener.onClick(loadingDialog,view);
-                }
-            }
-        });
-        loadingDialog = new Dialog(context);
-        loadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
+        dialogCancel.setOnClickListener(v -> {
+            if (loadingDialog != null){
                 onDismiss();
             }
         });
+        // 确认
+        dialogEnsure.setOnClickListener(v -> {
+            if (loadingDialog != null){
+                onDismiss();
+                onDialogButtonClickListener.onClick(loadingDialog,view);
+            }
+        });
+        loadingDialog = new Dialog(context);
+        loadingDialog.setOnCancelListener(dialog -> onDismiss());
         // 创建自定义样式的Dialog
         loadingDialog.addContentView(view, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -94,31 +83,20 @@ public class MessageDialog {
         dialogEnsure.setText("确定");
         dialogCancel.setText("取消");
         // 取消
-        dialogCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (loadingDialog != null){
-                    onDismiss();
-                }
-            }
-        });
-        // 确认
-        dialogEnsure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (loadingDialog != null){
-                    onDismiss();
-                    onDialogButtonClickListener.onClick(loadingDialog,view);
-                }
-            }
-        });
-        loadingDialog = new Dialog(context);
-        loadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
+        dialogCancel.setOnClickListener(v -> {
+            if (loadingDialog != null){
                 onDismiss();
             }
         });
+        // 确认
+        dialogEnsure.setOnClickListener(v -> {
+            if (loadingDialog != null){
+                onDismiss();
+                onDialogButtonClickListener.onClick(loadingDialog,view);
+            }
+        });
+        loadingDialog = new Dialog(context);
+        loadingDialog.setOnCancelListener(dialog -> onDismiss());
         // 创建自定义样式的Dialog
         loadingDialog.addContentView(view, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,

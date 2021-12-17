@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CustomImageView">
-        <attr name="radius" format="dimension"/>
+        <!-- 圆角值-->
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomEditText">
+        <!-- 是否允许粘贴-->
+        <attr name="stick" format="boolean" />
     </declare-styleable>
 </resources>

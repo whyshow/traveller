@@ -1,5 +1,7 @@
 package club.ccit.user;
 
+import android.widget.TextView;
+
 import club.ccit.basic.BaseFragment;
 import club.ccit.user.databinding.FragmentMyBinding;
 
@@ -10,6 +12,12 @@ import club.ccit.user.databinding.FragmentMyBinding;
  * Version:
  */
 public class MyFragment extends BaseFragment<FragmentMyBinding> {
+
+    @Override
+    protected void initListener() {
+        super.initListener();
+        TextView textView = binding.userTextView;
+    }
 
     @Override
     protected FragmentMyBinding getViewBinding() {

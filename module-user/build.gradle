@@ -46,4 +46,5 @@ dependencies {
     implementation rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.annotationProcessors.arouter
     implementation project(path: ':module-basic')
+    implementation project(path: ':module-widget')
 }
