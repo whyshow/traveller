@@ -19,7 +19,7 @@ import club.ccit.widget.R;
  *
  * @author: swzhang3
  * Date: 2021/11/24 15:36
- * Description: 确认\取消对话框
+ * Description: 确认/取消对话框
  * Version:
  */
 public class MessageDialog {
@@ -76,6 +76,60 @@ public class MessageDialog {
         loadingDialog.show();
     }
 
+    public static void show(Context context, String title,String message,OnDialogButtonClickListener onDialogButtonClickListener) {
+        // 首先得到整个View
+        View view = LayoutInflater.from(context).inflate(
+                R.layout.layout_message_dialog, null);
+        if (loadingDialog != null){
+            loadingDialog.cancel();
+            loadingDialog.dismiss();
+            Log.i("MessageDialog","关闭等待框,重新加载");
+        }
+        Button dialogCancel = view.findViewById(R.id.dialogCancel);
+        Button dialogEnsure = view.findViewById(R.id.dialogEnsure);
+        TextView dialogTitle = view.findViewById(R.id.dialogTitle);
+        TextView dialogContent = view.findViewById(R.id.dialogContent);
+        dialogTitle.setText(title);
+        dialogContent.setText(message);
+        dialogEnsure.setText("确定");
+        dialogCancel.setText("取消");
+        // 取消
+        dialogCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (loadingDialog != null){
+                    onDismiss();
+                }
+            }
+        });
+        // 确认
+        dialogEnsure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (loadingDialog != null){
+                    onDismiss();
+                    onDialogButtonClickListener.onClick(loadingDialog,view);
+                }
+            }
+        });
+        loadingDialog = new Dialog(context);
+        loadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                onDismiss();
+            }
+        });
+        // 创建自定义样式的Dialog
+        loadingDialog.addContentView(view, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+        loadingDialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_gray_8, null));
+        loadingDialog.show();
+    }
+
+    /**
+     * 关闭
+     */
     public static void onDismiss(){
         if (loadingDialog != null){
             loadingDialog.cancel();

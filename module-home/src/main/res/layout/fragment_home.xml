@@ -23,5 +23,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HomeActivity" />
+    <Button
+        android:id="@+id/startBottomDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BOTTOM 弹窗" />
+
+    <Button
+        android:id="@+id/startDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="对话框弹窗" />
+
+    <Button
+        android:id="@+id/startWaitDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="等待加载框"/>
 
 </LinearLayout>
