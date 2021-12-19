@@ -1,10 +1,20 @@
 package club.ccit.home.fragment;
 
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.home.databinding.FragmentHomeBinding;
+import club.ccit.sdk.demo.local.User;
+import club.ccit.sdk.demo.local.UserApi;
+import club.ccit.sdk.demo.local.UserApiProvider;
+import club.ccit.sdk.net.AndroidObservable;
+import club.ccit.sdk.net.DefaultApiObserver;
 import club.ccit.widget.dialog.BottomDialog;
 import club.ccit.widget.dialog.MessageDialog;
 import club.ccit.widget.dialog.WaitDialog;
@@ -16,6 +26,19 @@ import club.ccit.widget.dialog.WaitDialog;
  * Version:
  */
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        UserApi userApi = new UserApiProvider().getUserApi();
+        AndroidObservable.create(userApi.getUser()).with(this).subscribe(new DefaultApiObserver<User>() {
+            @Override
+            protected void succeed(User user) {
+                Log.i("LOG111",user.toString());
+            }
+        });
+    }
 
     @Override
     protected void initListener() {

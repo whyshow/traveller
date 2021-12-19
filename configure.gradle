@@ -34,6 +34,6 @@ ext {
 
     // ndk 配置
     abiFilters = [
-            abi : 'arm64-v8a'// 'x86_64' 'arm64-v8a'
+            abi : 'x86_64' // 'x86_64' 'arm64-v8a'
     ]
 }

@@ -43,6 +43,7 @@ public abstract class BaseApiProvider {
                     .newBuilder()
                     .addHeader("Authorization", "1986f37e-083d-4d79-8f03-a66995168ec5")
                     .addHeader("client-id", "app_myb_android")
+                    .removeHeader("User-Agent")
                     .build();
             return chain.proceed(request);
         });
