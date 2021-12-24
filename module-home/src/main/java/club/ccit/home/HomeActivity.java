@@ -9,11 +9,11 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 
 import club.ccit.basic.BaseActivity;
 import club.ccit.home.databinding.ActivityHomeBinding;
+import club.ccit.home.fragment.contract.HomeContract;
+import club.ccit.home.fragment.presenter.HomePresenter;
 import club.ccit.sdk.demo.AggregatePageBean;
 import club.ccit.sdk.demo.CategoryApi;
 import club.ccit.sdk.demo.CategoryApiProvider;
-import club.ccit.sdk.demo.DraftApiProvider;
-import club.ccit.sdk.demo.NewsApi;
 import club.ccit.sdk.demo.NewsListBean;
 import club.ccit.sdk.net.AndroidObservable;
 import club.ccit.sdk.net.DefaultApiObserver;
@@ -27,15 +27,20 @@ import club.ccit.sdk.net.DefaultApiObserver;
  * Version:
  */
 @Route(path = PATH_HOME_HOME)
-public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
-    private TestAdapter adapter;
+public class HomeActivity extends BaseActivity<ActivityHomeBinding> implements HomeContract.View {
+    private HomeAdapter adapter;
+    private HomePresenter homePresenter;
+    private int page = 1;
+    private boolean isLoading = true;
     @SuppressLint("ResourceAsColor")
     @Override
     public void onStart() {
         super.onStart();
+        homePresenter = new HomePresenter(this);
         binding.homeSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.homeRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         binding.homeSwipeRefresh.setRefreshing(true);
+        homePresenter.requestData(page);
         CategoryApi api = new CategoryApiProvider().getAggregatePage();
         AndroidObservable.create(api.getAggregatePage()).with(this).subscribe(new DefaultApiObserver<AggregatePageBean>() {
             @Override
@@ -45,6 +50,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
         });
 
         initData();
+
         binding.homeSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -57,23 +63,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
      * 请求网络数据
      */
     private void initData() {
-        NewsApi api = new DraftApiProvider().getNewsList();
-        AndroidObservable.create(api.getNewsList()).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
-            @Override
-            protected void succeed(NewsListBean newsListBean) {
-                Log.i("LOG111",newsListBean.toString());
 
-                // 获取网络数据并解析完成
-                if (adapter == null){
-                    // 创建适配器显示
-                    adapter = new TestAdapter(newsListBean);
-                    binding.homeRecyclerView.setAdapter(adapter);
-                }else {
-                    adapter.onReload(newsListBean.getResult());
-                }
-                binding.homeSwipeRefresh.setRefreshing(false);
-            }
-        });
     }
 
     @Override
@@ -89,5 +79,30 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
     @Override
     protected boolean isStatusBarDarkFont() {
         return true;
+    }
+
+    @Override
+    public void requestSuccess(Object object) {
+        NewsListBean newsListBean = (NewsListBean) object;
+        // 获取网络数据并解析完成
+        if (adapter == null){
+            // 创建适配器显示
+            adapter = new HomeAdapter(newsListBean);
+            binding.homeRecyclerView.setAdapter(adapter);
+        }else {
+            adapter.onReload(newsListBean.getResult());
+        }
+        binding.homeSwipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void requestFailure(String msg) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        homePresenter.onDestroy();
     }
 }

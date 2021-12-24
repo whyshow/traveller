@@ -4,11 +4,14 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import club.ccit.basic.BaseFragment;
+import club.ccit.common.RecyclerViewOnScrollListener;
 import club.ccit.drafts.databinding.FragmentDraftsBinding;
 import club.ccit.sdk.demo.DraftApiProvider;
 import club.ccit.sdk.demo.NewsApi;
@@ -24,7 +27,10 @@ import club.ccit.sdk.net.DefaultApiObserver;
  */
 public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
 
-    private TestAdapter adapter;
+    private DraftsAdapter adapter;
+    private DraftsViewModel draftsViewModel;
+    private int page = 1;
+    private boolean isLoading = true;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,32 +44,53 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
         binding.draftSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         binding.draftSwipeRefresh.setRefreshing(true);
-        initData();
+        initData(page);
         binding.draftSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                initData();
+                // 下拉刷新， 重新设置请求数据页码、是否上划刷新
+                adapter = null;
+                page = 1;
+                isLoading = true;
+                initData(page);
             }
         });
+
+        binding.draftRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (isLoading){
+                    if (RecyclerViewOnScrollListener.onScrollListener(recyclerView,newState)){
+                        page = page + 1;
+                        initData(page);
+                    }
+                }
+            }
+        });
+
     }
 
     /**
      * 请求网络数据
      */
-    private void initData() {
+    private void initData(int page) {
         NewsApi api = new DraftApiProvider().getNewsList();
-        AndroidObservable.create(api.getNewsList()).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
+        AndroidObservable.create(api.getNewsList(page)).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {
                 Log.i("LOG111",newsListBean.toString());
+                // 如果加载的数据小于6条，则不再上划加载更多。
+                if (newsListBean.getResult().size() < 6){
+                    isLoading = false;
+                }
                 // 获取网络数据并解析完成
                 if (adapter == null){
                     // 创建适配器显示
-                    adapter = new TestAdapter(newsListBean);
+                    adapter = new DraftsAdapter(newsListBean);
                     binding.draftRecyclerView.setAdapter(adapter);
-
                 }else {
-                    adapter.onReload(newsListBean.getResult());
+                    adapter.onAppend(newsListBean.getResult());
                 }
                 binding.draftSwipeRefresh.setRefreshing(false);
             }

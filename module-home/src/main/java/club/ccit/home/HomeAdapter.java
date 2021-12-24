@@ -1,11 +1,13 @@
-package club.ccit.drafts;
+package club.ccit.home;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import java.util.List;
+
 import club.ccit.basic.BaseRecyclerViewAdapter;
-import club.ccit.drafts.databinding.ItemTestBinding;
+import club.ccit.home.databinding.ItemHomeBinding;
 import club.ccit.sdk.demo.NewsListBean;
 
 /**
@@ -16,31 +18,32 @@ import club.ccit.sdk.demo.NewsListBean;
  * Description:
  * Version:
  */
-public class TestAdapter extends BaseRecyclerViewAdapter<ItemTestBinding> {
+public class HomeAdapter extends BaseRecyclerViewAdapter<ItemHomeBinding> {
     private List<NewsListBean.Result> list;
 
     /**
      * 实例化
      * @param newsListBean
      */
-    public TestAdapter(NewsListBean newsListBean) {
+    public HomeAdapter(NewsListBean newsListBean) {
         this.list = newsListBean.getResult();
     }
 
     /**
      * 重新加载
      */
-    protected void onReload(List<NewsListBean.Result> list) {
+    public void onReload(List<NewsListBean.Result> list) {
 
     }
 
     /**
      * 绑定数据
+     * @param holder
      * @param position
      */
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindingViewData(int position) {
+    protected void onBindingViewData(ViewHolder holder, int position) {
         // 设置文本数据
         binding.titleTextView.setText(list.get(position).getArticle_title());
         binding.timeTextView.setText(list.get(position).getArticle_date());
@@ -54,8 +57,8 @@ public class TestAdapter extends BaseRecyclerViewAdapter<ItemTestBinding> {
      * @return
      */
     @Override
-    protected ItemTestBinding getViewBinding(ViewGroup parent) {
-        return ItemTestBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+    protected ItemHomeBinding getViewBinding(ViewGroup parent) {
+        return ItemHomeBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
     }
 
     /**

@@ -1,9 +1,8 @@
 package club.ccit.sdk.demo;
 
 import io.reactivex.rxjava3.core.Observable;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * @author: 张帅威
@@ -15,8 +14,9 @@ public interface NewsApi {
 
     /**
      * 新闻列表
+     * @param p 页码
      * @return
      */
     @GET(ApiUrls.API_NEW_LIST)
-    Observable<NewsListBean> getNewsList();
+    Observable<NewsListBean> getNewsList(@Query("p") int p);
 }

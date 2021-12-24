@@ -8,8 +8,6 @@ android {
     defaultConfig {
         minSdk rootProject.ext.android.minSdkVersion
         targetSdk rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
         ndk {
             // 设置APP 类型
             abiFilters rootProject.ext.abiFilters.abi

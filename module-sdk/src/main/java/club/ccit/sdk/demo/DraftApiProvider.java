@@ -1,7 +1,5 @@
 package club.ccit.sdk.demo;
 
-import android.content.Context;
-
 import club.ccit.sdk.net.BaseApiProvider;
 
 /**

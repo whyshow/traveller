@@ -1,13 +1,13 @@
-package club.ccit.home;
+package club.ccit.drafts;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import club.ccit.basic.BaseRecyclerViewAdapter;
-import club.ccit.home.databinding.ItemTestBinding;
+import club.ccit.drafts.databinding.ItemDraftsBinding;
 import club.ccit.sdk.demo.NewsListBean;
 
 /**
@@ -18,31 +18,43 @@ import club.ccit.sdk.demo.NewsListBean;
  * Description:
  * Version:
  */
-public class TestAdapter extends BaseRecyclerViewAdapter<ItemTestBinding> {
-    private List<NewsListBean.Result> list;
+public class DraftsAdapter extends BaseRecyclerViewAdapter<ItemDraftsBinding>{
+    private List<NewsListBean.Result> list = new ArrayList<>();
 
     /**
      * 实例化
      * @param newsListBean
      */
-    public TestAdapter(NewsListBean newsListBean) {
+    public DraftsAdapter(NewsListBean newsListBean) {
         this.list = newsListBean.getResult();
     }
 
     /**
      * 重新加载
      */
-    public void onReload(List<NewsListBean.Result> list) {
+    protected void onReload(List<NewsListBean.Result> list) {
 
     }
 
     /**
+     * 增加数据 刷新
+     * @param list
+     */
+    public void onAppend(List<NewsListBean.Result> list) {
+        for (int i = 0; i < list.size(); i++) {
+            this.list.add(this.list.size(), list.get(i));
+        }
+        notifyItemRangeInserted(this.list.size(), list.size());
+    }
+
+    /**
      * 绑定数据
+     * @param holder
      * @param position
      */
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindingViewData(int position) {
+    protected void onBindingViewData(ViewHolder holder, int position) {
         // 设置文本数据
         binding.titleTextView.setText(list.get(position).getArticle_title());
         binding.timeTextView.setText(list.get(position).getArticle_date());
@@ -56,8 +68,8 @@ public class TestAdapter extends BaseRecyclerViewAdapter<ItemTestBinding> {
      * @return
      */
     @Override
-    protected ItemTestBinding getViewBinding(ViewGroup parent) {
-        return ItemTestBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+    protected ItemDraftsBinding getViewBinding(ViewGroup parent) {
+        return ItemDraftsBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
     }
 
     /**

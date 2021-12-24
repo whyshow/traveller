@@ -8,8 +8,6 @@ android {
     defaultConfig {
         minSdk rootProject.ext.android.minSdkVersion
         targetSdk rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -43,11 +41,13 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
+
     implementation rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.annotationProcessors.arouter
     implementation project(path: ':module-basic')
     implementation project(path: ':module-sdk')
     implementation project(path: ':module-widget')
+    implementation project(path: ':module-common')
     // rxjava
     implementation rootProject.ext.dependencies.rxjava
 

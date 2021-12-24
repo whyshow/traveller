@@ -9,7 +9,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-
 import club.ccit.basic.BaseActivity;
 import club.ccit.common.AppRouter;
 
@@ -34,6 +33,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
     }
 
     /**

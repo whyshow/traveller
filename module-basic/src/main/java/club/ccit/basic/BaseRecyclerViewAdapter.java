@@ -5,8 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
-import java.util.List;
-
 /**
  * @author: 张帅威
  * Date: 2021/12/3 1:03 下午
@@ -24,7 +22,7 @@ public abstract class BaseRecyclerViewAdapter <T extends ViewBinding> extends Re
 
     @Override
     public void onBindViewHolder(@NonNull BaseRecyclerViewAdapter.ViewHolder holder, int position) {
-        onBindingViewData(position);
+        onBindingViewData(holder,position);
     }
 
     @Override
@@ -39,16 +37,16 @@ public abstract class BaseRecyclerViewAdapter <T extends ViewBinding> extends Re
         }
     }
 
-
-
     /**
      * 绑定数据
+     * @param holder
      * @param position 绑定
      */
-    protected abstract void onBindingViewData(int position);
+    protected abstract void onBindingViewData(ViewHolder holder, int position);
 
     /**
      * 绑定视图
+     * ItemTestBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false)
      * @return 实现
      * @param parent 。
      */
@@ -59,4 +57,9 @@ public abstract class BaseRecyclerViewAdapter <T extends ViewBinding> extends Re
      * @return 数量
      */
     protected abstract int setItemCount();
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 }
