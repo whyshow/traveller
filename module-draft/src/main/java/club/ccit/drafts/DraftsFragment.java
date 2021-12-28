@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.RecyclerViewOnScrollListener;
@@ -44,16 +43,16 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
         binding.draftSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         binding.draftSwipeRefresh.setRefreshing(true);
+        if (adapter != null){
+            adapter = null;
+        }
         initData(page);
-        binding.draftSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // 下拉刷新， 重新设置请求数据页码、是否上划刷新
-                adapter = null;
-                page = 1;
-                isLoading = true;
-                initData(page);
-            }
+        binding.draftSwipeRefresh.setOnRefreshListener(() -> {
+            // 下拉刷新， 重新设置请求数据页码、是否上划刷新
+            adapter = null;
+            page = 1;
+            isLoading = true;
+            initData(page);
         });
 
         binding.draftRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

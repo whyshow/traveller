@@ -94,10 +94,10 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
      */
     public void myToast(String message) {
         if (message != null) {
-            View view = LayoutInflater.from(BaseActivity.this).inflate(R.layout.layout_toast, null);
+            View view = LayoutInflater.from(getApplication()).inflate(R.layout.layout_toast, null);
             TextView text = (TextView) view.findViewById(R.id.toastTextView);
             text.setText(message);
-            Toast toast = new Toast(BaseActivity.this);
+            Toast toast = new Toast(getApplication());
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.setDuration(Toast.LENGTH_SHORT);
             toast.setView(view);

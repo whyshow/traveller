@@ -19,7 +19,6 @@ public class LogUtils {
             }else {
                 Log.i("LOG111",message);
             }
-
         }
     }
 }

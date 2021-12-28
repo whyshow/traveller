@@ -60,10 +60,10 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
      */
     public void myToast(String message) {
         if (message != null) {
-            View view = LayoutInflater.from(requireActivity()).inflate(R.layout.layout_toast, null);
+            View view = LayoutInflater.from(requireActivity().getApplication()).inflate(R.layout.layout_toast, null);
             TextView text = (TextView) view.findViewById(R.id.toastTextView);
             text.setText(message);
-            Toast toast = new Toast(requireActivity());
+            Toast toast = new Toast(requireActivity().getApplication());
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.setDuration(Toast.LENGTH_SHORT);
             toast.setView(view);
