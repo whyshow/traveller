@@ -41,6 +41,7 @@ dependencies {
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
     implementation rootProject.ext.dependencies.arouter
+    implementation 'org.jetbrains:annotations:15.0'
     annotationProcessor rootProject.ext.annotationProcessors.arouter
     implementation rootProject.ext.dependencies.glide
     implementation rootProject.ext.dependencies.crash

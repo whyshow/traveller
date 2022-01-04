@@ -44,7 +44,7 @@ public class DraftsAdapter extends BaseRecyclerViewAdapter<ItemDraftsBinding>{
         for (int i = 0; i < list.size(); i++) {
             this.list.add(this.list.size(), list.get(i));
         }
-        notifyItemRangeInserted(this.list.size(), list.size());
+        notifyItemRangeInserted(this.list.size()-list.size(), list.size());
     }
 
     /**
