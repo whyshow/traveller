@@ -21,7 +21,7 @@ import club.ccit.sdk.net.DefaultApiObserver;
 /**
  * FileName: HomeActivity
  *
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/12/13 8:23 上午
  * Description:
  * Version:

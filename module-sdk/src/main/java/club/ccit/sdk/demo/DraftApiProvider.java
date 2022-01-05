@@ -5,7 +5,7 @@ import club.ccit.sdk.net.BaseApiProvider;
 /**
  * FileName: DraftApiProvider
  *
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/12/3 2:25 下午
  * Description:
  * Version:

@@ -143,9 +143,10 @@ public class BaseApplication extends Application {
     }
 
     /**
-     * 只保留指定的Activity
+     *  只保留一个Activity
+     * @param cls 包名+Activity名
      */
-    public void exitActivity(Class<?> cls) {
+    public void saveOneActivity(Class<?> cls) {
         if (M_ACTIVITY.isEmpty()) {
             return;
         }
@@ -188,17 +189,5 @@ public class BaseApplication extends Application {
     public void pushActivity(Activity activity) {
         M_ACTIVITY.add(activity);
 
-    }
-
-    /**
-     *  只保留一个Activity
-     * @param name 包名+Activity名
-     */
-    public void saveOneActivity(String name){
-        for (int i = 0;i < M_ACTIVITY.size();i++){
-            if (!name.equals(M_ACTIVITY.get(i).getClass().getName())){
-                finishActivity(M_ACTIVITY.get(i).getClass());
-            }
-        }
     }
 }

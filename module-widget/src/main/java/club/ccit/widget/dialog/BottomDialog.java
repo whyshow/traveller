@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -22,7 +21,7 @@ import club.ccit.widget.R;
 /**
  * FileName: BottomDialog
  *
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/12/17 9:58 上午
  * Description: 底部弹窗选择
  * Version:

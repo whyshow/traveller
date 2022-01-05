@@ -2,7 +2,6 @@ package club.ccit.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 /**
  * FileName: CustomRecyclerView
  *
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/12/10 2:08 下午
  * Description: RecyclerView 封装
  * Version:

@@ -9,4 +9,8 @@
         <!-- 是否允许粘贴-->
         <attr name="stick" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="CustomButton">
+        <!-- 背景图片-->
+        <attr name="b_icon" format="reference" />
+    </declare-styleable>
 </resources>

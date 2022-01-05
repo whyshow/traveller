@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 /**
  * FileName: CustomEditText
  *
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/12/17 3:59 下午
  * Description: 自定义 EditText
  * Version:

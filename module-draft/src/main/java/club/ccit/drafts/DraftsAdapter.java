@@ -13,7 +13,7 @@ import club.ccit.sdk.demo.NewsListBean;
 /**
  * FileName: TestAdapter
  *
- * @author: 张帅威
+ * @author: 瞌睡的牙签
  * Date: 2021/12/3 1:17 下午
  * Description:
  * Version:

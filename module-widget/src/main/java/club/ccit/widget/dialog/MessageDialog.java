@@ -3,7 +3,6 @@ package club.ccit.widget.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,9 @@ import android.widget.TextView;
 import club.ccit.widget.R;
 
 /**
- * Copyright (C), 2011-2021, 万臻生态科技有限公司
  * FileName: MessageDialog
  *
- * @author: swzhang3
+ * @author: 瞌睡的牙签
  * Date: 2021/11/24 15:36
  * Description: 确认/取消对话框
  * Version:
