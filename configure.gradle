@@ -27,6 +27,9 @@ ext {
             adapterRxjava3  : 'com.squareup.retrofit2:adapter-rxjava3:2.9.0', // rxjava 适配器
             converterGson   : 'com.squareup.retrofit2:converter-gson:2.9.0', // gson 解析库
             lifecycle       : 'com.trello.rxlifecycle4:rxlifecycle-android-lifecycle:4.0.2', // 生命周期库 与rxjava:3.1.3、retrofit:2.9.0版本配套
+            // Bugly
+            crashreportUpgrade: 'com.tencent.bugly:crashreport_upgrade:latest.release',
+            nativecrashreport : 'com.tencent.bugly:nativecrashreport:latest.release'
     ]
     // 注解配置
     annotationProcessors = [
