@@ -80,4 +80,5 @@ public class DraftsAdapter extends BaseRecyclerViewAdapter<ItemDraftsBinding>{
     protected int setItemCount() {
         return list.size();
     }
+
 }

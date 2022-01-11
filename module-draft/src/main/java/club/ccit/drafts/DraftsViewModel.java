@@ -1,7 +1,8 @@
 package club.ccit.drafts;
 
-import android.util.Log;
+import android.app.Activity;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -30,13 +31,12 @@ public class DraftsViewModel extends ViewModel {
         return newsListBeanMutableLiveData;
     }
 
-    public void getNewsListData(DraftsFragment draftsFragment,int p){
+    public void getNewsListData(Activity activity, int p){
         if (newsListBeanMutableLiveData.getValue() == null){
             NewsApi api = new DraftApiProvider().getNewsList();
-            AndroidObservable.create(api.getNewsList(p)).with(draftsFragment).subscribe(new DefaultApiObserver<NewsListBean>() {
+            AndroidObservable.create(api.getNewsList(p)).with((LifecycleOwner) activity).subscribe(new DefaultApiObserver<NewsListBean>() {
                 @Override
                 protected void succeed(NewsListBean newsListBean) {
-                    Log.i("LOG111",newsListBean.toString());
                     newsListBeanMutableLiveData.setValue(newsListBean);
                 }
             });
