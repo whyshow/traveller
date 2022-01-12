@@ -1,5 +1,7 @@
 package club.ccit.basic;
 
+import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -24,6 +26,7 @@ import androidx.viewbinding.ViewBinding;
 public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActivity {
     protected T binding;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,8 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
         // 改变状态栏图标颜色
         changStatusIconColor(isStatusBarDarkFont());
         initListener();
+        // 禁止屏幕翻转
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     /**
