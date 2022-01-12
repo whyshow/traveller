@@ -42,7 +42,6 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
         super.onStart();
         binding.draftSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-        binding.draftSwipeRefresh.setRefreshing(true);
         draftsViewModel = new ViewModelProvider(requireActivity()).get(DraftsViewModel.class);
         // 实例化api 请求
         api = new DraftApiProvider().getNewsList();
@@ -50,6 +49,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
         if (draftsViewModel.getPage().getValue() != null) {
             page = draftsViewModel.getPage().getValue();
         }else {
+            binding.draftSwipeRefresh.setRefreshing(true);
             initData(page);
         }
         // 获取到数据并加载显示
