@@ -1,9 +1,5 @@
 package club.ccit.drafts;
 
-import android.app.Activity;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -23,7 +19,6 @@ import club.ccit.sdk.demo.NewsListBean;
 public class DraftsViewModel extends ViewModel {
     private final MutableLiveData<List<NewsListBean.Result>> data;
     private MutableLiveData<Integer> page;
-
     public DraftsViewModel() {
         data = new MutableLiveData<>();
         page = new MutableLiveData<>();

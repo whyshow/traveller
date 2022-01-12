@@ -1,12 +1,9 @@
 package club.ccit.drafts;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.os.Parcelable;
-import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import club.ccit.basic.BaseFragment;
-import club.ccit.common.LogUtils;
 import club.ccit.common.RecyclerViewOnScrollListener;
 import club.ccit.drafts.databinding.FragmentDraftsBinding;
 import club.ccit.sdk.demo.DraftApiProvider;
@@ -48,13 +44,15 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
         binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         binding.draftSwipeRefresh.setRefreshing(true);
         draftsViewModel = new ViewModelProvider(requireActivity()).get(DraftsViewModel.class);
+        // 实例化api 请求
         api = new DraftApiProvider().getNewsList();
-        // 还原page
+        // 如果ViewModel中有数据有page 则还原page 数据,否则请求默认的page数据
         if (draftsViewModel.getPage().getValue() != null) {
             page = draftsViewModel.getPage().getValue();
         }else {
             initData(page);
         }
+        // 获取到数据并加载显示
         draftsViewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<NewsListBean.Result>>() {
             @Override
             public void onChanged(List<NewsListBean.Result> results) {
@@ -64,28 +62,34 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
                 }
                 // 获取网络数据并解析完成
                 if (adapter == null) {
-                    // 创建适配器显示
+                    // 使用加数据和下拉加载数据则重新实例化适配器
                     adapter = new DraftsAdapter(results,page);
                     binding.draftRecyclerView.setAdapter(adapter);
+                    binding.draftSwipeRefresh.setRefreshing(false);
                 } else {
+                    // 加载请求的分页数据
                     adapter.onAppointReload(results,page);
                 }
-                binding.draftSwipeRefresh.setRefreshing(false);
+
             }
         });
     }
 
+    /**
+     * 初始化监听
+     */
     @Override
     protected void initListener() {
         super.initListener();
+        // 下拉刷新， 重新设置请求数据页码、是否上划刷新
         binding.draftSwipeRefresh.setOnRefreshListener(() -> {
-            // 下拉刷新， 重新设置请求数据页码、是否上划刷新
             adapter = null;
             page = 1;
             isLoading = true;
             initData(page);
         });
 
+        // 上划加载更多
         binding.draftRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -131,37 +135,19 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     @Override
     public void onPause() {
         super.onPause();
-        LogUtils.i("onPause()");
+        // 保存RecyclerView数据状态
         state = binding.draftRecyclerView.getLayoutManager().onSaveInstanceState();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtils.i("onResume()");
+        // 恢复RecyclerView数据状态
         binding.draftRecyclerView.getLayoutManager().onRestoreInstanceState(state);
     }
 
     @Override
     protected FragmentDraftsBinding getViewBinding() {
         return FragmentDraftsBinding.inflate(getLayoutInflater());
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        LogUtils.i("onViewCreated()");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        LogUtils.i("onDestroyView()");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        LogUtils.i("onDestroy()");
     }
 }
