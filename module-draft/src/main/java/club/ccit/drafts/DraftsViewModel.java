@@ -2,15 +2,15 @@ package club.ccit.drafts;
 
 import android.app.Activity;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import club.ccit.sdk.demo.DraftApiProvider;
-import club.ccit.sdk.demo.NewsApi;
+
+import java.util.List;
+
 import club.ccit.sdk.demo.NewsListBean;
-import club.ccit.sdk.net.AndroidObservable;
-import club.ccit.sdk.net.DefaultApiObserver;
 
 /**
  * FileName: DraftsViewModel
@@ -21,25 +21,43 @@ import club.ccit.sdk.net.DefaultApiObserver;
  * Version:
  */
 public class DraftsViewModel extends ViewModel {
-    private MutableLiveData<NewsListBean> newsListBeanMutableLiveData;
+    private final MutableLiveData<List<NewsListBean.Result>> data;
+    private MutableLiveData<Integer> page;
 
     public DraftsViewModel() {
-        newsListBeanMutableLiveData = new MutableLiveData<>();
+        data = new MutableLiveData<>();
+        page = new MutableLiveData<>();
     }
 
-    public LiveData<NewsListBean> getNewsListBeanMutableLiveData() {
-        return newsListBeanMutableLiveData;
+    /**
+     * 获取页面
+     * @return
+     */
+    public LiveData<Integer> getPage() {
+        return page;
     }
 
-    public void getNewsListData(Activity activity, int p){
-        if (newsListBeanMutableLiveData.getValue() == null){
-            NewsApi api = new DraftApiProvider().getNewsList();
-            AndroidObservable.create(api.getNewsList(p)).with((LifecycleOwner) activity).subscribe(new DefaultApiObserver<NewsListBean>() {
-                @Override
-                protected void succeed(NewsListBean newsListBean) {
-                    newsListBeanMutableLiveData.setValue(newsListBean);
-                }
-            });
-        }
+    /**
+     * 设置页面
+     * @param p
+     */
+    public void setPage(Integer p) {
+        page.setValue(p);
+    }
+
+    /**
+     * 获取数据
+     * @return
+     */
+    public LiveData<List<NewsListBean.Result>> getData() {
+        return data;
+    }
+
+    /**
+     * 设置数据
+     * @param value
+     */
+    public void setValue(List<NewsListBean.Result> value){
+        data.setValue(value);
     }
 }

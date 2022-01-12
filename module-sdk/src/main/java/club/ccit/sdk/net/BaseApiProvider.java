@@ -62,7 +62,6 @@ public abstract class BaseApiProvider {
                 // 使用gson 自动解析数据
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        Log.i("LOG111","构建完成");
     }
 
     /**

@@ -23,10 +23,11 @@ public class DraftsAdapter extends BaseRecyclerViewAdapter<ItemDraftsBinding>{
 
     /**
      * 实例化
-     * @param newsListBean
+     * @param results
+     * @param results
      */
-    public DraftsAdapter(NewsListBean newsListBean) {
-        this.list = newsListBean.getResult();
+    public DraftsAdapter(List<NewsListBean.Result> results) {
+        this.list = results;
     }
 
     /**
@@ -45,6 +46,17 @@ public class DraftsAdapter extends BaseRecyclerViewAdapter<ItemDraftsBinding>{
             this.list.add(this.list.size(), list.get(i));
         }
         notifyItemRangeInserted(this.list.size()-list.size(), list.size());
+    }
+
+    /**
+     * 指定重新加载
+     */
+    protected void onAppointReload(List<NewsListBean.Result> list) {
+        int now = this.list.size();
+        this.list = list;
+        int location = this.list.size() - now;
+        notifyItemRangeChanged(this.list.size() - location,location);
+        notifyDataSetChanged();
     }
 
     /**

@@ -2,13 +2,18 @@ package club.ccit;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import club.ccit.basic.BaseActivity;
 import club.ccit.common.AppRouter;
 
@@ -32,9 +37,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 R.id.navigation_home, R.id.navigation_drafts, R.id.navigation_my)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        navController.navigateUp();
         NavigationUI.setupWithNavController(binding.navView, navController);
-
+//        //设置BottomNavigationView点击事件
+//        binding.navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//                //跳转相应fragment
+//                navController.navigate(menuItem.getItemId());
+//                //返回false会有一个点击悬浮效果，返回true则不会有该效果
+//                return false;
+//            }
+//        });
     }
 
     /**
