@@ -65,10 +65,10 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
                 // 获取网络数据并解析完成
                 if (adapter == null) {
                     // 创建适配器显示
-                    adapter = new DraftsAdapter(results);
+                    adapter = new DraftsAdapter(results,page);
                     binding.draftRecyclerView.setAdapter(adapter);
                 } else {
-                    adapter.onAppointReload(results);
+                    adapter.onAppointReload(results,page);
                 }
                 binding.draftSwipeRefresh.setRefreshing(false);
             }
