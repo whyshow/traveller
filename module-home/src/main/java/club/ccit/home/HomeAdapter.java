@@ -3,6 +3,7 @@ package club.ccit.home;
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -27,13 +28,6 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<ItemHomeBinding> {
      */
     public HomeAdapter(NewsListBean newsListBean) {
         this.list = newsListBean.getResult();
-    }
-
-    /**
-     * 重新加载
-     */
-    public void onReload(List<NewsListBean.Result> list) {
-
     }
 
     /**
@@ -68,5 +62,20 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<ItemHomeBinding> {
     @Override
     protected int setItemCount() {
         return list.size();
+    }
+
+    @Override
+    protected TextView setTextViewFooter() {
+        return null;
+    }
+
+    @Override
+    protected int setPage() {
+        return 0;
+    }
+
+    @Override
+    protected int setLimit() {
+        return 6;
     }
 }

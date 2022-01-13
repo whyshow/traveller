@@ -38,6 +38,7 @@ public abstract class DefaultApiObserver<T> extends DisposableObserver<T> {
 
             }
         }
+        error(e);
     }
 
     /**
@@ -53,5 +54,10 @@ public abstract class DefaultApiObserver<T> extends DisposableObserver<T> {
      * @param t
      */
     protected abstract void succeed(T t);
+ /**
+     * 请求数据错误
+     * @param e
+     */
+    protected abstract void error(Throwable e);
 
 }

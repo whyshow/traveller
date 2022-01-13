@@ -36,6 +36,11 @@ public class HomeModel implements HomeContract.Model {
                 Log.i("LOG111",newsListBean.toString());
                 presenter.requestSuccess(newsListBean);
             }
+
+            @Override
+            protected void error(Throwable e) {
+
+            }
         });
     }
 

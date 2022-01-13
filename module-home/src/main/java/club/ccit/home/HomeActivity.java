@@ -47,6 +47,11 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> implements H
             protected void succeed(AggregatePageBean aggregatePageBean) {
                 Log.i("LOG111",aggregatePageBean.toString());
             }
+
+            @Override
+            protected void error(Throwable e) {
+
+            }
         });
 
         initData();
@@ -90,7 +95,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> implements H
             adapter = new HomeAdapter(newsListBean);
             binding.homeRecyclerView.setAdapter(adapter);
         }else {
-            adapter.onReload(newsListBean.getResult());
+            adapter.onAppointReload(newsListBean.getResult(),page);
         }
         binding.homeSwipeRefresh.setRefreshing(false);
     }

@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="10dp"
-        android:text="加载中"
+        android:visibility="gone"
         android:textColor="@color/font_hint"
         android:textSize="14dp"
         tools:ignore="MissingConstraints" />

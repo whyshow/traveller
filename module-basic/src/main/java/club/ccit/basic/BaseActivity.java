@@ -1,7 +1,6 @@
 package club.ccit.basic;
 
 import android.annotation.SuppressLint;
-import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -42,7 +41,7 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
         changStatusIconColor(isStatusBarDarkFont());
         initListener();
         // 禁止屏幕翻转
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     /**

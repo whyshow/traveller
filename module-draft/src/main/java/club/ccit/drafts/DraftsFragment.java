@@ -4,13 +4,13 @@ import android.annotation.SuppressLint;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.RecyclerViewOnScrollListener;
@@ -53,24 +53,18 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
             initData(page);
         }
         // 获取到数据并加载显示
-        draftsViewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<NewsListBean.Result>>() {
-            @Override
-            public void onChanged(List<NewsListBean.Result> results) {
-                // 如果加载的数据小于6条，则不再上划加载更多。
-                if (results.size() / page < 6) {
-                    isLoading = false;
-                }
-                // 获取网络数据并解析完成
-                if (adapter == null) {
-                    // 使用加数据和下拉加载数据则重新实例化适配器
-                    adapter = new DraftsAdapter(results,page);
-                    binding.draftRecyclerView.setAdapter(adapter);
-                    binding.draftSwipeRefresh.setRefreshing(false);
-                } else {
-                    // 加载请求的分页数据
-                    adapter.onAppointReload(results,page);
-                }
-
+        draftsViewModel.getData().observe(getViewLifecycleOwner(), results -> {
+            if (results.size() / page < 6){
+                isLoading = false;
+            }
+            // 获取网络数据并解析完成
+            if (adapter == null) {
+                // 使用加数据和下拉加载数据则重新实例化适配器
+                adapter = new DraftsAdapter(results,page);
+                binding.draftRecyclerView.setAdapter(adapter);
+            } else {
+                // 加载请求的分页数据
+                adapter.onAppointReload(results,page);
             }
         });
     }
@@ -96,8 +90,11 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (isLoading) {
                     if (RecyclerViewOnScrollListener.onScrollListener(recyclerView, newState)) {
-                        page = page + 1;
-                        initData(page);
+                        if (adapter != null){
+                            page = page + 1;
+                            initData(page);
+                            adapter.setLoadingFooter();
+                        }
                     }
                 }
             }
@@ -107,18 +104,21 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     /**
      * 请求网络数据
      */
-    private void initData(int page) {
-
-        AndroidObservable.create(api.getNewsList(page)).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
+    private void initData(int p) {
+        AndroidObservable.create(api.getNewsList(p)).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {
+                // 如果加载的数据小于6条，则不再上划加载更多。
+                if (newsListBean.getResult().size() < 6) {
+                    isLoading = false;
+                }
                 // 设置ViewModel数据
                 if (draftsViewModel.getData().getValue() != null) {
                     list = draftsViewModel.getData().getValue();
                 } else {
                     list = new ArrayList<>();
                 }
-                if (page == 1) {
+                if (p == 1) {
                     list = newsListBean.getResult();
                 } else {
                     for (int i = 0; i < newsListBean.getResult().size(); i++) {
@@ -126,8 +126,19 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
                     }
                 }
                 // 设置 page
-                draftsViewModel.setPage(page);
+                draftsViewModel.setPage(p);
                 draftsViewModel.setValue(list);
+                binding.draftSwipeRefresh.setRefreshing(false);
+            }
+
+            @Override
+            protected void error(Throwable e) {
+                binding.draftSwipeRefresh.setRefreshing(false);
+                // 请求出现错误
+                page = page - 1;
+                if (adapter != null){
+                    adapter.setErrorFooter();
+                }
             }
         });
     }
@@ -136,14 +147,14 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     public void onPause() {
         super.onPause();
         // 保存RecyclerView数据状态
-        state = binding.draftRecyclerView.getLayoutManager().onSaveInstanceState();
+        state = Objects.requireNonNull(binding.draftRecyclerView.getLayoutManager()).onSaveInstanceState();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         // 恢复RecyclerView数据状态
-        binding.draftRecyclerView.getLayoutManager().onRestoreInstanceState(state);
+        Objects.requireNonNull(binding.draftRecyclerView.getLayoutManager()).onRestoreInstanceState(state);
     }
 
     @Override
