@@ -1,19 +1,14 @@
 package club.ccit;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import club.ccit.basic.BaseActivity;
 import club.ccit.common.AppRouter;
 
