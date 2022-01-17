@@ -18,43 +18,27 @@ import java.util.List;
  * Description: RecyclerViewAdapter封装基类
  * Version:
  */
-public abstract class BaseRecyclerViewAdapter <T extends ViewBinding> extends RecyclerView.Adapter<BaseRecyclerViewAdapter.ViewHolder> {
+public abstract class BaseRecyclerViewAdapter<T extends ViewBinding> extends RecyclerView.Adapter<BaseRecyclerViewAdapter.ViewHolder> {
     protected T binding;
+    public List list;
+
     /**
      * 当前页码
      */
-    private int page;
+    public int page;
     private int nowCount = 0;
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.i("LOG111","viewType: "+viewType);
         binding = getViewBinding(parent);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BaseRecyclerViewAdapter.ViewHolder holder, int position) {
-        onBindingViewData(holder,position);
-        if (setTextViewFooter() != null || setItemCount() != 0){
-            if (setItemCount() == position + 1){
-                setTextViewFooter().setVisibility(View.VISIBLE);
-            }else {
-                setTextViewFooter().setVisibility(View.GONE);
-            }
-            if (page == 0){
-                if (setItemCount() / setPage() < setLimit()){
-                    setTextViewFooter().setText(AdapterType.COMPLETE);
-                }else {
-                    setTextViewFooter().setText(AdapterType.MESSAGE);
-                }
-            }else {
-                if (setItemCount() / page < setLimit()){
-                    setTextViewFooter().setText(AdapterType.COMPLETE);
-                }else {
-                    setTextViewFooter().setText(AdapterType.MESSAGE);
-                }
-            }
-        }
+        onBindingViewData(holder, position);
     }
 
     /**
@@ -67,8 +51,14 @@ public abstract class BaseRecyclerViewAdapter <T extends ViewBinding> extends Re
         }
     }
 
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
     /**
      * 获取item 数量
+     *
      * @return
      */
     @Override
@@ -78,6 +68,7 @@ public abstract class BaseRecyclerViewAdapter <T extends ViewBinding> extends Re
 
     /**
      * 绑定数据
+     *
      * @param holder
      * @param position 绑定
      */
@@ -86,19 +77,22 @@ public abstract class BaseRecyclerViewAdapter <T extends ViewBinding> extends Re
     /**
      * 绑定视图
      * ItemTestBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false)
-     * @return 实现
+     *
      * @param parent 。
+     * @return 实现
      */
     protected abstract T getViewBinding(ViewGroup parent);
 
     /**
      * 获取item数量
+     *
      * @return 数量
      */
     protected abstract int setItemCount();
 
     /**
      * 获取item 类型
+     *
      * @param position
      * @return
      */
@@ -109,52 +103,83 @@ public abstract class BaseRecyclerViewAdapter <T extends ViewBinding> extends Re
 
     /**
      * 获取 Footer的TextView 控件
+     *
      * @return
      */
     protected abstract TextView setTextViewFooter();
 
     /**
-     * 获取当前页码
-     * @return
-     */
-    protected abstract int setPage();
-    /**
      * 设置每页数目的最大数
+     *
      * @return
      */
     protected abstract int setLimit();
+
+    /**
+     * 设置加载全部的Footer
+     */
+    @SuppressLint("NotifyDataSetChanged")
+    public void setLoadingALLFooter() {
+        if (setTextViewFooter() != null){
+            AdapterType.MESSAGE = AdapterType.COMPLETE;
+            notifyDataSetChanged();
+        }
+    }
 
     /**
      * 设置错误的Footer
      */
     @SuppressLint("NotifyDataSetChanged")
     public void setErrorFooter() {
-        AdapterType.MESSAGE = AdapterType.ERROR;
-        notifyDataSetChanged();
+        if (setTextViewFooter() != null){
+            AdapterType.MESSAGE = AdapterType.ERROR;
+            notifyDataSetChanged();
+        }
     }
 
     /**
      * 设置正在加载的Footer
+     * super.setLoadingFooter();
      */
     @SuppressLint("NotifyDataSetChanged")
     public void setLoadingFooter() {
-        AdapterType.MESSAGE = AdapterType.LOADING;
+        if (setTextViewFooter() != null){
+            AdapterType.MESSAGE = AdapterType.LOADING;
+            notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * 添加item数据
+     *
+     * @param list 已经添加过数据列表
+     * @param page 当前页码
+     */
+    @SuppressLint("NotifyDataSetChanged")
+    public void setAppointData(List list, int page) {
+        this.page = page;
+        for (int i = 0; i < list.size(); i++) {
+            this.list.add(this.list.size(), list.get(i));
+        }
+        notifyItemRangeInserted(this.list.size() - list.size(), list.size());
         notifyDataSetChanged();
     }
 
     /**
      * 添加item数据
+     *
      * @param list 已经添加过数据列表
      * @param page 当前页码
      */
     @SuppressLint("NotifyDataSetChanged")
-    public void onAppointReload(List list, int page){
-        Log.i("LOG111","onAppointReload list.size() = " +list.size());
+    public void setAppointAllData(List list, int page) {
         this.page = page;
+        this.list = list;
         int location = list.size() - nowCount;
-        notifyItemRangeChanged(list.size() - location,location);
+        notifyItemRangeChanged(list.size() - location, location);
         notifyDataSetChanged();
         nowCount = list.size();
     }
+
 
 }

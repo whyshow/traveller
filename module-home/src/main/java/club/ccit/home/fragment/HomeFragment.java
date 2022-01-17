@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import com.alibaba.android.arouter.launcher.ARouter;
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
+import club.ccit.home.HomeActivity;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.sdk.net.AndroidObservable;
 import club.ccit.widget.dialog.BottomDialog;
@@ -33,7 +34,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         // 录制视频
         binding.videoActivity.setOnClickListener(view -> ARouter.getInstance().build(AppRouter.PATH_CAMERA_VIDEO).navigation());
 
-        binding.startHomeActivity.setOnClickListener(view -> ARouter.getInstance().build(AppRouter.PATH_HOME_HOME).navigation());
+        binding.startHomeActivity.setOnClickListener(view ->
+                // ARouter.getInstance().build(AppRouter.PATH_HOME_HOME).navigation()
+                HomeActivity.launch(requireActivity(),"HomeFragment 启动的")
+        );
 
         binding.startBottomDialog.setOnClickListener(view -> {
             String[] phone = {"你","好","呀"};

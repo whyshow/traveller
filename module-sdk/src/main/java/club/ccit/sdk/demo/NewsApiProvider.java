@@ -10,13 +10,13 @@ import club.ccit.sdk.net.BaseApiProvider;
  * Description:
  * Version:
  */
-public class DraftApiProvider extends BaseApiProvider {
+public class NewsApiProvider extends BaseApiProvider {
 
     NewsApi newsApi;
     /**
      * 实例化一些连接网络配置
      */
-    public DraftApiProvider() {
+    public NewsApiProvider() {
         super();
         // 创建新闻API
         newsApi = getRetrofit().create(NewsApi.class);

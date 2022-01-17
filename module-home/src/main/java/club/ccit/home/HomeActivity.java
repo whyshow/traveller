@@ -1,19 +1,25 @@
 package club.ccit.home;
 
+import static club.ccit.basic.BaseAdapter.TYPE_ERROR_FOOTER;
+import static club.ccit.basic.BaseAdapter.TYPE_LOADING_FOOTER;
+import static club.ccit.basic.BaseAdapter.TYPE_NONE_FOOTER;
 import static club.ccit.common.AppRouter.PATH_HOME_HOME;
 import android.annotation.SuppressLint;
-import android.util.Log;
+import android.app.Activity;
+import android.content.Intent;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import club.ccit.basic.BaseActivity;
+import club.ccit.common.LogUtils;
+import club.ccit.common.RecyclerViewOnScrollListener;
 import club.ccit.home.databinding.ActivityHomeBinding;
-import club.ccit.home.fragment.contract.HomeContract;
-import club.ccit.home.fragment.presenter.HomePresenter;
-import club.ccit.sdk.demo.AggregatePageBean;
-import club.ccit.sdk.demo.CategoryApi;
-import club.ccit.sdk.demo.CategoryApiProvider;
+import club.ccit.sdk.demo.NewsApi;
+import club.ccit.sdk.demo.NewsApiProvider;
 import club.ccit.sdk.demo.NewsListBean;
 import club.ccit.sdk.net.AndroidObservable;
 import club.ccit.sdk.net.DefaultApiObserver;
@@ -27,48 +33,85 @@ import club.ccit.sdk.net.DefaultApiObserver;
  * Version:
  */
 @Route(path = PATH_HOME_HOME)
-public class HomeActivity extends BaseActivity<ActivityHomeBinding> implements HomeContract.View {
+public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
     private HomeAdapter adapter;
-    private HomePresenter homePresenter;
     private int page = 1;
     private boolean isLoading = true;
+    private NewsApi api;
     @SuppressLint("ResourceAsColor")
     @Override
     public void onStart() {
         super.onStart();
-        homePresenter = new HomePresenter(this);
         binding.homeSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.homeRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         binding.homeSwipeRefresh.setRefreshing(true);
-        homePresenter.requestData(page);
-        CategoryApi api = new CategoryApiProvider().getAggregatePage();
-        AndroidObservable.create(api.getAggregatePage()).with(this).subscribe(new DefaultApiObserver<AggregatePageBean>() {
-            @Override
-            protected void succeed(AggregatePageBean aggregatePageBean) {
-                Log.i("LOG111",aggregatePageBean.toString());
-            }
+        api = new NewsApiProvider().getNewsList();
+        initData(page);
+        LogUtils.i("接收到："+getIntent().getStringExtra("data"));
+    }
 
-            @Override
-            protected void error(Throwable e) {
-
-            }
-        });
-
-        initData();
-
-        binding.homeSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-            }
-        });
+    public static void launch(Activity activity, String toJson) {
+        Intent intent = new Intent(activity, HomeActivity.class);
+        intent.putExtra("data", toJson);
+        activity.startActivity(intent);
     }
 
     /**
      * 请求网络数据
      */
-    private void initData() {
+    private void initData(int p) {
+        AndroidObservable.create(api.getNewsList(p)).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
+            @Override
+            protected void succeed(NewsListBean newsListBean) {
+                if (newsListBean.getResult().size() < 6){
+                    isLoading = false;
+                    adapter.setFooterView(TYPE_NONE_FOOTER);
+                }
+                if (adapter == null){
+                    adapter = new HomeAdapter(newsListBean.getResult());
+                    binding.homeRecyclerView.setAdapter(adapter);
+                }else {
+                    adapter.onAppointData(newsListBean.getResult(),p);
+                }
+                binding.homeSwipeRefresh.setRefreshing(false);
+            }
 
+            @Override
+            protected void error(Throwable e) {
+                page = page - 1;
+                binding.homeSwipeRefresh.setRefreshing(false);
+                adapter.setFooterView(TYPE_ERROR_FOOTER);
+            }
+        });
+    }
+
+    @Override
+    protected void initListener() {
+        super.initListener();
+        binding.homeSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                adapter = null;
+                isLoading = true;
+                initData(page);
+            }
+        });
+
+        binding.homeRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (isLoading){
+                    if (RecyclerViewOnScrollListener.onScrollListener(recyclerView,newState)){
+                        adapter.setFooterView(TYPE_LOADING_FOOTER);
+                        page = page + 1;
+                        initData(page);
+                    }
+                }
+
+            }
+        });
     }
 
     @Override
@@ -86,28 +129,4 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> implements H
         return true;
     }
 
-    @Override
-    public void requestSuccess(Object object) {
-        NewsListBean newsListBean = (NewsListBean) object;
-        // 获取网络数据并解析完成
-        if (adapter == null){
-            // 创建适配器显示
-            adapter = new HomeAdapter(newsListBean);
-            binding.homeRecyclerView.setAdapter(adapter);
-        }else {
-            adapter.onAppointReload(newsListBean.getResult(),page);
-        }
-        binding.homeSwipeRefresh.setRefreshing(false);
-    }
-
-    @Override
-    public void requestFailure(String msg) {
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        homePresenter.onDestroy();
-    }
 }

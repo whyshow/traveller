@@ -2,11 +2,13 @@ package club.ccit.drafts;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
 
 import club.ccit.basic.BaseRecyclerViewAdapter;
+import club.ccit.common.LogUtils;
 import club.ccit.drafts.databinding.ItemDraftsBinding;
 import club.ccit.sdk.demo.NewsListBean;
 
@@ -19,15 +21,14 @@ import club.ccit.sdk.demo.NewsListBean;
  * Version:
  */
 public class DraftsAdapter extends BaseRecyclerViewAdapter<ItemDraftsBinding>{
-    private List<NewsListBean.Result> list;
-    private int page;
+
     /**
      * 实例化
-     * @param results
+     * @param list
      * @param page
      */
-    public DraftsAdapter(List<NewsListBean.Result> results,int page) {
-        this.list = results;
+    public DraftsAdapter(List list,int page) {
+        this.list = list;
         this.page = page;
     }
 
@@ -39,11 +40,18 @@ public class DraftsAdapter extends BaseRecyclerViewAdapter<ItemDraftsBinding>{
     @SuppressLint("SetTextI18n")
     @Override
     protected void onBindingViewData(ViewHolder holder, int position) {
+        NewsListBean.Result bean = (NewsListBean.Result) list.get(position);
         // 设置文本数据
-        binding.titleTextView.setText(position+1+"  "+list.get(position).getArticle_title());
-        binding.timeTextView.setText(list.get(position).getArticle_date());
-        binding.contentTextView.setText(list.get(position).getArticle_text());
-        binding.authorTextView.setText(list.get(position).getArticle_user()+"/文");
+        binding.titleTextView.setText(position+1+"  "+bean.getArticle_title());
+        binding.timeTextView.setText(bean.getArticle_date());
+        binding.contentTextView.setText(bean.getArticle_text());
+        binding.authorTextView.setText(bean.getArticle_user()+"/文");
+        binding.itemCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogUtils.i(position+1+"  "+bean.getArticle_title());
+            }
+        });
     }
 
     /**
@@ -71,18 +79,13 @@ public class DraftsAdapter extends BaseRecyclerViewAdapter<ItemDraftsBinding>{
      * @param page 当前页码
      */
     @Override
-    public void onAppointReload(List list, int page) {
-        super.onAppointReload(list, page);
+    public void setAppointAllData(List list, int page) {
+        super.setAppointAllData(list, page);
     }
 
     @Override
     protected TextView setTextViewFooter() {
         return binding.noDataTextView;
-    }
-
-    @Override
-    protected int setPage() {
-        return page;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package club.ccit.drafts;
 
+import android.os.Parcelable;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -19,9 +21,19 @@ import club.ccit.sdk.demo.NewsListBean;
 public class DraftsViewModel extends ViewModel {
     private final MutableLiveData<List<NewsListBean.Result>> data;
     private MutableLiveData<Integer> page;
+    private Parcelable state;
+
     public DraftsViewModel() {
         data = new MutableLiveData<>();
         page = new MutableLiveData<>();
+    }
+
+    public Parcelable getState() {
+        return state;
+    }
+
+    public void setState(Parcelable state) {
+        this.state = state;
     }
 
     /**

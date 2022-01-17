@@ -21,6 +21,7 @@ android {
             // 设置APP 类型
             abiFilters rootProject.ext.abiFilters.abi
             abiFilters rootProject.ext.abiFilters.x86
+            abiFilters rootProject.ext.abiFilters.v7
         }
     }
 
