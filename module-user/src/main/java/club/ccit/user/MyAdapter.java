@@ -1,6 +1,5 @@
-package club.ccit.home;
+package club.ccit.user;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +8,9 @@ import java.util.List;
 
 import club.ccit.basic.BaseAdapter;
 import club.ccit.common.LogUtils;
-import club.ccit.home.databinding.ItemHomeBinding;
 import club.ccit.sdk.demo.NewsListBean;
+import club.ccit.user.databinding.ItemMyBinding;
+
 
 /**
  * FileName: TestAdapter
@@ -20,16 +20,20 @@ import club.ccit.sdk.demo.NewsListBean;
  * Description:
  * Version:
  */
-public class HomeAdapter extends BaseAdapter<ItemHomeBinding> {
+public class MyAdapter extends BaseAdapter<ItemMyBinding> {
 
     /**
      * 实例化
      * @param list
      */
-    public HomeAdapter(List list) {
+    public MyAdapter(List list) {
         this.list = list;
     }
 
+    /**
+     * 绑定数据
+     * @param position
+     */
     @Override
     protected void onBindingViewData(int position) {
         NewsListBean.Result bean = (NewsListBean.Result) list.get(position);
@@ -46,23 +50,14 @@ public class HomeAdapter extends BaseAdapter<ItemHomeBinding> {
         });
     }
 
-    @Override
-    public void onAppointData(List list) {
-        super.onAppointData(list);
-    }
-
-    @Override
-    public void setFooterView(int type) {
-        super.setFooterView(type);
-    }
-
     /**
      * 绑定视图
      * @param parent
      * @return
      */
     @Override
-    protected ItemHomeBinding getViewBinding(ViewGroup parent) {
-        return ItemHomeBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+    protected ItemMyBinding getViewBinding(ViewGroup parent) {
+        return ItemMyBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
     }
+
 }

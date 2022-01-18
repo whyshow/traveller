@@ -15,7 +15,7 @@ import java.util.Objects;
  * FileName: CustomRecyclerView
  *
  * @author: 瞌睡的牙签
- * Date: 2021/12/10 2:08 下午
+ * Date: 2022年01月18日10:46:23
  * Description: RecyclerView 封装
  * Version:
  */
@@ -23,6 +23,7 @@ public class CustomRecyclerView extends RecyclerView {
     private static final String SAVED_SUPER_STATE = "super-state";
     private static final String SAVED_LAYOUT_MANAGER = "layout-manager-state";
     private Parcelable mLayoutManagerSavedState;
+
     public CustomRecyclerView(@NonNull Context context) {
         super(context);
         init();
@@ -45,6 +46,7 @@ public class CustomRecyclerView extends RecyclerView {
 
     /**
      * 保存数据状态
+     *
      * @return
      */
     @Override
@@ -57,6 +59,7 @@ public class CustomRecyclerView extends RecyclerView {
 
     /**
      * 恢复数据状态
+     *
      * @param state
      */
     @Override
@@ -68,6 +71,7 @@ public class CustomRecyclerView extends RecyclerView {
         }
         super.onRestoreInstanceState(state);
     }
+
     /**
      * 配置更改后恢复滚动位置
      * 必须在设置适配器后调用
@@ -81,6 +85,7 @@ public class CustomRecyclerView extends RecyclerView {
 
     /**
      * 设置适配器数据
+     *
      * @param adapter
      */
     @Override
