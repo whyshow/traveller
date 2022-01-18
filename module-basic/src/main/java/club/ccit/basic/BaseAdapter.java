@@ -28,7 +28,7 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
     public static final int TYPE_ERROR_FOOTER = -2;
     public static final int TYPE_LOADING_FOOTER = -3;
     public static final int TYPE_NONE_FOOTER = -4;
-    public static int TYPE = 4;
+    public static int TYPE = -4;
     public List list;
     private int itemCount = 0;
     private int remedy = 2;
@@ -51,7 +51,6 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
             }
         }else {
             FooterViewHolder noneViewHolder = (FooterViewHolder) holder;
-            Log.i("LOG111","触发："+TYPE);
             switch (TYPE){
                 case TYPE_ERROR_FOOTER:
                     noneViewHolder.noDataTextView.setText("加载错误");
@@ -71,7 +70,6 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
                     Log.i("LOG111","点击了");
                 }
             });
-
         }
     }
 
@@ -79,10 +77,9 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
      * 添加item数据
      *
      * @param list 已经添加过数据列表
-     * @param page 当前页码
      */
     @SuppressLint("NotifyDataSetChanged")
-    public void onAppointAllData(List list, int page) {
+    public void onAppointAllData(List list) {
         int location = list.size() - this.list.size();
         this.list = list;
         notifyItemRangeChanged(list.size() - location, location);
@@ -93,10 +90,9 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
      * 添加item数据
      *
      * @param list 已经添加过数据列表
-     * @param page 当前页码
      */
     @SuppressLint("NotifyDataSetChanged")
-    public void onAppointData(List list, int page) {
+    public void onAppointData(List list) {
         for (int i = 0; i < list.size(); i++) {
             this.list.add(this.list.size(), list.get(i));
         }
@@ -104,9 +100,23 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
         notifyDataSetChanged();
     }
 
+    /**
+     * 重新加载
+     * @param list
+     */
+    @SuppressLint("NotifyDataSetChanged")
+    public void onReload(List list){
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 设置footer提示信息
+     * @param type
+     */
     public void setFooterView(int type){
         TYPE = type;
-        notifyItemChanged(itemCount);
+        notifyItemChanged(itemCount-1);
     }
 
     /**

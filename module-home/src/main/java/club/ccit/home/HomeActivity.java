@@ -7,12 +7,15 @@ import static club.ccit.common.AppRouter.PATH_HOME_HOME;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.alibaba.android.arouter.facade.annotation.Route;
+
+import java.util.ArrayList;
 
 import club.ccit.basic.BaseActivity;
 import club.ccit.common.LogUtils;
@@ -37,6 +40,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
     private HomeAdapter adapter;
     private int page = 1;
     private boolean isLoading = true;
+    private boolean isReload = false;
     private NewsApi api;
     @SuppressLint("ResourceAsColor")
     @Override
@@ -45,6 +49,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
         binding.homeSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.homeRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         binding.homeSwipeRefresh.setRefreshing(true);
+        adapter = new HomeAdapter(new ArrayList());
+        binding.homeRecyclerView.setAdapter(adapter);
         api = new NewsApiProvider().getNewsList();
         initData(page);
         LogUtils.i("接收到："+getIntent().getStringExtra("data"));
@@ -67,19 +73,21 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
                     isLoading = false;
                     adapter.setFooterView(TYPE_NONE_FOOTER);
                 }
-                if (adapter == null){
-                    adapter = new HomeAdapter(newsListBean.getResult());
-                    binding.homeRecyclerView.setAdapter(adapter);
-                }else {
-                    adapter.onAppointData(newsListBean.getResult(),p);
-                }
+                    if (isReload){
+                        isReload = false;
+                        adapter.onReload(newsListBean.getResult());
+                    }else {
+                        adapter.onAppointData(newsListBean.getResult());
+                    }
+
                 binding.homeSwipeRefresh.setRefreshing(false);
             }
 
             @Override
-            protected void error(Throwable e) {
+            protected void error(int code, String message) {
                 page = page - 1;
                 binding.homeSwipeRefresh.setRefreshing(false);
+                Log.i("LOG111",message);
                 adapter.setFooterView(TYPE_ERROR_FOOTER);
             }
         });
@@ -92,7 +100,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
             @Override
             public void onRefresh() {
                 page = 1;
-                adapter = null;
+                isReload = true;
                 isLoading = true;
                 initData(page);
             }

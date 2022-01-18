@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="footerError">加载失败，点击重新加载</string>
+    <string name="footerLoading">正在加载中</string>
+    <string name="footerNone">没有更多了</string>
+
+</resources>

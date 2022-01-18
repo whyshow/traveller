@@ -30,7 +30,6 @@ public class HomeAdapter extends BaseAdapter<ItemHomeBinding> {
         this.list = list;
     }
 
-
     @Override
     protected void onBindingViewData(int position) {
         NewsListBean.Result bean = (NewsListBean.Result) list.get(position);
@@ -49,8 +48,8 @@ public class HomeAdapter extends BaseAdapter<ItemHomeBinding> {
     }
 
     @Override
-    public void onAppointData(List list, int page) {
-        super.onAppointData(list, page);
+    public void onAppointData(List list) {
+        super.onAppointData(list);
     }
 
     @Override

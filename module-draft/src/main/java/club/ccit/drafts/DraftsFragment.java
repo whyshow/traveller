@@ -1,8 +1,6 @@
 package club.ccit.drafts;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,6 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import club.ccit.basic.BaseAdapter;
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.RecyclerViewOnScrollListener;
 import club.ccit.drafts.databinding.FragmentDraftsBinding;
@@ -60,11 +59,11 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
             // 获取网络数据并解析完成
             if (adapter == null) {
                 // 使用加数据和下拉加载数据则重新实例化适配器
-                adapter = new DraftsAdapter(results,page);
+                adapter = new DraftsAdapter(results);
                 binding.draftRecyclerView.setAdapter(adapter);
             } else {
                 // 加载请求的分页数据
-                adapter.setAppointAllData(results,page);
+                adapter.onAppointAllData(results);
             }
         });
     }
@@ -93,7 +92,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
                         if (adapter != null){
                             page = page + 1;
                             initData(page);
-                            adapter.setLoadingFooter();
+                            adapter.setFooterView(BaseAdapter.TYPE_LOADING_FOOTER);
                         }
                     }
                 }
@@ -112,7 +111,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
                 if (newsListBean.getResult().size() < 6) {
                     isLoading = false;
                     if (adapter != null){
-                        adapter.setLoadingALLFooter();
+                        adapter.setFooterView(BaseAdapter.TYPE_NONE_FOOTER);
                     }
                 }
                 // 设置ViewModel数据
@@ -135,12 +134,12 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
             }
 
             @Override
-            protected void error(Throwable e) {
+            protected void error(int code, String message) {
                 binding.draftSwipeRefresh.setRefreshing(false);
                 // 请求出现错误
                 page = page - 1;
                 if (adapter != null){
-                    adapter.setErrorFooter();
+                    adapter.setFooterView(BaseAdapter.TYPE_ERROR_FOOTER);
                 }
             }
         });

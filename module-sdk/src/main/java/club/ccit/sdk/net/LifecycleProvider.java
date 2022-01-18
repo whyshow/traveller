@@ -3,7 +3,6 @@ package club.ccit.sdk.net;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
-
 import com.trello.lifecycle4.android.lifecycle.AndroidLifecycle;
 
 import io.reactivex.rxjava3.core.Observable;
