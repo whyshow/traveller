@@ -195,7 +195,8 @@ public class SwipeRecyclerView extends RecyclerView {
      */
     public void setItemViewSwipeEnabled(boolean canSwipe) {
         initializeItemTouchHelper();
-        allowSwipeDelete = canSwipe; // swipe and menu conflict.
+        // swipe and menu conflict.
+        allowSwipeDelete = canSwipe;
         this.mItemTouchHelper.setItemViewSwipeEnabled(canSwipe);
     }
 
@@ -618,10 +619,10 @@ public class SwipeRecyclerView extends RecyclerView {
             int y = (int)e.getY();
 
             int touchPosition = getChildAdapterPosition(findChildViewUnder(x, y));
-            ViewHolder touchVH = findViewHolderForAdapterPosition(touchPosition);
+            ViewHolder touch = findViewHolderForAdapterPosition(touchPosition);
             SwipeMenuLayout touchView = null;
-            if (touchVH != null) {
-                View itemView = getSwipeMenuView(touchVH.itemView);
+            if (touch != null) {
+                View itemView = getSwipeMenuView(touch.itemView);
                 if (itemView instanceof SwipeMenuLayout) {
                     touchView = (SwipeMenuLayout)itemView;
                 }
@@ -681,6 +682,7 @@ public class SwipeRecyclerView extends RecyclerView {
                     isIntercepted = handleUnDown(x, y, isIntercepted);
                     break;
                 }
+                default:
             }
         }
         return isIntercepted;
@@ -716,6 +718,7 @@ public class SwipeRecyclerView extends RecyclerView {
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;
+                default:
         }
         return super.onTouchEvent(e);
     }
@@ -728,7 +731,7 @@ public class SwipeRecyclerView extends RecyclerView {
         unvisited.add(itemView);
         while (!unvisited.isEmpty()) {
             View child = unvisited.remove(0);
-            if (!(child instanceof ViewGroup)) { // view
+            if (!(child instanceof ViewGroup)) {
                 continue;
             }
             if (child instanceof SwipeMenuLayout) {
@@ -773,9 +776,10 @@ public class SwipeRecyclerView extends RecyclerView {
 
             int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
 
-            if (itemCount == lastVisiblePosition + 1 &&
-                    (mScrollState == SCROLL_STATE_DRAGGING || mScrollState == SCROLL_STATE_SETTLING)) {
-                dispatchLoadMore();
+            if (itemCount == lastVisiblePosition + 1) {
+                if (mScrollState == SCROLL_STATE_DRAGGING || mScrollState == SCROLL_STATE_SETTLING){
+                    dispatchLoadMore();
+                }
             }
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager)layoutManager;
@@ -788,9 +792,10 @@ public class SwipeRecyclerView extends RecyclerView {
             int[] lastVisiblePositionArray = staggeredGridLayoutManager.findLastCompletelyVisibleItemPositions(null);
             int lastVisiblePosition = lastVisiblePositionArray[lastVisiblePositionArray.length - 1];
 
-            if (itemCount == lastVisiblePosition + 1 &&
-                    (mScrollState == SCROLL_STATE_DRAGGING || mScrollState == SCROLL_STATE_SETTLING)) {
-                dispatchLoadMore();
+            if (itemCount == lastVisiblePosition + 1) {
+                if (mScrollState == SCROLL_STATE_DRAGGING || mScrollState == SCROLL_STATE_SETTLING){
+                    dispatchLoadMore();
+                }
             }
         }
     }
@@ -907,11 +912,14 @@ public class SwipeRecyclerView extends RecyclerView {
 
         /**
          * 非自动加载模式，您可以单击要加载的项目。
+         * @param loadMoreListener
          */
         void onWaitToLoadMore(LoadMoreListener loadMoreListener);
 
         /**
          * 加载错误.
+         * @param errorCode
+         * @param errorMessage
          */
         void onLoadError(int errorCode, String errorMessage);
     }

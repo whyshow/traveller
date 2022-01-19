@@ -49,10 +49,7 @@ public class CustomButton extends AppCompatButton {
         //图片居中偏左显示
         int x = (int) this.getTextSize();
         int y = (this.getMeasuredHeight()-bitmap.getHeight())/2;
-//        int x = this.getMeasuredWidth()/2;
-//        int y = this.getMeasuredHeight()/2;
         canvas.drawBitmap(bitmap, x, y, null);
-//        canvas.translate(0, (this.getMeasuredHeight() / 2) - (int) this.getTextSize()/2);
         super.onDraw(canvas);
 
     }

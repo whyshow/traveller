@@ -119,7 +119,7 @@ public abstract class BaseRecyclerViewAdapter<T extends ViewBinding> extends Rec
      * 设置加载全部的Footer
      */
     @SuppressLint("NotifyDataSetChanged")
-    public void setLoadingALLFooter() {
+    public void setLoadingAllFooter() {
         if (setTextViewFooter() != null){
             AdapterType.MESSAGE = AdapterType.COMPLETE;
             notifyDataSetChanged();

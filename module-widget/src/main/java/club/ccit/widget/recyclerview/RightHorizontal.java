@@ -11,7 +11,7 @@ import android.widget.OverScroller;
  * Description:
  * Version:
  */
-public class RightHorizontal extends Horizontal {
+public class RightHorizontal extends BaseHorizontal {
 
     public RightHorizontal(View menuView) {
         super(SwipeRecyclerView.RIGHT_DIRECTION, menuView);
@@ -39,7 +39,7 @@ public class RightHorizontal extends Horizontal {
     }
 
     @Override
-    public Checker checkXY(int x, int y) {
+    public Checker checkAxle(int x, int y) {
         mChecker.x = x;
         mChecker.y = y;
         mChecker.shouldResetSwipe = false;

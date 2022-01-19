@@ -18,7 +18,7 @@ import club.ccit.sdk.demo.NewsApiProvider;
 import club.ccit.sdk.demo.NewsApi;
 import club.ccit.sdk.demo.NewsListBean;
 import club.ccit.sdk.net.AndroidObservable;
-import club.ccit.sdk.net.DefaultApiObserver;
+import club.ccit.sdk.net.AbstractApiObserver;
 
 /**
  * @author: 瞌睡的牙签
@@ -30,6 +30,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     private DraftsAdapter adapter;
     private DraftsViewModel draftsViewModel;
     private int page = 1;
+    private int pageSize = 6;
     private boolean isLoading = true;
     private NewsApi api;
     private List<NewsListBean.Result> list;
@@ -53,7 +54,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
         }
         // 获取到数据并加载显示
         draftsViewModel.getData().observe(getViewLifecycleOwner(), results -> {
-            if (results.size() / page != 6){
+            if (results.size() / page != pageSize){
                 isLoading = false;
             }
             // 获取网络数据并解析完成
@@ -104,11 +105,11 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
      * 请求网络数据
      */
     private void initData(int p) {
-        AndroidObservable.create(api.getNewsList(p)).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
+        AndroidObservable.create(api.getNewsList(p)).with(this).subscribe(new AbstractApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {
                 // 如果加载的数据小于6条，则不再上划加载更多。
-                if (newsListBean.getResult().size() < 6) {
+                if (newsListBean.getResult().size() < pageSize) {
                     isLoading = false;
                     if (adapter != null){
                         adapter.setFooterView(BaseAdapter.TYPE_NONE_FOOTER);

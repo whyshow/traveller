@@ -125,7 +125,7 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
                     alpha = 1 - Math.abs(dX) / viewHolder.itemView.getWidth();
                 }
             }
-            viewHolder.itemView.setAlpha(alpha);//1~0
+            viewHolder.itemView.setAlpha(alpha);
         }
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
     }
@@ -143,7 +143,9 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         // 回调刷新数据及界面。
-        if (onItemMoveListener != null) onItemMoveListener.onItemDismiss(viewHolder);
+        if (onItemMoveListener != null){
+            onItemMoveListener.onItemDismiss(viewHolder);
+        }
     }
 
     @Override

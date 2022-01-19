@@ -12,6 +12,7 @@ import android.view.View;
  */
 public interface OnItemClickListener {
     /**
+     * onItemClick
      * @param view target view.
      * @param adapterPosition position of item.
      */

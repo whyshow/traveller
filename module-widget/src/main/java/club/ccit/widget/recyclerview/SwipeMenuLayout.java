@@ -43,7 +43,7 @@ public class SwipeMenuLayout extends FrameLayout implements Controller {
     private View mContentView;
     private LeftHorizontal mSwipeLeftHorizontal;
     private RightHorizontal mSwipeRightHorizontal;
-    private Horizontal mSwipeCurrentHorizontal;
+    private BaseHorizontal mSwipeCurrentHorizontal;
     private boolean shouldResetSwipe;
     private boolean mDragging;
     private boolean swipeEnable = true;
@@ -182,6 +182,7 @@ public class SwipeMenuLayout extends FrameLayout implements Controller {
                 }
                 return false;
             }
+            default:
         }
         return isIntercepted;
     }
@@ -196,8 +197,8 @@ public class SwipeMenuLayout extends FrameLayout implements Controller {
             mVelocityTracker = VelocityTracker.obtain();
         }
         mVelocityTracker.addMovement(ev);
-        int dx;
-        int dy;
+        int dx = 0;
+        int dy = 0;
         int action = ev.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN: {
@@ -235,42 +236,7 @@ public class SwipeMenuLayout extends FrameLayout implements Controller {
                 break;
             }
             case MotionEvent.ACTION_UP: {
-                dx = (int) (mDownX - ev.getX());
-                dy = (int) (mDownY - ev.getY());
-                mDragging = false;
-                mVelocityTracker.computeCurrentVelocity(1000, mScaledMaximumFlingVelocity);
-                int velocityX = (int) mVelocityTracker.getXVelocity();
-                int velocity = Math.abs(velocityX);
-                if (velocity > mScaledMinimumFlingVelocity) {
-                    if (mSwipeCurrentHorizontal != null) {
-                        int duration = getSwipeDuration(ev, velocity);
-                        if (mSwipeCurrentHorizontal instanceof RightHorizontal) {
-                            if (velocityX < 0) {
-                                smoothOpenMenu(duration);
-                            } else {
-                                smoothCloseMenu(duration);
-                            }
-                        } else {
-                            if (velocityX > 0) {
-                                smoothOpenMenu(duration);
-                            } else {
-                                smoothCloseMenu(duration);
-                            }
-                        }
-                        ViewCompat.postInvalidateOnAnimation(this);
-                    }
-                } else {
-                    judgeOpenClose(dx, dy);
-                }
-                mVelocityTracker.clear();
-                mVelocityTracker.recycle();
-                mVelocityTracker = null;
-                if (Math.abs(mDownX - ev.getX()) > mScaledTouchSlop ||
-                        Math.abs(mDownY - ev.getY()) > mScaledTouchSlop || isLeftMenuOpen() || isRightMenuOpen()) {
-                    ev.setAction(MotionEvent.ACTION_CANCEL);
-                    super.onTouchEvent(ev);
-                    return true;
-                }
+               actionUp(dx,dy,ev);
                 break;
             }
             case MotionEvent.ACTION_CANCEL: {
@@ -284,8 +250,49 @@ public class SwipeMenuLayout extends FrameLayout implements Controller {
                 }
                 break;
             }
+            default:
         }
         return super.onTouchEvent(ev);
+    }
+
+    private boolean actionUp(int dx, int dy, MotionEvent ev){
+        dx = (int) (mDownX - ev.getX());
+        dy = (int) (mDownY - ev.getY());
+        mDragging = false;
+        mVelocityTracker.computeCurrentVelocity(1000, mScaledMaximumFlingVelocity);
+        int velocityX = (int) mVelocityTracker.getXVelocity();
+        int velocity = Math.abs(velocityX);
+        if (velocity > mScaledMinimumFlingVelocity) {
+            if (mSwipeCurrentHorizontal != null) {
+                int duration = getSwipeDuration(ev, velocity);
+                if (mSwipeCurrentHorizontal instanceof RightHorizontal) {
+                    if (velocityX < 0) {
+                        smoothOpenMenu(duration);
+                    } else {
+                        smoothCloseMenu(duration);
+                    }
+                } else {
+                    if (velocityX > 0) {
+                        smoothOpenMenu(duration);
+                    } else {
+                        smoothCloseMenu(duration);
+                    }
+                }
+                ViewCompat.postInvalidateOnAnimation(this);
+            }
+        } else {
+            judgeOpenClose(dx, dy);
+        }
+        mVelocityTracker.clear();
+        mVelocityTracker.recycle();
+        mVelocityTracker = null;
+        if (Math.abs(mDownX - ev.getX()) > mScaledTouchSlop ||
+                Math.abs(mDownY - ev.getY()) > mScaledTouchSlop || isLeftMenuOpen() || isRightMenuOpen()) {
+            ev.setAction(MotionEvent.ACTION_CANCEL);
+            super.onTouchEvent(ev);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -314,7 +321,8 @@ public class SwipeMenuLayout extends FrameLayout implements Controller {
     }
 
     float distanceInfluenceForSnapDuration(float f) {
-        f -= 0.5f; // center the values about 0.
+        // center the values about 0.
+        f -= 0.5f;
         f *= 0.3f * Math.PI / 2.0f;
         return (float) Math.sin(f);
     }
@@ -322,21 +330,21 @@ public class SwipeMenuLayout extends FrameLayout implements Controller {
     private void judgeOpenClose(int dx, int dy) {
         if (mSwipeCurrentHorizontal != null) {
             if (Math.abs(getScrollX()) >=
-                    (mSwipeCurrentHorizontal.getMenuView().getWidth() * mOpenPercent)) { // auto open
-                if (Math.abs(dx) > mScaledTouchSlop || Math.abs(dy) > mScaledTouchSlop) { // swipe up
+                    (mSwipeCurrentHorizontal.getMenuView().getWidth() * mOpenPercent)) {
+                if (Math.abs(dx) > mScaledTouchSlop || Math.abs(dy) > mScaledTouchSlop) {
                     if (isMenuOpenNotEqual()) {
                         smoothCloseMenu();
                     } else {
                         smoothOpenMenu();
                     }
-                } else { // normal up
+                } else {
                     if (isMenuOpen()) {
                         smoothCloseMenu();
                     } else {
                         smoothOpenMenu();
                     }
                 }
-            } else { // auto closeMenu
+            } else {
                 smoothCloseMenu();
             }
         }
@@ -347,7 +355,7 @@ public class SwipeMenuLayout extends FrameLayout implements Controller {
         if (mSwipeCurrentHorizontal == null) {
             super.scrollTo(x, y);
         } else {
-            Horizontal.Checker checker = mSwipeCurrentHorizontal.checkXY(x, y);
+            BaseHorizontal.Checker checker = mSwipeCurrentHorizontal.checkAxle(x, y);
             shouldResetSwipe = checker.shouldResetSwipe;
             if (checker.x != getScrollX()) {
                 super.scrollTo(checker.x, checker.y);

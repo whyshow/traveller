@@ -315,18 +315,24 @@ public class AdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
-        if (!isHeaderOrFooter(holder)) mAdapter.onViewRecycled(holder);
+        if (!isHeaderOrFooter(holder)){
+            mAdapter.onViewRecycled(holder);
+        }
     }
 
     @Override
     public boolean onFailedToRecycleView(@NonNull RecyclerView.ViewHolder holder) {
-        if (!isHeaderOrFooter(holder)) return mAdapter.onFailedToRecycleView(holder);
+        if (!isHeaderOrFooter(holder)){
+            return mAdapter.onFailedToRecycleView(holder);
+        }
         return false;
     }
 
     @Override
     public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
-        if (!isHeaderOrFooter(holder)) mAdapter.onViewDetachedFromWindow(holder);
+        if (!isHeaderOrFooter(holder)){
+            mAdapter.onViewDetachedFromWindow(holder);
+        }
     }
 
     @Override

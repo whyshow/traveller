@@ -2,17 +2,13 @@ package club.ccit.user;
 
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import club.ccit.basic.BaseAdapter;
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.LogUtils;
 import club.ccit.sdk.demo.NewsApi;
 import club.ccit.sdk.demo.NewsApiProvider;
 import club.ccit.sdk.demo.NewsListBean;
 import club.ccit.sdk.net.AndroidObservable;
-import club.ccit.sdk.net.DefaultApiObserver;
+import club.ccit.sdk.net.AbstractApiObserver;
 import club.ccit.user.databinding.FragmentMyBinding;
 import club.ccit.widget.recyclerview.OnItemMenuClickListener;
 import club.ccit.widget.recyclerview.SwipeMenu;
@@ -39,7 +35,7 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
     }
 
     private void initData(int p) {
-        AndroidObservable.create(api.getNewsList(p)).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
+        AndroidObservable.create(api.getNewsList(p)).with(this).subscribe(new AbstractApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {
                 if (adapter == null) {

@@ -12,6 +12,7 @@ import android.view.View;
  */
 public interface OnItemLongClickListener {
     /**
+     * onItemLongClick
      * @param view target view.
      * @param adapterPosition position of item.
      */

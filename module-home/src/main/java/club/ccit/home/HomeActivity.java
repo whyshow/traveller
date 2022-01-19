@@ -25,7 +25,7 @@ import club.ccit.sdk.demo.NewsApi;
 import club.ccit.sdk.demo.NewsApiProvider;
 import club.ccit.sdk.demo.NewsListBean;
 import club.ccit.sdk.net.AndroidObservable;
-import club.ccit.sdk.net.DefaultApiObserver;
+import club.ccit.sdk.net.AbstractApiObserver;
 
 /**
  * FileName: HomeActivity
@@ -39,6 +39,7 @@ import club.ccit.sdk.net.DefaultApiObserver;
 public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
     private HomeAdapter adapter;
     private int page = 1;
+    private int pageSize = 6;
     private boolean isLoading = true;
     private boolean isReload = false;
     private NewsApi api;
@@ -66,10 +67,10 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
      * 请求网络数据
      */
     private void initData(int p) {
-        AndroidObservable.create(api.getNewsList(p)).with(this).subscribe(new DefaultApiObserver<NewsListBean>() {
+        AndroidObservable.create(api.getNewsList(p)).with(this).subscribe(new AbstractApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {
-                if (newsListBean.getResult().size() < 6){
+                if (newsListBean.getResult().size() < pageSize){
                     isLoading = false;
                     adapter.setFooterView(TYPE_NONE_FOOTER);
                 }

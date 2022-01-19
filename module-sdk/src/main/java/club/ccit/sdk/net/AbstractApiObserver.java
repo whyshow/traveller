@@ -17,7 +17,7 @@ import retrofit2.HttpException;
  * Description: 接口回调 处理401 等代码
  * Version:
  */
-public abstract class DefaultApiObserver<T> extends DisposableObserver<T> {
+public abstract class AbstractApiObserver<T> extends DisposableObserver<T> {
 
     @Override
     public void onNext(@NonNull T t) {

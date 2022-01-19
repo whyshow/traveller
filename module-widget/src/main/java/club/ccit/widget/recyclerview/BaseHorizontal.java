@@ -12,12 +12,12 @@ import android.widget.OverScroller;
  * Description:
  * Version:
  */
- public abstract class Horizontal {
+ public abstract class BaseHorizontal {
     private int direction;
     private View menuView;
     protected Checker mChecker;
 
-    public Horizontal(int direction, View menuView) {
+    public BaseHorizontal(int direction, View menuView) {
         this.direction = direction;
         this.menuView = menuView;
         mChecker = new Checker();
@@ -35,16 +35,50 @@ import android.widget.OverScroller;
         return scrollX == 0 && i != 0;
     }
 
+    /**
+     * isMenuOpen
+     * @param scrollX
+     * @return
+     */
     public abstract boolean isMenuOpen(int scrollX);
 
+    /**
+     * isMenuOpenNotEqual
+     * @param scrollX
+     * @return
+     */
     public abstract boolean isMenuOpenNotEqual(int scrollX);
 
+    /**
+     * autoOpenMenu
+     * @param scroller
+     * @param scrollX
+     * @param duration
+     */
     public abstract void autoOpenMenu(OverScroller scroller, int scrollX, int duration);
 
+    /**
+     * autoCloseMenu
+     * @param scroller
+     * @param scrollX
+     * @param duration
+     */
     public abstract void autoCloseMenu(OverScroller scroller, int scrollX, int duration);
 
-    public abstract Checker checkXY(int x, int y);
+    /**
+     * checkXY
+     * @param x
+     * @param y
+     * @return
+     */
+    public abstract Checker checkAxle(int x, int y);
 
+    /**
+     * isClickOnContentView
+     * @param contentViewWidth
+     * @param x
+     * @return
+     */
     public abstract boolean isClickOnContentView(int contentViewWidth, float x);
 
     public int getDirection() {
