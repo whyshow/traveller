@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
 }
+apply plugin: 'kotlin-android'
 
 android {
     compileSdk rootProject.ext.android.compileSdkVersion
@@ -48,5 +49,7 @@ dependencies {
     annotationProcessor rootProject.ext.annotationProcessors.arouter
     // rxjava
     implementation rootProject.ext.dependencies.rxjava
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 }

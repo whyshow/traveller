@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
+import club.ccit.common.LogUtils;
 import club.ccit.home.HomeActivity;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.widget.dialog.BottomDialog;
@@ -24,6 +25,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtils.i("onCreate");
     }
 
     @Override
@@ -55,5 +57,17 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     protected FragmentHomeBinding getViewBinding() {
         return FragmentHomeBinding.inflate(getLayoutInflater());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtils.i("onDestroy");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LogUtils.i("onPause");
     }
 }

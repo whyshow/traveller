@@ -75,7 +75,6 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         binding = null;
     }
 

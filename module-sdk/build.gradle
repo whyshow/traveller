@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
 }
+apply plugin: 'kotlin-android'
 
 android {
     compileSdk rootProject.ext.android.compileSdkVersion
@@ -51,4 +52,6 @@ dependencies {
     // 与rxjava:3.1.3、retrofit:2.9.0版本配套
     implementation rootProject.ext.dependencies.lifecycle
     implementation rootProject.ext.dependencies.logging
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
