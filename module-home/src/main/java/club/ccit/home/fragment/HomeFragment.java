@@ -1,14 +1,14 @@
 package club.ccit.home.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
+
 import androidx.annotation.Nullable;
 import com.alibaba.android.arouter.launcher.ARouter;
+
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.home.HomeActivity;
 import club.ccit.home.databinding.FragmentHomeBinding;
-import club.ccit.sdk.net.AndroidObservable;
 import club.ccit.widget.dialog.BottomDialog;
 import club.ccit.widget.dialog.MessageDialog;
 import club.ccit.widget.dialog.WaitDialog;
