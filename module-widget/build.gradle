@@ -38,3 +38,28 @@ dependencies {
     implementation rootProject.ext.dependencies.ktx
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
+afterEvaluate {
+    publishing {
+        publications {
+            // 创建一个名为“release”的Maven发布。
+            release(MavenPublication) {
+                // 为发布构建变量应用组件。
+                from components.release
+
+                // 然后可以自定义发布的属性，如下所示。
+                groupId = 'club.ccit.widget'
+                artifactId = 'widget'
+                version = '0.0.1'
+            }
+            // Creates a Maven publication called “debug”.
+//            debug(MavenPublication) {
+//                // Applies the component for the debug build variant.
+//                from components.debug
+//
+//                groupId = 'com.example.MyLibrary'
+//                artifactId = 'final-debug'
+//                version = '1.0'
+//            }
+        }
+    }
+}
