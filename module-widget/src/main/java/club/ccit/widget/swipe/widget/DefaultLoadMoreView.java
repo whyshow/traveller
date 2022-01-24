@@ -1,4 +1,4 @@
-package club.ccit.widget.recyclerview.widget;
+package club.ccit.widget.swipe.widget;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import club.ccit.widget.R;
-import club.ccit.widget.recyclerview.SwipeRecyclerView;
+import club.ccit.widget.swipe.SwipeRecyclerView;
 
 /**
  * FileName: DefaultLoadMoreView

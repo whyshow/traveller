@@ -1,4 +1,4 @@
-package club.ccit.widget.recyclerview;
+package club.ccit.widget.swipe;
 
 import android.content.Context;
 import android.content.res.TypedArray;

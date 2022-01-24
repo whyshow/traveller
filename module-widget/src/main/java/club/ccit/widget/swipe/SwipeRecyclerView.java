@@ -1,4 +1,4 @@
-package club.ccit.widget.recyclerview;
+package club.ccit.widget.swipe;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,11 +20,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
-import club.ccit.widget.recyclerview.touch.DefaultItemTouchHelper;
-import club.ccit.widget.recyclerview.touch.OnItemMoveListener;
-import club.ccit.widget.recyclerview.touch.OnItemMovementListener;
-import club.ccit.widget.recyclerview.touch.OnItemStateChangedListener;
-import club.ccit.widget.recyclerview.widget.DefaultLoadMoreView;
+import club.ccit.widget.swipe.touch.DefaultItemTouchHelper;
+import club.ccit.widget.swipe.touch.OnItemMoveListener;
+import club.ccit.widget.swipe.touch.OnItemMovementListener;
+import club.ccit.widget.swipe.touch.OnItemStateChangedListener;
+import club.ccit.widget.swipe.widget.DefaultLoadMoreView;
 
 /**
  * FileName: SwipeRecyclerView

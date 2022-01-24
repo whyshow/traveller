@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:paddingBottom="60dp"
     android:gravity="center">
-    <club.ccit.widget.recyclerview.SwipeRecyclerView
+    <club.ccit.widget.swipe.SwipeRecyclerView
         android:id="@+id/swipeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

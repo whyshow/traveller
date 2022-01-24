@@ -1,7 +1,14 @@
 package club.ccit;
 
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import club.ccit.basic.BaseActivity;
 import club.ccit.databinding.ActivityLoginBinding;
+import club.ccit.home.fragment.WebBannerAdapter;
+import club.ccit.widget.banner.BannerLayout;
 
 /**
  * FileName: LoginActivity
@@ -12,6 +19,13 @@ import club.ccit.databinding.ActivityLoginBinding;
  * Version:
  */
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
     @Override
     protected ActivityLoginBinding getViewBinding() {
         return ActivityLoginBinding.inflate(getLayoutInflater());

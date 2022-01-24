@@ -41,6 +41,7 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
+    implementation rootProject.ext.dependencies.glide
     implementation project(path: ':module-basic')
     implementation project(path: ':module-common')
     implementation project(path: ':module-widget')
@@ -49,7 +50,7 @@ dependencies {
     annotationProcessor rootProject.ext.annotationProcessors.arouter
     // rxjava
     implementation rootProject.ext.dependencies.rxjava
-    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.core:core-ktx:1.7.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 }

@@ -1,4 +1,4 @@
-package club.ccit.widget.recyclerview;
+package club.ccit.widget.swipe;
 
 /**
  * FileName: OnItemMenuClickListener

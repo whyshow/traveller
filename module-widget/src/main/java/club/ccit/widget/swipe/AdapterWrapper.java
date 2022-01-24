@@ -1,7 +1,7 @@
-package club.ccit.widget.recyclerview;
+package club.ccit.widget.swipe;
 
-import static club.ccit.widget.recyclerview.SwipeRecyclerView.LEFT_DIRECTION;
-import static club.ccit.widget.recyclerview.SwipeRecyclerView.RIGHT_DIRECTION;
+import static club.ccit.widget.swipe.SwipeRecyclerView.LEFT_DIRECTION;
+import static club.ccit.widget.swipe.SwipeRecyclerView.RIGHT_DIRECTION;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

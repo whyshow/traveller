@@ -1,15 +1,20 @@
 package club.ccit.home.fragment;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import com.alibaba.android.arouter.launcher.ARouter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.common.LogUtils;
 import club.ccit.home.HomeActivity;
 import club.ccit.home.databinding.FragmentHomeBinding;
+import club.ccit.widget.banner.base.RecyclerViewBannerBase;
 import club.ccit.widget.dialog.BottomDialog;
 import club.ccit.widget.dialog.MessageDialog;
 import club.ccit.widget.dialog.WaitDialog;
@@ -26,6 +31,21 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogUtils.i("onCreate");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        List<String> list = new ArrayList<>();
+        list.add("http://img0.imgtn.bdimg.com/it/u=1352823040,1166166164&fm=27&gp=0.jpg");
+        list.add("http://img0.imgtn.bdimg.com/it/u=3184221534,2238244948&fm=27&gp=0.jpg");
+        list.add("http://img4.imgtn.bdimg.com/it/u=1794621527,1964098559&fm=27&gp=0.jpg");
+        binding.recyclerViewBanner.initBannerImageView(list, new RecyclerViewBannerBase.OnBannerItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(requireActivity(), "clicked:" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

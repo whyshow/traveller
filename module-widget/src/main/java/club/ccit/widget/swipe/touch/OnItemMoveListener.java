@@ -1,4 +1,4 @@
-package club.ccit.widget.recyclerview.touch;
+package club.ccit.widget.swipe.touch;
 
 import androidx.recyclerview.widget.RecyclerView;
 

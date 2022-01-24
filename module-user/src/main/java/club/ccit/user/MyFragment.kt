@@ -7,9 +7,9 @@ import club.ccit.sdk.demo.NewsApiProvider
 import club.ccit.sdk.net.AndroidObservable
 import club.ccit.sdk.demo.NewsListBean
 import club.ccit.sdk.net.AbstractApiObserver
-import club.ccit.widget.recyclerview.SwipeMenuCreator
-import club.ccit.widget.recyclerview.SwipeMenuItem
-import club.ccit.widget.recyclerview.OnItemMenuClickListener
+import club.ccit.widget.swipe.SwipeMenuCreator
+import club.ccit.widget.swipe.SwipeMenuItem
+import club.ccit.widget.swipe.OnItemMenuClickListener
 import club.ccit.common.LogUtils
 import club.ccit.user.databinding.FragmentMyBinding
 
