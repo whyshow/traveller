@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -70,6 +69,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Banner
             bannerItem = (ImageView) itemView;
             RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
+            params.setMargins(2,0,2,0);
             bannerItem.setLayoutParams(params);
             bannerItem.setScaleType(ImageView.ScaleType.FIT_XY);
 

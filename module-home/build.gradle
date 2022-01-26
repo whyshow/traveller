@@ -42,6 +42,8 @@ dependencies {
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
     implementation rootProject.ext.dependencies.glide
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     implementation project(path: ':module-basic')
     implementation project(path: ':module-common')
     implementation project(path: ':module-widget')

@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.List;
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.common.LogUtils;
+import club.ccit.common.TransformationUtils;
 import club.ccit.home.HomeActivity;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.widget.banner.base.RecyclerViewBannerBase;
@@ -36,6 +40,22 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onStart() {
         super.onStart();
+        String url = "https://pic.tiantu.ccit.club/6845451.jpg?imageMogr2/auto-orient/thumbnail/300x/format/jpg/blur/1x0/quality/60";
+        String url2 = "https://pic.tiantu.ccit.club/6773800.jpg?imageMogr2/auto-orient/thumbnail/300x/format/jpg/blur/1x0/quality/60";
+        List<String> picture = new ArrayList<>();
+        picture.add(url);
+        picture.add(url2);
+        picture.add(url);
+        picture.add(url2);
+        picture.add(url);
+        picture.add(url2);
+        picture.add(url);
+        picture.add(url2);
+        picture.add(url);
+        picture.add(url2);
+        binding.homeRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        PictureAdapter adapter = new PictureAdapter(requireContext(), picture);
+        binding.homeRecyclerView.setAdapter(adapter);
         List<String> list = new ArrayList<>();
         list.add("http://img0.imgtn.bdimg.com/it/u=1352823040,1166166164&fm=27&gp=0.jpg");
         list.add("http://img0.imgtn.bdimg.com/it/u=3184221534,2238244948&fm=27&gp=0.jpg");
@@ -58,11 +78,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
         binding.startHomeActivity.setOnClickListener(view ->
                 // ARouter.getInstance().build(AppRouter.PATH_HOME_HOME).navigation()
-                HomeActivity.launch(requireActivity(),"HomeFragment 启动的")
+                HomeActivity.launch(requireActivity(), "HomeFragment 启动的")
         );
 
         binding.startBottomDialog.setOnClickListener(view -> {
-            String[] phone = {"你","好","呀"};
+            String[] phone = {"你", "好", "呀"};
             BottomDialog.show(getActivity(), phone, (text, index) -> myToast(text));
         });
 
@@ -71,7 +91,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             return false;
         }));
 
-        binding.startWaitDialog.setOnClickListener(view -> WaitDialog.show(getActivity(),"请稍后..."));
+        binding.startWaitDialog.setOnClickListener(view -> WaitDialog.show(getActivity(), "请稍后..."));
     }
 
     @Override

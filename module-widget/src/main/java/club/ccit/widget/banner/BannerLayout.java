@@ -2,6 +2,7 @@ package club.ccit.widget.banner;
 
 import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -37,15 +38,22 @@ import club.ccit.widget.banner.layoutmanager.CenterSnapHelper;
  * Version:
  */
 public class BannerLayout extends FrameLayout {
-
-    private int autoPlayDuration;//刷新间隔时间
-
-    private boolean showIndicator;//是否显示指示器
+    /**
+     * 刷新间隔时间
+     */
+    private int autoPlayDuration;
+    /**
+     * 是否显示指示器
+     */
+    private boolean showIndicator;
     private RecyclerView indicatorContainer;
     private Drawable mSelectedDrawable;
     private Drawable mUnselectedDrawable;
     private IndicatorAdapter indicatorAdapter;
-    private int indicatorMargin;//指示器间距
+    /**
+     * 指示器间距
+     */
+    private int indicatorMargin;
     private RecyclerView mRecyclerView;
 
     private BannerLayoutManager mLayoutManager;
@@ -153,7 +161,7 @@ public class BannerLayout extends FrameLayout {
 
         //指示器部分
         indicatorContainer = new RecyclerView(context);
-        LinearLayoutManager indicatorLayoutManager = new LinearLayoutManager(context, orientation, false);
+        @SuppressLint("WrongConstant") LinearLayoutManager indicatorLayoutManager = new LinearLayoutManager(context, orientation, false);
         indicatorContainer.setLayoutManager(indicatorLayoutManager);
         indicatorAdapter = new IndicatorAdapter();
         indicatorContainer.setAdapter(indicatorAdapter);
