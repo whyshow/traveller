@@ -22,30 +22,30 @@ import club.ccit.widget.R;
  * Version:
  */
 public class InputDialog {
-    private static Dialog loadingDialog;
+    private static Dialog dialog;
     @SuppressLint("UseCompatLoadingForDrawables")
     public static void show(Context context,int resource, OnDialogListener onDialogListener) {
         // 首先得到整个View
         View view = LayoutInflater.from(context).inflate(
                 resource, null);
 
-        if (loadingDialog != null){
-            loadingDialog.cancel();
-            loadingDialog.dismiss();
+        if (dialog != null){
+            dialog.cancel();
+            dialog.dismiss();
             Log.i("MessageDialog","关闭等待框,重新加载");
         }
-        loadingDialog = new Dialog(context);
+        dialog = new Dialog(context);
         onDialogListener.onClick(view);
-        loadingDialog.setContentView(view);
-        loadingDialog.setCancelable(false);
+        dialog.setContentView(view);
+        dialog.setCancelable(false);
         // 创建自定义样式的Dialog
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            loadingDialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_white_4, null));
+            dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_white_4, null));
         }else {
-            loadingDialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_white_4));
+            dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_white_4));
         }
         //获取当前Activity所在的窗体
-        Window dialogWindow = loadingDialog.getWindow();
+        Window dialogWindow = dialog.getWindow();
         //设置Dialog从窗体底部弹出
         dialogWindow.setGravity(Gravity.CENTER);
         //获得窗体的属性
@@ -54,17 +54,17 @@ public class InputDialog {
         //将属性设置给窗体
         dialogWindow.setAttributes(lp);
         //显示对话框
-        loadingDialog.show();
+        dialog.show();
 
     }
     /**
      * 关闭
      */
     public static void onDismiss(){
-        if (loadingDialog != null){
-            loadingDialog.cancel();
-            loadingDialog.dismiss();
-            loadingDialog = null;
+        if (dialog != null){
+            dialog.cancel();
+            dialog.dismiss();
+            dialog = null;
             Log.i("MessageDialog","关闭等待框");
         }
     }

@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +13,14 @@ import java.util.List;
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.common.LogUtils;
-import club.ccit.common.TransformationUtils;
 import club.ccit.home.HomeActivity;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.widget.banner.base.RecyclerViewBannerBase;
 import club.ccit.widget.dialog.BottomDialog;
 import club.ccit.widget.dialog.MessageDialog;
 import club.ccit.widget.dialog.WaitDialog;
+import club.ccit.widget.pay.PayDialog;
+import club.ccit.widget.pay.PayPasswordView;
 
 /**
  * @author: 瞌睡的牙签
@@ -40,22 +39,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onStart() {
         super.onStart();
-        String url = "https://pic.tiantu.ccit.club/6845451.jpg?imageMogr2/auto-orient/thumbnail/300x/format/jpg/blur/1x0/quality/60";
-        String url2 = "https://pic.tiantu.ccit.club/6773800.jpg?imageMogr2/auto-orient/thumbnail/300x/format/jpg/blur/1x0/quality/60";
-        List<String> picture = new ArrayList<>();
-        picture.add(url);
-        picture.add(url2);
-        picture.add(url);
-        picture.add(url2);
-        picture.add(url);
-        picture.add(url2);
-        picture.add(url);
-        picture.add(url2);
-        picture.add(url);
-        picture.add(url2);
-        binding.homeRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        PictureAdapter adapter = new PictureAdapter(requireContext(), picture);
-        binding.homeRecyclerView.setAdapter(adapter);
         List<String> list = new ArrayList<>();
         list.add("http://img0.imgtn.bdimg.com/it/u=1352823040,1166166164&fm=27&gp=0.jpg");
         list.add("http://img0.imgtn.bdimg.com/it/u=3184221534,2238244948&fm=27&gp=0.jpg");
@@ -92,6 +75,24 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         }));
 
         binding.startWaitDialog.setOnClickListener(view -> WaitDialog.show(getActivity(), "请稍后..."));
+
+        binding.payActivity.setOnClickListener(view ->
+                PayDialog.show(requireActivity(), new PayDialog.OnDialogListener() {
+                    @Override
+                    public void onPassFinish(String password, PayPasswordView payPasswordView) {
+                        if ("123456".equals(password)){
+                            myToast("密码正确");
+                        }else {
+                            myToast("密码不正确");
+                            payPasswordView.setErrorStyle();
+                        }
+                    }
+
+                    @Override
+                    public void onPayForget() {
+
+                    }
+                }));
     }
 
     @Override

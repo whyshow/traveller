@@ -5,9 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-
 import java.util.List;
-
 import club.ccit.basic.BaseAdapter;
 import club.ccit.common.TransformationUtils;
 import club.ccit.home.databinding.ItemPictureBinding;

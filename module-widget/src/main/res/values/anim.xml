@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PayAnimation" parent="android:Animation">
+        <!--进入动画-->
+        <item name="android:windowEnterAnimation">@anim/pay_dialog_top_in</item>
+        <!--退出动画-->
+        <item name="android:windowExitAnimation">@anim/pay_dialog_top_out</item>
+    </style>
+</resources>
