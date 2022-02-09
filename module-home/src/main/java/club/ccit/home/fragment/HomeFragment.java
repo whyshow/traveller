@@ -82,6 +82,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                     public void onPassFinish(String password, PayPasswordView payPasswordView) {
                         if ("123456".equals(password)){
                             myToast("密码正确");
+                            PayDialog.onDismiss();
                         }else {
                             myToast("密码不正确");
                             payPasswordView.setErrorStyle();

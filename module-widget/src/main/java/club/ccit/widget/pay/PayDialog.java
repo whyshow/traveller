@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import club.ccit.widget.R;
+import club.ccit.widget.action.AnimAction;
 
 /**
  * FileName: PayDialog
@@ -21,7 +22,7 @@ import club.ccit.widget.R;
  * Description: 支付弹窗
  * Version:
  */
-public class PayDialog{
+public class PayDialog implements AnimAction {
     private static Dialog dialog;
     private static OnDialogListener onDialogListener;
 
@@ -64,7 +65,7 @@ public class PayDialog{
         }
         //获取当前Activity所在的窗体
         Window dialogWindow = dialog.getWindow();
-        dialogWindow.setWindowAnimations(R.style.PayAnimation);
+        dialogWindow.setWindowAnimations(ANIM_BOTTOM);
         //设置Dialog从窗体底部弹出
         dialogWindow.setGravity(Gravity.BOTTOM);
         //获得窗体的属性

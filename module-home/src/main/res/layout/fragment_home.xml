@@ -76,7 +76,17 @@
                 android:id="@+id/payActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="支付" />
+                android:text="支付弹窗" />
+            <Button
+                android:id="@+id/dateDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="日期弹窗" />
+            <Button
+                android:id="@+id/timeDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="时间弹窗" />
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

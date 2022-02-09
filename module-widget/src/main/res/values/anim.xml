@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="PayAnimation" parent="android:Animation">
-        <!--进入动画-->
+    <!-- 底部弹窗动画 -->
+    <style name="BottomAnimStyle" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/pay_dialog_top_in</item>
-        <!--退出动画-->
         <item name="android:windowExitAnimation">@anim/pay_dialog_top_out</item>
+    </style>
+    <!-- 缩放动画 -->
+    <style name="ScaleAnimStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/window_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/window_scale_out</item>
+    </style>
+    <!-- 顶部弹出动画 -->
+    <style name="TopAnimStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/window_top_in</item>
+        <item name="android:windowExitAnimation">@anim/window_top_out</item>
     </style>
 </resources>
