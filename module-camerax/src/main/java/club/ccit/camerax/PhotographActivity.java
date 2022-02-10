@@ -29,6 +29,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -90,6 +91,7 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private Camera camera;
     private Preview preview;
+    private ImageView mImageView;
     private ImageCapture imageCapture;
     private File file;
     private int rotation;
@@ -117,7 +119,7 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
         }else {
             Log.e("CV", "OpenCV init failed");
         }
-
+        mImageView = binding.myImageView;
         // 判断是否有权限
         PermissionsUtil.requestPermission(getApplicationContext(), new PermissionListener() {
             @Override
@@ -357,10 +359,10 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
             bitmap = Bitmap.createBitmap(newMat.width(), newMat.height(), Bitmap.Config.ARGB_8888);
         }
         Utils.matToBitmap(newMat, bitmap);
-        binding.myImageView.post(new Runnable() {
+        mImageView.post(new Runnable() {
             @Override
             public void run() {
-                binding.myImageView.setImageBitmap(bitmap);
+                mImageView.setImageBitmap(bitmap);
                 image.close();
             }
         });

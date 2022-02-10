@@ -1,6 +1,7 @@
 package club.ccit.home.fragment;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -15,12 +16,17 @@ import club.ccit.common.AppRouter;
 import club.ccit.common.LogUtils;
 import club.ccit.home.HomeActivity;
 import club.ccit.home.databinding.FragmentHomeBinding;
+import club.ccit.widget.action.OnClickAction;
 import club.ccit.widget.banner.base.RecyclerViewBannerBase;
 import club.ccit.widget.dialog.BottomDialog;
+import club.ccit.widget.dialog.DatePickerDialog;
 import club.ccit.widget.dialog.MessageDialog;
+import club.ccit.widget.dialog.OnBottomClickListener;
 import club.ccit.widget.dialog.WaitDialog;
+import club.ccit.widget.dialog.base.BaseDialog;
 import club.ccit.widget.pay.PayDialog;
 import club.ccit.widget.pay.PayPasswordView;
+import club.ccit.widget.utils.DateFormatUtils;
 
 /**
  * @author: 瞌睡的牙签
@@ -29,7 +35,7 @@ import club.ccit.widget.pay.PayPasswordView;
  * Version:
  */
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
-
+    private DatePickerDialog mDatePickerDialog;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,13 +72,27 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
         binding.startBottomDialog.setOnClickListener(view -> {
             String[] phone = {"你", "好", "呀"};
-            BottomDialog.show(getActivity(), phone, (text, index) -> myToast(text));
+            BottomDialog.Builder(getActivity(), phone, new OnBottomClickListener() {
+                @Override
+                public void onClick(String text, int index) {
+                    myToast(text);
+                }
+            }).show();
         });
 
-        binding.startDialog.setOnClickListener(view -> MessageDialog.show(getActivity(), "提示", "你点击了对话框", (baseDialog, v) -> {
-            MessageDialog.onDismiss();
-            return false;
-        }));
+        binding.startDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MessageDialog.ensureTextView = "OK";
+                MessageDialog.cancelTextView = "NO";
+                MessageDialog.Builder(requireActivity(), "这是一个弹窗", new OnClickAction() {
+                    @Override
+                    public void onClickListener(View view, BaseDialog dialog) {
+                        dialog.onDialogDismiss();
+                    }
+                }).show();
+            }
+        });
 
         binding.startWaitDialog.setOnClickListener(view -> WaitDialog.show(getActivity(), "请稍后..."));
 
@@ -94,8 +114,50 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
                     }
                 }));
-    }
+        binding.dateDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initDatePicker();
+                 mDatePickerDialog.show("2022-02-10");
+            }
+        });
 
+         binding.timeDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MessageDialog.ensureTextView = "OK";
+                MessageDialog.cancelTextView = "NO";
+                MessageDialog.Builder(requireActivity(), "这是一个弹窗",new OnClickAction() {
+                   @Override
+                   public void onClickListener(View view, BaseDialog newMessageDialog) {
+                       newMessageDialog.onDialogDismiss();
+                   }
+               }).show();
+            }
+        });
+
+
+    }
+    private void initDatePicker() {
+        long beginTimestamp = DateFormatUtils.str2Long("2009-05-01", false);
+        long endTimestamp = DateFormatUtils.str2Long("2050-05-01", false);
+
+        // 通过时间戳初始化日期，毫秒级别
+        mDatePickerDialog = new DatePickerDialog(requireActivity(), new DatePickerDialog.Callback() {
+            @Override
+            public void onTimeSelected(long timestamp) {
+                myToast(DateFormatUtils.long2Str(timestamp, false));
+            }
+        }, beginTimestamp, endTimestamp);
+        // 不允许点击屏幕或物理返回键关闭
+        mDatePickerDialog.setCancelable(false);
+        // 不显示时和分
+        mDatePickerDialog.setCanShowPreciseTime(false);
+        // 不允许循环滚动
+        mDatePickerDialog.setScrollLoop(false);
+        // 不允许滚动动画
+        mDatePickerDialog.setCanShowAnim(false);
+    }
     @Override
     protected FragmentHomeBinding getViewBinding() {
         return FragmentHomeBinding.inflate(getLayoutInflater());

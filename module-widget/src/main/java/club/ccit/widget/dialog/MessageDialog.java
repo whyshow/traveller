@@ -1,127 +1,109 @@
 package club.ccit.widget.dialog;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import club.ccit.widget.R;
+import club.ccit.widget.action.OnClickAction;
+import club.ccit.widget.dialog.base.BaseDialog;
 
 /**
- * FileName: MessageDialog
+ * FileName: NewMessageDialog
  *
- * @author: 瞌睡的牙签
- * Date: 2021/11/24 15:36
- * Description: 确认/取消对话框
+ * @author: 张帅威
+ * Date: 2022/2/10 2:10 下午
+ * Description:
  * Version:
  */
-public class MessageDialog {
-    private static Dialog loadingDialog;
-    @SuppressLint("UseCompatLoadingForDrawables")
-    public static void show(Context context, String title,String message,String ok,String cancel,OnDialogButtonClickListener onDialogButtonClickListener) {
-        // 首先得到整个View
-        View view = LayoutInflater.from(context).inflate(
-                R.layout.layout_message_dialog, null);
-        if (loadingDialog != null){
-            loadingDialog.cancel();
-            loadingDialog.dismiss();
-            Log.i("MessageDialog","关闭等待框,重新加载");
-        }
-        Button dialogCancel = view.findViewById(R.id.dialogCancel);
-        Button dialogEnsure = view.findViewById(R.id.dialogEnsure);
-        TextView dialogTitle = view.findViewById(R.id.dialogTitle);
-        TextView dialogContent = view.findViewById(R.id.dialogContent);
-        dialogTitle.setText(title);
-        dialogContent.setText(message);
-        dialogEnsure.setText(ok);
-        dialogCancel.setText(cancel);
-        // 取消
-        dialogCancel.setOnClickListener(v -> {
-            if (loadingDialog != null){
-                onDismiss();
-            }
-        });
-        // 确认
-        dialogEnsure.setOnClickListener(v -> {
-            if (loadingDialog != null){
-                onDismiss();
-                onDialogButtonClickListener.onClick(loadingDialog,view);
-            }
-        });
-        loadingDialog = new Dialog(context);
-        loadingDialog.setOnCancelListener(dialog -> onDismiss());
-        // 创建自定义样式的Dialog
-        loadingDialog.addContentView(view, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));
-        loadingDialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_gray_8, null));
-        loadingDialog.show();
+public class MessageDialog extends BaseDialog implements View.OnClickListener{
+    public static String cancelTextView = "取消";
+    public static String ensureTextView = "确定";
+    private static String messageTextView = "";
+    private static Context context;
+    private static OnClickAction action;
+    public static MessageDialog Builder;
+    public MessageDialog(Context context, OnClickAction a) {
+        super(context);
+        action = a;
+        Builder = this;
     }
 
-    public static void show(Context context, String title,String message,OnDialogButtonClickListener onDialogButtonClickListener) {
-        // 首先得到整个View
-        View view = LayoutInflater.from(context).inflate(
-                R.layout.layout_message_dialog, null);
-        if (loadingDialog != null){
-            loadingDialog.cancel();
-            loadingDialog.dismiss();
-            Log.i("MessageDialog","关闭等待框,重新加载");
-        }
-        Button dialogCancel = view.findViewById(R.id.dialogCancel);
-        Button dialogEnsure = view.findViewById(R.id.dialogEnsure);
-        TextView dialogTitle = view.findViewById(R.id.dialogTitle);
-        TextView dialogContent = view.findViewById(R.id.dialogContent);
-        dialogTitle.setText(title);
-        dialogContent.setText(message);
-        dialogEnsure.setText("确定");
-        dialogCancel.setText("取消");
-        // 取消
-        dialogCancel.setOnClickListener(v -> {
-            if (loadingDialog != null){
-                onDismiss();
-            }
-        });
-        // 确认
-        dialogEnsure.setOnClickListener(v -> {
-            if (loadingDialog != null){
-                onDismiss();
-                onDialogButtonClickListener.onClick(loadingDialog,view);
-            }
-        });
-        loadingDialog = new Dialog(context);
-        loadingDialog.setOnCancelListener(dialog -> onDismiss());
-        // 创建自定义样式的Dialog
-        loadingDialog.addContentView(view, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));
-        loadingDialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_gray_8, null));
-        loadingDialog.show();
+    @Override
+    protected int setDialogAnimations() {
+        return ANIM_SCALE;
     }
 
-    /**
-     * 关闭
-     */
-    public static void onDismiss(){
-        if (loadingDialog != null){
-            loadingDialog.cancel();
-            loadingDialog.dismiss();
-            loadingDialog = null;
-            Log.i("MessageDialog","关闭等待框");
-        }
+    @Override
+    protected int setWidth() {
+        return LinearLayout.LayoutParams.WRAP_CONTENT;
     }
 
-    public interface OnDialogButtonClickListener{
-        /**
-         * OK 键点击事件
-         * @param baseDialog
-         * @param v
-         * @return
-         */
-        boolean onClick(Dialog baseDialog, View v);
+    @Override
+    protected int setHeight() {
+        return LinearLayout.LayoutParams.WRAP_CONTENT;
+    }
+
+    @Override
+    protected int setDialogBackgroundResId() {
+        return R.drawable.shape_white_8;
+    }
+
+    @Override
+    protected void initView() {
+        TextView dialogCancel = findViewById(R.id.dialogCancel);
+        TextView dialogEnsure = findViewById(R.id.dialogEnsure);
+        TextView dialogMessage = findViewById(R.id.dialogMessage);
+        if (dialogEnsure != null) {
+            dialogEnsure.setOnClickListener(this);
+            dialogEnsure.setText(ensureTextView);
+        }
+        if (dialogCancel != null) {
+            dialogCancel.setOnClickListener(this);
+            dialogCancel.setText(cancelTextView);
+        }
+        dialogMessage.setText(messageTextView);
+    }
+
+    @Override
+    protected int setLayoutResId() {
+        return R.layout.layout_message_dialog;
+    }
+
+    @Override
+    public void onClick(View view) {
+       action.onClickListener(view, MessageDialog.this);
+    }
+
+    public static BaseDialog Builder(Context c,String message, OnClickAction a){
+        context = c;
+        messageTextView = message;
+        new MessageDialog(context,a);
+        return Builder;
+    }
+
+    @Override
+    protected boolean setDialogTransparent() {
+        return false;
+    }
+
+    @Override
+    protected int setDialogGravity() {
+        return Gravity.CENTER;
+    }
+
+    @Override
+    public boolean setDialogCancelable() {
+        return true;
+    }
+
+    @Override
+    public void onDialogDismiss() {
+        super.onDialogDismiss();
+        action = null;
+        Builder = null;
+        context = null;
     }
 }

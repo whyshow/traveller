@@ -9,4 +9,6 @@
     <color name="support_recycler_color_loading_color2">#B1777777</color>
     <color name="support_recycler_color_loading_color3">#FF777777</color>
     <color name="blue">#2196F3</color>
+    <color name="date_picker_text_light">#59B29C</color>
+    <color name="date_picker_text_dark">#333333</color>
 </resources>

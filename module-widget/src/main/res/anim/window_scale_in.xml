@@ -3,8 +3,8 @@
 
     <scale
         android:duration="135"
-        android:fromXScale="0.8"
-        android:fromYScale="0.8"
+        android:fromXScale="0.6"
+        android:fromYScale="0.6"
         android:pivotX="50%"
         android:pivotY="50%"
         android:toXScale="1.05"
@@ -12,8 +12,8 @@
 
     <scale
         android:duration="105"
-        android:fromXScale="1.05"
-        android:fromYScale="1.05"
+        android:fromXScale="0.8"
+        android:fromYScale="0.8"
         android:pivotX="50%"
         android:pivotY="50%"
         android:startOffset="135"
@@ -22,18 +22,11 @@
 
     <scale
         android:duration="60"
-        android:fromXScale="0.95"
-        android:fromYScale="0.95"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
         android:pivotX="50%"
         android:pivotY="50%"
         android:startOffset="240"
         android:toXScale="1.0"
         android:toYScale="1.0" />
-
-    <alpha
-        android:duration="90"
-        android:fromAlpha="0.0"
-        android:interpolator="@android:anim/accelerate_interpolator"
-        android:toAlpha="1.0" />
-
 </set>

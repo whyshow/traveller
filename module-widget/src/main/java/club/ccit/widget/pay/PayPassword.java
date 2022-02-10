@@ -45,7 +45,6 @@ public class PayPassword extends View {
      */
     private StringBuffer mText;
     private float inputBoxStroke;
-    private int symbolColor;
     /**
      * 边框颜色
      */
@@ -67,7 +66,7 @@ public class PayPassword extends View {
         //支持某些属性设置,比如密码位数,边框颜色、宽度,"●"的颜色、大小
         passwordCount = ta.getInteger(R.styleable.inputBox_passwordCount, 6);
         strokeColor = ta.getColor(R.styleable.inputBox_stokeColor, getResources().getColor(R.color.gray,null));
-        symbolColor = ta.getColor(R.styleable.inputBox_symbolColor, Color.BLACK);
+        int symbolColor = ta.getColor(R.styleable.inputBox_symbolColor, Color.BLACK);
         mRadius = ta.getDimension(R.styleable.inputBox_symbolRadius, 24);
         inputBoxStroke = ta.getDimension(R.styleable.inputBox_inputBoxStroke, 4f);
         //设置输入框圆角边框
@@ -178,8 +177,6 @@ public class PayPassword extends View {
         setPaint(strokeColor);
         postInvalidate();
     }
-
-
 
     /**
      * 获取密码
