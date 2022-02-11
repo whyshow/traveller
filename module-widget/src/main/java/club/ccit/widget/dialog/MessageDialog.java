@@ -48,7 +48,7 @@ public class MessageDialog extends BaseDialog implements View.OnClickListener{
 
     @Override
     protected int setDialogBackgroundResId() {
-        return R.drawable.shape_white_8;
+        return R.drawable.radius_white_8;
     }
 
     @Override

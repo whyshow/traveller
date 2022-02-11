@@ -94,7 +94,7 @@ public class BottomDialog extends BaseDialog{
 
     @Override
     protected int setDialogBackgroundResId() {
-        return R.drawable.shape_white_8;
+        return R.drawable.radius_white_8;
     }
 
     @Override

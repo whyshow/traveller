@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminateBehavior="repeat"
-            android:indeterminateDrawable="@drawable/anim_wait_dialog" />
+            android:indeterminateDrawable="@drawable/anim_dialog_wait" />
 
         <TextView
             android:id="@+id/dialogMessage"

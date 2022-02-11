@@ -73,7 +73,7 @@ public class WaitDialog extends BaseDialog {
 
     @Override
     protected int setDialogBackgroundResId() {
-        return R.drawable.shape_gray_8;
+        return R.drawable.radius_gray_8;
     }
 
     @Override

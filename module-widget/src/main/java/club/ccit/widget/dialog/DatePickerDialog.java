@@ -1,6 +1,5 @@
 package club.ccit.widget.dialog;
 
-import static club.ccit.widget.action.AnimAction.ANIM_BOTTOM;
 import static club.ccit.widget.action.AnimAction.ANIM_SCALE;
 
 import android.annotation.SuppressLint;
@@ -124,7 +123,7 @@ public class DatePickerDialog implements View.OnClickListener, DatePickerView.On
         mPickerDialog.setContentView(R.layout.layout_date_picker_dialog);
 
         Window window = mPickerDialog.getWindow();
-        mPickerDialog.getWindow().setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.shape_white_8, null));
+        mPickerDialog.getWindow().setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.radius_white_8, null));
         mPickerDialog.getWindow().setWindowAnimations(ANIM_SCALE);
         if (window != null) {
             WindowManager.LayoutParams lp = window.getAttributes();

@@ -59,9 +59,9 @@ public class PayDialog implements AnimAction {
         dialog.setCancelable(false);
         // 创建自定义样式的Dialog
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.pay, null));
+            dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.radius_pay, null));
         } else {
-            dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.pay));
+            dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.radius_pay));
         }
         //获取当前Activity所在的窗体
         Window dialogWindow = dialog.getWindow();
