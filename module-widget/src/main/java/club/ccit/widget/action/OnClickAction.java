@@ -2,7 +2,6 @@ package club.ccit.widget.action;
 
 import android.view.View;
 
-import club.ccit.widget.dialog.MessageDialog;
 import club.ccit.widget.dialog.base.BaseDialog;
 
 

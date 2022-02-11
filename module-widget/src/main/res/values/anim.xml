@@ -15,4 +15,9 @@
         <item name="android:windowEnterAnimation">@anim/window_top_in</item>
         <item name="android:windowExitAnimation">@anim/window_top_out</item>
     </style>
+    <!--    右进右出-->
+    <style name="RightAnimStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/window_right_in</item>
+        <item name="android:windowExitAnimation">@anim/window_right_out</item>
+    </style>
 </resources>
