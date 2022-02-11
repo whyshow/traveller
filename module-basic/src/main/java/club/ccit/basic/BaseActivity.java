@@ -39,7 +39,7 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
         window.setStatusBarColor(ContextCompat.getColor(this, setImmersionBarColor()));
         // 改变状态栏图标颜色
         changStatusIconColor(isStatusBarDarkFont());
-        initListener();
+        initView();
         // 禁止屏幕翻转
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
@@ -47,7 +47,7 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
     /**
      * 设置点击事件
      */
-    protected void initListener() {
+    protected void initView() {
     }
 
     /**

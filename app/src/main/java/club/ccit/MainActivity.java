@@ -44,8 +44,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     }
 
     @Override
-    protected void initListener() {
-        super.initListener();
+    protected void initView() {
+        super.initView();
     }
 
     @Override

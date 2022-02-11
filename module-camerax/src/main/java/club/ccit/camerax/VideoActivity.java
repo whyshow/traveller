@@ -295,8 +295,8 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
      * 按键监听
      */
     @Override
-    protected void initListener() {
-        super.initListener();
+    protected void initView() {
+        super.initView();
         binding.previewVideoView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

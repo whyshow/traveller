@@ -51,8 +51,8 @@ class MyFragment : KtBaseFragment<FragmentMyBinding?>() {
             })
     }
 
-    override fun initListener() {
-        super.initListener()
+    override fun initView() {
+        super.initView()
         // 设置监听器。
         binding!!.swipeRecyclerView.setSwipeMenuCreator(mSwipeMenuCreator)
 

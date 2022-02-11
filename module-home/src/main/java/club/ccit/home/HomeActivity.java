@@ -39,7 +39,7 @@ import club.ccit.sdk.net.AbstractApiObserver;
 public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
     private HomeAdapter adapter;
     private int page = 1;
-    private int pageSize = 6;
+    private final int pageSize = 6;
     private boolean isLoading = true;
     private boolean isReload = false;
     private NewsApi api;
@@ -95,8 +95,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
     }
 
     @Override
-    protected void initListener() {
-        super.initListener();
+    protected void initView() {
+        super.initView();
         binding.homeSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

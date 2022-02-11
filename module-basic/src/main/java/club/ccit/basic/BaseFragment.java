@@ -13,22 +13,29 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewbinding.ViewBinding;
 
+import club.ccit.basic.action.ClickAction;
+
 /**
  * @author: 瞌睡的牙签
  * Date: 2021/11/23 08:16
  * Description: Fragment 基类
  * Version:
  */
-public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
+public abstract class BaseFragment<T extends ViewBinding> extends Fragment implements ClickAction {
     protected T binding;
     public boolean isFragmentViewInit = false;
+
+    @Override
+    public <V extends View> V findViewById(int id) {
+        return getView().findViewById(id);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (binding == null) {
             binding = getViewBinding();
-            initListener();
+           initView();
         }
         return binding.getRoot();
     }
@@ -44,7 +51,7 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment {
     /**
      * 设置点击事件
      */
-    protected void initListener() {
+    protected void initView() {
     }
 
     /**

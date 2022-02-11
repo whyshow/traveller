@@ -27,7 +27,7 @@ abstract class KtBaseFragment<T : ViewBinding?> : Fragment() {
     ): View? {
         if (binding == null) {
             binding = viewBinding
-            initListener()
+            initView()
         }
         return binding!!.root
     }
@@ -42,7 +42,7 @@ abstract class KtBaseFragment<T : ViewBinding?> : Fragment() {
     /**
      * 设置点击事件
      */
-    protected open fun initListener() {}
+    protected open fun initView() {}
 
     /**
      * 视图绑定

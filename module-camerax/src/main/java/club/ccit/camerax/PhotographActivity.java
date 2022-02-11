@@ -206,8 +206,8 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
      * 设置对焦框
      */
     @Override
-    protected void initListener() {
-        super.initListener();
+    protected void initView() {
+        super.initView();
 
         binding.previewView.setOnTouchListener(new View.OnTouchListener() {
             @Override
