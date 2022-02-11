@@ -4,10 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-
-import androidx.annotation.DrawableRes;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatDialog;
 
@@ -20,7 +17,7 @@ import club.ccit.widget.action.AnimAction;
  * @author: 张帅威
  * Date: 2022/2/9 4:44 下午
  * Description: Dialog基类
- * Version:
+ * Version: 1.0
  */
 public abstract class BaseDialog extends AppCompatDialog implements AnimAction{
     public BaseDialog(Context context) {

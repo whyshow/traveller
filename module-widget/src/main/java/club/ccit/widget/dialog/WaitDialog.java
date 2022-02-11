@@ -1,14 +1,12 @@
 package club.ccit.widget.dialog;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import club.ccit.widget.R;
+import club.ccit.widget.dialog.base.BaseDialog;
 
 /**
  * @author: 瞌睡的牙签
@@ -16,42 +14,82 @@ import club.ccit.widget.R;
  * Description: 等待弹窗
  * Version:
  */
-public class WaitDialog{
-    private static Dialog loadingDialog;
-    @SuppressLint("UseCompatLoadingForDrawables")
-    public static void show(Context context,String message) {
-        // 首先得到整个View
-        View view = LayoutInflater.from(context).inflate(
-                R.layout.layout_wait_dialog, null);
-        // 获取整个布局
-        LinearLayout layout = (LinearLayout) view
-                .findViewById(R.id.waitDialogView);
-        // 页面中显示文本
-        TextView tipText = (TextView) view.findViewById(R.id.dialogMessage);
-        tipText.setText(message);
-        if (loadingDialog != null){
-            loadingDialog.cancel();
-            loadingDialog.dismiss();
-            Log.i("WaitDialog","关闭等待框,重新加载");
-        }
-        loadingDialog = new Dialog(context);
-        // 创建自定义样式的Dialog
-        loadingDialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_gray_8, null));
-        // 设置返回键无效
-        loadingDialog.setCancelable(false);
-        loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));
+public class WaitDialog extends BaseDialog {
+    private static String message;
+    public static WaitDialog Builder;
 
-        loadingDialog.show();
+    public WaitDialog(Context context) {
+        super(context);
+        Builder = this;
+    }
+
+    public static WaitDialog Builder(Context context, String m) {
+        message = m;
+        new WaitDialog(context);
+        return Builder;
     }
 
     public static void onDismiss(){
-        if (loadingDialog != null){
-            loadingDialog.cancel();
-            loadingDialog.dismiss();
-            loadingDialog = null;
-            Log.i("WaitDialog","关闭等待框");
+        if (Builder != null){
+            Builder.onDialogDismiss();
         }
     }
+
+    @Override
+    public void onDialogDismiss() {
+        super.onDialogDismiss();
+        Builder = null;
+    }
+
+    @Override
+    protected boolean setDialogTransparent() {
+        return false;
+    }
+
+    @Override
+    protected int setDialogGravity() {
+        return 0;
+    }
+
+    @Override
+    public boolean setDialogCancelable() {
+        return false;
+    }
+
+    @Override
+    protected int setDialogAnimations() {
+        return ANIM_SCALE;
+    }
+
+    @Override
+    protected int setWidth() {
+        return LinearLayout.LayoutParams.WRAP_CONTENT;
+    }
+
+    @Override
+    protected int setHeight() {
+        return LinearLayout.LayoutParams.WRAP_CONTENT;
+    }
+
+    @Override
+    protected int setDialogBackgroundResId() {
+        return R.drawable.shape_gray_8;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    protected void initView() {
+        TextView tipText = findViewById(R.id.dialogMessage);
+        tipText.setText(message);
+    }
+
+    @Override
+    protected int setLayoutResId() {
+        return R.layout.layout_wait_dialog;
+    }
+
 }

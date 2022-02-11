@@ -10,6 +10,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
@@ -36,6 +38,7 @@ import club.ccit.widget.utils.DateFormatUtils;
  */
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     private DatePickerDialog mDatePickerDialog;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,16 +97,28 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             }
         });
 
-        binding.startWaitDialog.setOnClickListener(view -> WaitDialog.show(getActivity(), "请稍后..."));
+        binding.startWaitDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WaitDialog.Builder(getActivity(), "请稍后...").show();
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        WaitDialog.onDismiss();
+                    }
+                },2000);
+            }
+        });
 
         binding.payActivity.setOnClickListener(view ->
                 PayDialog.show(requireActivity(), new PayDialog.OnDialogListener() {
                     @Override
                     public void onPassFinish(String password, PayPasswordView payPasswordView) {
-                        if ("123456".equals(password)){
+                        if ("123456".equals(password)) {
                             myToast("密码正确");
                             PayDialog.onDismiss();
-                        }else {
+                        } else {
                             myToast("密码不正确");
                             payPasswordView.setErrorStyle();
                         }
@@ -118,26 +133,27 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             @Override
             public void onClick(View view) {
                 initDatePicker();
-                 mDatePickerDialog.show("2022-02-10");
+                mDatePickerDialog.show("2022-02-10");
             }
         });
 
-         binding.timeDialog.setOnClickListener(new View.OnClickListener() {
+        binding.timeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MessageDialog.ensureTextView = "OK";
                 MessageDialog.cancelTextView = "NO";
-                MessageDialog.Builder(requireActivity(), "这是一个弹窗",new OnClickAction() {
-                   @Override
-                   public void onClickListener(View view, BaseDialog newMessageDialog) {
-                       newMessageDialog.onDialogDismiss();
-                   }
-               }).show();
+                MessageDialog.Builder(requireActivity(), "这是一个弹窗", new OnClickAction() {
+                    @Override
+                    public void onClickListener(View view, BaseDialog newMessageDialog) {
+                        newMessageDialog.onDialogDismiss();
+                    }
+                }).show();
             }
         });
 
 
     }
+
     private void initDatePicker() {
         long beginTimestamp = DateFormatUtils.str2Long("2009-05-01", false);
         long endTimestamp = DateFormatUtils.str2Long("2050-05-01", false);
@@ -158,6 +174,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         // 不允许滚动动画
         mDatePickerDialog.setCanShowAnim(false);
     }
+
     @Override
     protected FragmentHomeBinding getViewBinding() {
         return FragmentHomeBinding.inflate(getLayoutInflater());
