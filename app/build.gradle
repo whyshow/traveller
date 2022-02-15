@@ -70,9 +70,9 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
-    implementation "androidx.fragment:fragment:1.4.0"
-    implementation 'androidx.navigation:navigation-ui:2.3.5'
-    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation "androidx.fragment:fragment:1.4.1"
+    implementation 'androidx.navigation:navigation-ui:2.4.0'
+    implementation 'androidx.navigation:navigation-fragment:2.4.0'
     // 路由
     implementation rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.annotationProcessors.arouter

@@ -1,6 +1,8 @@
 package club.ccit.sdk.demo;
 
 import club.ccit.sdk.net.BaseApiProvider;
+import okhttp3.Interceptor;
+import okhttp3.Request;
 
 /**
  * FileName: DraftApiProvider
@@ -35,4 +37,12 @@ public class NewsApiProvider extends BaseApiProvider {
         return newsApi;
     }
 
+    @Override
+    protected Request setHeader(Interceptor.Chain chain) {
+        return chain.request()
+                .newBuilder()
+                .addHeader("Authorization", "1986f37e-083d-4d79-8f03-a66995168ec5")
+                .addHeader("client-id", "android_app_myb")
+                .build();
+    }
 }

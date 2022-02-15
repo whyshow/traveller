@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="提示"
+            android:text="@string/hint"
             android:textColor="#333333"
             android:textSize="18dp"
             android:visibility="visible" />
@@ -52,7 +52,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null"
-                android:text="取消"
+                android:text="@string/cancel"
                 android:textColor="#006DFF"
                 android:textSize="16dp" />
 
@@ -67,7 +67,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null"
-                android:text="确定"
+                android:text="@string/affirm"
                 android:textColor="#006DFF"
                 android:textSize="16dp" />
         </LinearLayout>

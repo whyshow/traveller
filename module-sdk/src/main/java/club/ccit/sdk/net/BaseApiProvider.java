@@ -3,6 +3,7 @@ import android.util.Log;
 import java.util.concurrent.TimeUnit;
 
 import club.ccit.sdk.BuildConfig;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -39,12 +40,8 @@ public abstract class BaseApiProvider {
                 .writeTimeout(120, TimeUnit.SECONDS);
 
         builder.addInterceptor(chain -> {
-            Request request = chain.request()
-                    .newBuilder()
-                    .addHeader("Authorization", "1986f37e-083d-4d79-8f03-a66995168ec5")
-                    .addHeader("client-id", "app_myb_android")
-                    .removeHeader("User-Agent")
-                    .build();
+            // 设置 Header
+            Request request = setHeader(chain);
             return chain.proceed(request);
         });
         // 如果是DEBUG模式设置打印日志
@@ -80,4 +77,11 @@ public abstract class BaseApiProvider {
      */
     protected abstract String baseUrl();
 
+    protected Request setHeader(Interceptor.Chain chain){
+        return chain.request()
+                .newBuilder()
+                .addHeader("Authorization", "1986f37e-083d-4d79-8f03-a66995168ec5")
+                .addHeader("client-id", "app_myb_android")
+                .build();
+    }
 }

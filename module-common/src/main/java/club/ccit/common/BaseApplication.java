@@ -15,8 +15,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.tony.defenselib.DefenseCrash;
 import com.android.tony.defenselib.handler.IExceptionHandler;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -77,37 +75,37 @@ public class BaseApplication extends Application {
     private void registerActivityListener() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
-            public void onActivityCreated(@NonNull @NotNull Activity activity, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+            public void onActivityCreated(@NonNull  Activity activity, @Nullable Bundle savedInstanceState) {
                 pushActivity(activity);
             }
 
             @Override
-            public void onActivityStarted(@NonNull @NotNull Activity activity) {
+            public void onActivityStarted(@NonNull  Activity activity) {
 
             }
 
             @Override
-            public void onActivityResumed(@NonNull @NotNull Activity activity) {
+            public void onActivityResumed(@NonNull  Activity activity) {
 
             }
 
             @Override
-            public void onActivityPaused(@NonNull @NotNull Activity activity) {
+            public void onActivityPaused(@NonNull  Activity activity) {
 
             }
 
             @Override
-            public void onActivityStopped(@NonNull @NotNull Activity activity) {
+            public void onActivityStopped(@NonNull  Activity activity) {
 
             }
 
             @Override
-            public void onActivitySaveInstanceState(@NonNull @NotNull Activity activity, @NonNull @NotNull Bundle outState) {
+            public void onActivitySaveInstanceState(@NonNull  Activity activity, @NonNull  Bundle outState) {
 
             }
 
             @Override
-            public void onActivityDestroyed(@NonNull @NotNull Activity activity) {
+            public void onActivityDestroyed(@NonNull  Activity activity) {
                 popActivity(activity);
 
             }

@@ -10,7 +10,6 @@ dependencyResolutionManagement {
 rootProject.name = "traveller"
 include ':app'
 include ':module-common'
-include ':module-home'
 include ':module-basic'
 include ':module-widget'
 include ':module-resource'
@@ -18,3 +17,5 @@ include ':module-camerax'
 include ':module-sdk'
 include ':module-user'
 include ':module-draft'
+include ':module-home'
+

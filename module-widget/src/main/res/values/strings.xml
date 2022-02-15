@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="support_recycler_data_empty">There is no data</string>
-    <string name="support_recycler_more_not">No more data</string>
-    <string name="support_recycler_click_load_more">Click to load more</string>
-    <string name="support_recycler_load_error">Error, please try again</string>
-    <string name="support_recycler_load_more_message">Loading, please wait later</string>
+    <string name="support_recycler_data_empty">没有数据了</string>
+    <string name="support_recycler_more_not">没有更多数据</string>
+    <string name="support_recycler_click_load_more">检查</string>
+    <string name="support_recycler_load_error">错误, 请重试</string>
+    <string name="support_recycler_load_more_message">加载中，请稍后</string>
+    <string name="cancel">取消</string>
+    <string name="date_selection">日期选择</string>
+    <string name="affirm">确认</string>
+    <string name="hint">提示</string>
+    <string name="years">年</string>
+    <string name="month">月</string>
+    <string name="today">日</string>
+    <string name="hour">小时</string>
+    <string name="minute">分钟</string>
+
 </resources>

@@ -159,9 +159,4 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     protected FragmentDraftsBinding getViewBinding() {
         return FragmentDraftsBinding.inflate(getLayoutInflater());
     }
-
-    @Override
-    public <V extends View> V findViewById(int id) {
-        return null;
-    }
 }

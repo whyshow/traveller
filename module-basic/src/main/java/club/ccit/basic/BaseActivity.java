@@ -16,13 +16,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewbinding.ViewBinding;
 
+import club.ccit.basic.action.ClickAction;
+
 /**
  * @author: 瞌睡的牙签
  * Date: 2021/11/18 10:33
  * Description: Activity 基类
  * Version:
  */
-public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActivity {
+public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActivity implements ClickAction {
     protected T binding;
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -42,6 +44,11 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
         initView();
         // 禁止屏幕翻转
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public <T extends View> T findViewById(int id) {
+        return binding.getRoot().findViewById(id);
     }
 
     /**

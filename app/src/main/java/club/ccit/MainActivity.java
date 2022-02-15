@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         super.onCreate(savedInstanceState);
         // 去除item长按显示 toast
         cleanToast();
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_drafts, R.id.navigation_my)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);

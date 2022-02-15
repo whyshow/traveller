@@ -142,6 +142,7 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
             }
         }, Manifest.permission.CAMERA);
 
+        setOnClickListener(binding.buttonImageView);
     }
 
     /**
@@ -151,7 +152,6 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
     @SuppressLint("UnsafeOptInUsageError")
     private void bindPreview(ProcessCameraProvider cameraProvider) {
         cameraExecutor = Executors.newFixedThreadPool(4);
-
         // 创建 Preview
         preview = new Preview.Builder()
                 .build();
@@ -194,7 +194,6 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
      * @return
      */
     private ImageAnalysis setImageAnalysis(){
-
         imageAnalysis = new ImageAnalysis.Builder()
                 .setTargetResolution(new Size(1080,1920))
                         .build();
@@ -208,7 +207,6 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
     @Override
     protected void initView() {
         super.initView();
-
         binding.previewView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -283,52 +281,51 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
         return true;
     }
 
-    /**
-     *
-     * @param view
-     */
-    @SuppressLint("RestrictedApi")
-    public void buttonImageView(View view) {
-        ImageCapture.OutputFileOptions outputFileOptions;
-        // 文件名
-        @SuppressLint("SimpleDateFormat") String imageName = "IMG_"+new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()).toString();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            // 大于等于Android 10 保存在系统相册目录中。
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, imageName+".jpg");
-            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
-            contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/Camera/");
-            outputFileOptions =  new ImageCapture.OutputFileOptions.Builder(
-                    getContentResolver(),
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-                    .build();
-        }else {
-            // 小于Android 10保存在系统相册目录中。
-            file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM+"/Camera/"+imageName+".jpg").getAbsolutePath());
-            outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
-        }
-        // 保存
-        imageCapture.takePicture(outputFileOptions, ContextCompat.getMainExecutor(this),
-                new ImageCapture.OnImageSavedCallback() {
-                    @Override
-                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                        // insert your code here.
-                        myToast("成功");
-                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
-                            // 通知相册有照片更新
-                            String[] paths = new String[]{file.getAbsolutePath()};
-                            MediaScannerConnection.scanFile(PhotographActivity.this, paths, null, null);
-                            file = null;
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        if (view.getId() == R.id.buttonImageView){
+            ImageCapture.OutputFileOptions outputFileOptions;
+            // 文件名
+            @SuppressLint("SimpleDateFormat") String imageName = "IMG_"+new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()).toString();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                // 大于等于Android 10 保存在系统相册目录中。
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, imageName+".jpg");
+                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
+                contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/Camera/");
+                outputFileOptions =  new ImageCapture.OutputFileOptions.Builder(
+                        getContentResolver(),
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                        .build();
+            }else {
+                // 小于Android 10保存在系统相册目录中。
+                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM+"/Camera/"+imageName+".jpg").getAbsolutePath());
+                outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
+            }
+            // 保存
+            imageCapture.takePicture(outputFileOptions, ContextCompat.getMainExecutor(this),
+                    new ImageCapture.OnImageSavedCallback() {
+                        @Override
+                        public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                            // insert your code here.
+                            myToast("成功");
+                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
+                                // 通知相册有照片更新
+                                String[] paths = new String[]{file.getAbsolutePath()};
+                                MediaScannerConnection.scanFile(PhotographActivity.this, paths, null, null);
+                                file = null;
+                            }
+                        }
+                        @Override
+                        public void onError(@NonNull ImageCaptureException error) {
+                            // insert your code here.
+                            Log.i("LOG111",error.toString());
+                            myToast("失败");
                         }
                     }
-                    @Override
-                    public void onError(@NonNull ImageCaptureException error) {
-                        // insert your code here.
-                        Log.i("LOG111",error.toString());
-                        myToast("失败");
-                    }
-                }
-        );
+            );
+        }
     }
 
     @Override

@@ -3,7 +3,6 @@ package club.ccit.home.view;
 import static club.ccit.common.AppRouter.PATH_HOME_PAY;
 
 import android.util.Log;
-import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import club.ccit.basic.BaseActivity;
