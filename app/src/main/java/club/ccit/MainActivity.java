@@ -52,15 +52,4 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     protected ActivityMainBinding getViewBinding() {
         return ActivityMainBinding.inflate(getLayoutInflater());
     }
-
-    @Override
-    protected int setImmersionBarColor() {
-        return R.color.white;
-    }
-
-    @Override
-    protected boolean isStatusBarDarkFont() {
-        return true;
-    }
-
 }

@@ -57,16 +57,6 @@ public class PayActivity extends BaseActivity<ActivityPayBinding> {
     }
 
     @Override
-    protected int setImmersionBarColor() {
-        return R.color.white;
-    }
-
-    @Override
-    protected boolean isStatusBarDarkFont() {
-        return true;
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         mDatePickerDialog.onDestroy();

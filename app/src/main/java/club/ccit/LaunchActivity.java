@@ -26,14 +26,4 @@ public class LaunchActivity extends BaseActivity<ActivityLaunchBinding>{
     protected ActivityLaunchBinding getViewBinding() {
         return ActivityLaunchBinding.inflate(getLayoutInflater());
     }
-
-    @Override
-    protected int setImmersionBarColor() {
-        return R.color.white;
-    }
-
-    @Override
-    protected boolean isStatusBarDarkFont() {
-        return true;
-    }
 }

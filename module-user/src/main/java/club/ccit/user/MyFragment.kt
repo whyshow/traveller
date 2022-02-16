@@ -34,7 +34,7 @@ class MyFragment : KtBaseFragment<FragmentMyBinding?>() {
     }
 
     private fun initData(p: Int) {
-        AndroidObservable.create(api!!.getNewsList(p)).with(this)
+        AndroidObservable.create(api!!.getNewsList(p))
             .subscribe(object : AbstractApiObserver<NewsListBean?>() {
                 protected override fun succeed(t: NewsListBean?) {
                     if (adapter == null) {

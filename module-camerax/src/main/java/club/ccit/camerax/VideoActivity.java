@@ -175,16 +175,6 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
         return AvtivityVideoBinding.inflate(getLayoutInflater());
     }
 
-    @Override
-    protected int setImmersionBarColor() {
-        return R.color.black;
-    }
-
-    @Override
-    protected boolean isStatusBarDarkFont() {
-        return true;
-    }
-
     /**
      * 录制按钮
      *

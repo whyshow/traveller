@@ -24,13 +24,4 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         return ActivityLoginBinding.inflate(getLayoutInflater());
     }
 
-    @Override
-    protected int setImmersionBarColor() {
-        return R.color.white;
-    }
-
-    @Override
-    protected boolean isStatusBarDarkFont() {
-        return true;
-    }
 }

@@ -15,8 +15,7 @@
         android:theme="@style/Theme.Traveller"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme"/>
+        <activity android:name=".MainActivity"/>
         <activity
             android:name=".LaunchActivity"
             android:exported="true"

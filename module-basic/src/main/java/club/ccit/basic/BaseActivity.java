@@ -19,7 +19,7 @@ import androidx.viewbinding.ViewBinding;
 import club.ccit.basic.action.ClickAction;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/11/18 10:33
  * Description: Activity 基类
  * Version:
@@ -34,13 +34,17 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
         // 视图
         binding = getViewBinding();
         setContentView(binding.getRoot());
-        // 设置状态栏颜色
-        Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this, setImmersionBarColor()));
-        // 改变状态栏图标颜色
-        changStatusIconColor(isStatusBarDarkFont());
+//        if (setBarColor() > 0 || setBarColor() < 0){
+//            // 设置状态栏颜色
+//            Window window = this.getWindow();
+//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.setStatusBarColor(ContextCompat.getColor(this, setBarColor()));
+//        }
+//        if (setStatusBarDarkFont()){
+//            // 改变状态栏图标颜色
+//            changStatusIconColor(setStatusBarDarkFont());
+//        }
         initView();
         // 禁止屏幕翻转
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -69,14 +73,18 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
      *
      * @return
      */
-    protected abstract int setImmersionBarColor();
+    protected int setBarColor(){
+        return 0;
+    }
 
     /**
      * 是否开启状态栏图标深色
      *
      * @return
      */
-    protected abstract boolean isStatusBarDarkFont();
+    protected  boolean setStatusBarDarkFont(){
+        return false;
+    }
 
     /**
      * 设置状态栏图标深色
@@ -106,7 +114,7 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
     public void myToast(String message) {
         if (message != null) {
             View view = LayoutInflater.from(getApplication()).inflate(R.layout.layout_toast, null);
-            TextView text = (TextView) view.findViewById(R.id.toastTextView);
+            TextView text = view.findViewById(R.id.toastTextView);
             text.setText(message);
             Toast toast = new Toast(getApplication());
             toast.setGravity(Gravity.CENTER, 0, 0);

@@ -67,7 +67,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
      * 请求网络数据
      */
     private void initData(int p) {
-        AndroidObservable.create(api.getNewsList(p)).with(this).subscribe(new AbstractApiObserver<NewsListBean>() {
+        AndroidObservable.create(api.getNewsList(p)).subscribe(new AbstractApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {
                 if (newsListBean.getResult().size() < pageSize){
@@ -127,15 +127,4 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
     protected ActivityHomeBinding getViewBinding() {
         return ActivityHomeBinding.inflate(getLayoutInflater());
     }
-
-    @Override
-    protected int setImmersionBarColor() {
-        return R.color.white;
-    }
-
-    @Override
-    protected boolean isStatusBarDarkFont() {
-        return true;
-    }
-
 }

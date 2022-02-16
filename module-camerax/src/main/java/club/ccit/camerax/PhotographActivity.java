@@ -272,16 +272,6 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
     }
 
     @Override
-    protected int setImmersionBarColor() {
-        return R.color.white;
-    }
-
-    @Override
-    protected boolean isStatusBarDarkFont() {
-        return true;
-    }
-
-    @Override
     public void onClick(View view) {
         super.onClick(view);
         if (view.getId() == R.id.buttonImageView){
