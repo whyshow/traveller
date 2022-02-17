@@ -14,5 +14,5 @@
     <string name="today">日</string>
     <string name="hour">小时</string>
     <string name="minute">分钟</string>
-
+    <string name="bar_string_placeholder">""</string>
 </resources>

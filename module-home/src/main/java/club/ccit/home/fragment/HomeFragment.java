@@ -25,6 +25,8 @@ import club.ccit.widget.dialog.MessageDialog;
 import club.ccit.widget.dialog.WaitDialog;
 import club.ccit.widget.pay.PayDialog;
 import club.ccit.widget.pay.PayPasswordView;
+import club.ccit.widget.title.OnTitleBarListener;
+import club.ccit.widget.title.TitleBar;
 import club.ccit.widget.utils.DateFormatUtils;
 
 /**
@@ -60,6 +62,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 binding.payActivity,
                 binding.dateDialog,
                 binding.timeDialog);
+        binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
+            @Override
+            public void onLeftClick(TitleBar titleBar) {
+               myToast("点击了返回");
+            }
+        });
     }
 
     @Override
