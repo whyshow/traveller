@@ -35,7 +35,7 @@ import club.ccit.widget.R;
  * Version:
  */
 public class PayPasswordView extends RelativeLayout {
-    private Activity mContext;
+    private Context mContext;
     /**
      * 支付键盘
      */
@@ -125,7 +125,7 @@ public class PayPasswordView extends RelativeLayout {
      */
     public PayPasswordView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.mContext = (Activity) context;
+        this.mContext = context;
         //初始化
         initView(context, attrs);
         //将子布局添加到父容器,才显示控件
