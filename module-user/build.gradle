@@ -15,11 +15,6 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-
-        ndk {
-            // 设置APP 类型
-            abiFilters rootProject.ext.abiFilters.abi
-        }
     }
 
     buildTypes {

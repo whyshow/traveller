@@ -19,3 +19,5 @@ include ':module-user'
 include ':module-draft'
 include ':module-home'
 
+include ':module-storage'
+include ':module-recorder'

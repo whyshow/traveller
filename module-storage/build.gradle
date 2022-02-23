@@ -10,12 +10,6 @@ android {
         minSdk rootProject.ext.android.minSdkVersion
         targetSdk rootProject.ext.android.targetSdkVersion
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-            }
-        }
-
     }
 
     buildTypes {
@@ -36,19 +30,8 @@ android {
 dependencies {
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.material
-    implementation rootProject.ext.dependencies.constraintlayout
-    implementation rootProject.ext.dependencies.glide
-    implementation 'com.squareup.picasso:picasso:2.71828'
-
-    implementation project(path: ':module-basic')
-    implementation project(path: ':module-common')
-    implementation project(path: ':module-widget')
-    implementation project(path: ':module-sdk')
-    implementation rootProject.ext.dependencies.arouter
-    annotationProcessor rootProject.ext.annotationProcessors.arouter
-    // rxjava
-    implementation rootProject.ext.dependencies.rxjava
-    implementation "androidx.core:core-ktx:1.7.0"
+    implementation rootProject.ext.dependencies.recyclerview
+    implementation rootProject.ext.dependencies.ktx
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 }

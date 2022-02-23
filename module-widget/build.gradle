@@ -9,11 +9,6 @@ android {
     defaultConfig {
         minSdk rootProject.ext.android.minSdkVersion
         targetSdk rootProject.ext.android.targetSdkVersion
-
-        ndk {
-            // 设置APP 类型
-            abiFilters rootProject.ext.abiFilters.abi
-        }
     }
 
     buildTypes {
@@ -25,6 +20,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
