@@ -11,9 +11,9 @@
         android:id="@+id/noDataTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:padding="10dp"
         android:textColor="@color/font_hint"
-        android:text=""
+        android:text="11"
         android:textSize="14dp" />
 </LinearLayout>

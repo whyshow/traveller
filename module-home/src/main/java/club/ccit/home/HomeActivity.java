@@ -74,12 +74,12 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
                     isLoading = false;
                     adapter.setFooterView(TYPE_NONE_FOOTER);
                 }
-                    if (isReload){
-                        isReload = false;
-                        adapter.onReload(newsListBean.getResult());
-                    }else {
-                        adapter.onAppointData(newsListBean.getResult());
-                    }
+                if (isReload){
+                    isReload = false;
+                    adapter.onReload(newsListBean.getResult());
+                }else {
+                    adapter.onAppointData(newsListBean.getResult());
+                }
 
                 binding.homeSwipeRefresh.setRefreshing(false);
             }
