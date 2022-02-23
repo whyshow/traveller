@@ -78,12 +78,9 @@ dependencies {
     annotationProcessor rootProject.ext.annotationProcessors.arouter
 
     implementation project(path: ':module-basic')
-    implementation project(path: ':module-resource')
     implementation project(path: ':module-widget')
     implementation project(path: ':module-common')
     implementation project(path: ':module-home')
-    implementation project(path: ':module-user')
-    implementation project(path: ':module-draft')
     implementation project(path: ':module-camerax')
 
     //内存泄漏分析工具
