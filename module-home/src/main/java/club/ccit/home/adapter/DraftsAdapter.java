@@ -1,4 +1,4 @@
-package club.ccit.home.fragment;
+package club.ccit.home.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

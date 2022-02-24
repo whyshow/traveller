@@ -63,6 +63,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 }
 
@@ -82,6 +83,7 @@ dependencies {
     implementation project(path: ':module-common')
     implementation project(path: ':module-home')
     implementation project(path: ':module-camerax')
+    implementation project(path: ':module-room')
 
     //内存泄漏分析工具
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'

@@ -16,7 +16,6 @@ import java.util.TimerTask;
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.common.LogUtils;
-import club.ccit.home.HomeActivity;
 import club.ccit.home.R;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.widget.dialog.BottomDialog;
@@ -61,13 +60,15 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 binding.startWaitDialog,
                 binding.payActivity,
                 binding.dateDialog,
-                binding.timeDialog);
+                binding.timeDialog,
+                binding.roomFragment);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(TitleBar titleBar) {
                myToast("点击了返回");
             }
         });
+
     }
 
     @Override
@@ -129,6 +130,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             MessageDialog.ensureTextView = "OK";
             MessageDialog.cancelTextView = "NO";
             MessageDialog.Builder(requireActivity(), "这是一个弹窗", (view1, newMessageDialog) -> newMessageDialog.onDialogDismiss()).show();
+        }
+
+        if (view.getId() == R.id.roomFragment){
+            ARouter.getInstance().build(AppRouter.PATH_ROOM_ROOM).navigation();
         }
     }
 

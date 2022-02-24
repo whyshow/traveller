@@ -14,6 +14,7 @@ import club.ccit.basic.BaseAdapter;
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.RecyclerViewOnScrollListener;
 import club.ccit.home.R;
+import club.ccit.home.adapter.DraftsAdapter;
 import club.ccit.home.databinding.FragmentDraftsBinding;
 import club.ccit.sdk.demo.NewsApi;
 import club.ccit.sdk.demo.NewsApiProvider;

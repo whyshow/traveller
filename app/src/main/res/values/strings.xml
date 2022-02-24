@@ -4,4 +4,5 @@
     <string name="title_home">首页</string>
     <string name="title_drafts">草稿箱</string>
     <string name="title_my">我的</string>
+    <string name="fragment_room">数据库</string>
 </resources>

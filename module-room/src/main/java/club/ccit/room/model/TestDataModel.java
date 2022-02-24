@@ -4,10 +4,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 /**
- * FileName: recorderData
+ * FileName: TestDataModel
  *
  * @author: 张帅威
- * Date: 2022/2/23 8:30 上午
  * Description: 数据库实体类
  * Version: 1
  */
@@ -16,67 +15,41 @@ public class TestDataModel {
     public TestDataModel() {
     }
 
-    public Integer getRecordId() {
-        return recordId;
-    }
-
-    public void setRecordId(Integer recordId) {
-        this.recordId = recordId;
-    }
-
-    public String getRecordName() {
-        return recordName;
-    }
-
-    public void setRecordName(String recordName) {
-        this.recordName = recordName;
-    }
-
-    public String getRecordPath() {
-        return recordPath;
-    }
-
-    public void setRecordPath(String recordPath) {
-        this.recordPath = recordPath;
-    }
-
-    public String getRecordFormat() {
-        return recordFormat;
-    }
-
-    public void setRecordFormat(String recordFormat) {
-        this.recordFormat = recordFormat;
-    }
-
-    public String getRecordDate() {
-        return recordDate;
-    }
-
-    public void setRecordDate(String recordDate) {
-        this.recordDate = recordDate;
-    }
-
     /**
      * id 自增
      */
     @PrimaryKey(autoGenerate = true)
-    private Integer recordId;
+    private Integer testId;
     /**
      * 名字
      */
-    private String recordName;
+    private String testName;
     /**
-     * 位置
+     * 年龄
      */
-    private String recordPath;
-    /**
-     * 格式
-     */
-    private String recordFormat;
-     /**
-     * 日期
-     */
-    private String recordDate;
+    private String testAge;
 
+    public Integer getTestId() {
+        return testId;
+    }
 
+    public void setTestId(Integer testId) {
+        this.testId = testId;
+    }
+
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
+    }
+
+    public String getTestAge() {
+        return testAge;
+    }
+
+    public void setTestAge(String testAge) {
+        this.testAge = testAge;
+    }
 }

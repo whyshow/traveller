@@ -11,10 +11,9 @@ import java.util.List;
 import club.ccit.room.model.TestDataModel;
 
 /**
- * FileName: RecordApi
+ * FileName: TestApi
  *
  * @author: 张帅威
- * Date: 2022/2/23 8:52 上午
  * Description: 数据库操作接口
  * Version:
  */
@@ -30,32 +29,32 @@ public interface TestApi {
 
     /**
      * 插入一行数据
-     * @param record
+     * @param dataModel
      * @return
      */
     @Insert
-    long insertData(TestDataModel record);
+    long insertData(TestDataModel dataModel);
 
     /**
      * 插入多行数据
-     * @param record
+     * @param dataModel
      * @return
      */
     @Insert
-    List<Long> insertData(TestDataModel... record);
+    List<Long> insertData(TestDataModel... dataModel);
 
     /**
      * 更新一条数据
-     * @param record
+     * @param dataModel
      */
     @Update
-    void updateData(TestDataModel record);
+    void updateData(TestDataModel dataModel);
 
     /**
      * 删除一行数据
-     * @param record
+     * @param dataModel
      */
     @Delete
-    void deleteData(TestDataModel record);
+    void deleteData(TestDataModel dataModel);
 
 }

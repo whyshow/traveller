@@ -1,4 +1,4 @@
-package club.ccit.home;
+package club.ccit.home.adapter;
 
 import static club.ccit.basic.BaseAdapter.TYPE_ERROR_FOOTER;
 import static club.ccit.basic.BaseAdapter.TYPE_LOADING_FOOTER;
@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import club.ccit.basic.BaseActivity;
 import club.ccit.common.LogUtils;
 import club.ccit.common.RecyclerViewOnScrollListener;
+import club.ccit.home.HomeAdapter;
+import club.ccit.home.R;
 import club.ccit.home.databinding.ActivityHomeBinding;
 import club.ccit.sdk.demo.NewsApi;
 import club.ccit.sdk.demo.NewsApiProvider;

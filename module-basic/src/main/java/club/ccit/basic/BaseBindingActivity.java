@@ -29,7 +29,7 @@ import club.ccit.basic.action.ClickAction;
  * Description: Activity 基类
  * Version:
  */
-public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActivity implements ClickAction {
+public abstract class BaseBindingActivity <T extends ViewDataBinding> extends AppCompatActivity implements ClickAction {
     protected T binding;
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -37,9 +37,14 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 视图
-        binding = getViewBinding();
-        setContentView(binding.getRoot());
-        initView();
+        if (setLayoutId() == 0){
+            binding = getViewBinding();
+            setContentView(binding.getRoot());
+            initView();
+        }else {
+            binding = DataBindingUtil.setContentView(this, setLayoutId());
+            binding.setLifecycleOwner(this);
+        }
         // 禁止屏幕翻转
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
@@ -49,6 +54,9 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
         return binding.getRoot().findViewById(id);
     }
 
+    protected int setLayoutId(){
+        return 0;
+    }
     /**
      * 设置点击事件
      */

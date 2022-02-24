@@ -1,4 +1,4 @@
-package club.ccit.home.fragment
+package club.ccit.home.adapter
 
 import club.ccit.basic.KtBaseAdapter
 import club.ccit.common.LogUtils

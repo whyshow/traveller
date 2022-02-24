@@ -11,6 +11,7 @@ import club.ccit.widget.swipe.SwipeMenuCreator
 import club.ccit.widget.swipe.SwipeMenuItem
 import club.ccit.widget.swipe.OnItemMenuClickListener
 import club.ccit.common.LogUtils
+import club.ccit.home.adapter.MyAdapter
 import club.ccit.home.databinding.FragmentMyBinding
 
 /**

@@ -14,10 +14,9 @@ import club.ccit.room.model.TestDataModel;
 
 
 /**
- * FileName: RoomDataBase
+ * FileName: AbstractRoomData
  *
  * @author: 张帅威
- * Date: 2022/2/23 9:15 上午
  * Description: 数据库操作基类
  * Version:
  */

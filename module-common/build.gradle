@@ -38,6 +38,8 @@ dependencies {
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
     implementation rootProject.ext.dependencies.arouter
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
     annotationProcessor rootProject.ext.annotationProcessors.arouter
     implementation rootProject.ext.dependencies.glide
     implementation rootProject.ext.dependencies.crash
