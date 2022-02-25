@@ -155,7 +155,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     }
 
     @Override
-    protected FragmentHomeBinding getViewBinding() {
+    protected FragmentHomeBinding onSetViewBinding() {
         return FragmentHomeBinding.inflate(getLayoutInflater());
     }
 }

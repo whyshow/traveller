@@ -12,8 +12,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 
 import java.util.List;
 
-import club.ccit.basic.BaseActivity;
-import club.ccit.basic.BaseBindingActivity;
+import club.ccit.basic.BaseDataBindingActivity;
 import club.ccit.common.AppRouter;
 import club.ccit.common.Constant;
 import club.ccit.room.adapter.RoomAdapter;
@@ -33,7 +32,7 @@ import club.ccit.widget.title.TitleBar;
  * Version:
  */
 @Route(path = AppRouter.PATH_ROOM_ROOM)
-public class RoomActivity extends BaseBindingActivity<ActivityRoomBinding> {
+public class RoomActivity extends BaseDataBindingActivity<ActivityRoomBinding> {
     private RoomViewModel roomViewModel;
     private RoomAdapter adapter;
     private TestApi testApi;
@@ -41,7 +40,6 @@ public class RoomActivity extends BaseBindingActivity<ActivityRoomBinding> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -103,7 +101,7 @@ public class RoomActivity extends BaseBindingActivity<ActivityRoomBinding> {
     }
 
     @Override
-    protected ActivityRoomBinding getViewBinding() {
+    protected ActivityRoomBinding onSetViewBinding() {
         return ActivityRoomBinding.inflate(getLayoutInflater());
     }
 }

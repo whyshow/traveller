@@ -156,7 +156,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     }
 
     @Override
-    protected FragmentDraftsBinding getViewBinding() {
+    protected FragmentDraftsBinding onSetViewBinding() {
         return FragmentDraftsBinding.inflate(getLayoutInflater());
     }
 }

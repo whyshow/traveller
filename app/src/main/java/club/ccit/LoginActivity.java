@@ -20,7 +20,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     }
 
     @Override
-    protected ActivityLoginBinding getViewBinding() {
+    protected ActivityLoginBinding onSetViewBinding() {
         return ActivityLoginBinding.inflate(getLayoutInflater());
     }
 

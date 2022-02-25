@@ -25,17 +25,13 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
     protected T binding;
     public boolean isFragmentViewInit = false;
 
-    @Override
-    public <V extends View> V findViewById(int id) {
-        return getView().findViewById(id);
-    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (binding == null) {
-            binding = getViewBinding();
-           initView();
+            binding = onSetViewBinding();
+            initView();
         }
         return binding.getRoot();
     }
@@ -48,9 +44,13 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
         }
     }
 
-    /**
-     * 设置点击事件
-     */
+    /** 寻找点击事件的id **/
+    @Override
+    public <V extends View> V findViewById(int id) {
+        return getView().findViewById(id);
+    }
+
+    /** 设置点击事件 **/
     protected void initView() {
     }
 
@@ -59,7 +59,7 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
      *
      * @return ActivityXXXBinding.inflate(getLayoutInflater ());
      */
-    protected abstract T getViewBinding();
+    protected abstract T onSetViewBinding();
 
     /**
      * 自定义Toast
@@ -79,6 +79,7 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
         }
     }
 
+    /** 结束回调 **/
     @Override
     public void onDestroyView() {
         super.onDestroyView();

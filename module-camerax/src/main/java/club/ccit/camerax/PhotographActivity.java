@@ -267,7 +267,7 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
     }
 
     @Override
-    protected AvtivityPhotographBinding getViewBinding() {
+    protected AvtivityPhotographBinding onSetViewBinding() {
         return AvtivityPhotographBinding.inflate(getLayoutInflater());
     }
 

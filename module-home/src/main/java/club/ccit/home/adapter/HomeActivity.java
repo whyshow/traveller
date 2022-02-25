@@ -125,8 +125,4 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
         });
     }
 
-    @Override
-    protected ActivityHomeBinding getViewBinding() {
-        return ActivityHomeBinding.inflate(getLayoutInflater());
-    }
 }
