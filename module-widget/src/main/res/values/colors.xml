@@ -11,4 +11,6 @@
     <color name="blue">#2196F3</color>
     <color name="date_picker_text_light">#59B29C</color>
     <color name="date_picker_text_dark">#333333</color>
+    <color name="colorPrimary">#ff40c2fc</color>
+    <color name="province_line_border">#C7C7C7</color>
 </resources>

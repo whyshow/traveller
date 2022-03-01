@@ -54,6 +54,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
             binding.draftSwipeRefresh.setRefreshing(true);
             initData(page);
         }
+
         // 获取到数据并加载显示
         draftsViewModel.getData().observe(getViewLifecycleOwner(), results -> {
             if (results.size() / page != pageSize){

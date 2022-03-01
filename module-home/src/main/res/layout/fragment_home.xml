@@ -104,6 +104,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="数据库" />
+                <Button
+                    android:id="@+id/cityPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="省市区联动" />
 
             </LinearLayout>
             <club.ccit.widget.title.TitleBar
