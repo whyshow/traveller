@@ -1,6 +1,4 @@
 package club.ccit.basic;
-
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -36,7 +34,7 @@ public abstract class BaseDataBindingActivity<T extends ViewDataBinding> extends
         if (setLayoutId() == 0){
             binding = onSetViewBinding();
             setContentView(binding.getRoot());
-            initView();
+
         }else {
             binding = DataBindingUtil.setContentView(this, setLayoutId());
             binding.setLifecycleOwner(this);
@@ -53,9 +51,6 @@ public abstract class BaseDataBindingActivity<T extends ViewDataBinding> extends
     /** 返回具有dataBinding的布局 **/
     protected int setLayoutId(){
         return 0;
-    }
-    /** 初始化一些视图、数据等 **/
-    protected void initView() {
     }
 
     /**

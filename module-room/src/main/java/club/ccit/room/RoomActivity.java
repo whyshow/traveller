@@ -7,11 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-
 import java.util.List;
-
 import club.ccit.basic.BaseDataBindingActivity;
 import club.ccit.common.AppRouter;
 import club.ccit.common.Constant;

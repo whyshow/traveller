@@ -33,7 +33,6 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
         // 视图
         binding = onSetViewBinding();
         setContentView(binding.getRoot());
-        initView();
         // 禁止屏幕翻转
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
@@ -41,10 +40,6 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
     @Override
     public <T extends View> T findViewById(int id) {
         return binding.getRoot().findViewById(id);
-    }
-
-    /** 初始化一些视图、数据等 **/
-    protected void initView() {
     }
 
     /**

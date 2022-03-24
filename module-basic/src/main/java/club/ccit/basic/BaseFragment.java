@@ -25,13 +25,11 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
     protected T binding;
     public boolean isFragmentViewInit = false;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (binding == null) {
             binding = onSetViewBinding();
-            initView();
         }
         return binding.getRoot();
     }
@@ -48,10 +46,6 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
     @Override
     public <V extends View> V findViewById(int id) {
         return getView().findViewById(id);
-    }
-
-    /** 设置点击事件 **/
-    protected void initView() {
     }
 
     /**
