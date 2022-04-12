@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 import club.ccit.basic.BaseAdapter;
@@ -31,10 +33,11 @@ public class DraftsAdapter extends BaseAdapter<ItemDraftsBinding> {
 
     /**
      * 绑定数据
+     * @param holder
      * @param position
      */
     @Override
-    protected void onBindingViewData(int position) {
+    protected void onBindingViewData(RecyclerView.ViewHolder holder, int position) {
         NewsListBean.Result bean = (NewsListBean.Result) list.get(position);
         // 设置文本数据
         binding.titleTextView.setText(position+1+"  "+bean.getArticle_title());

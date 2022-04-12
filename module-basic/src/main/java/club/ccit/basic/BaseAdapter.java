@@ -45,7 +45,7 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if ((position + remedy) <= itemCount){
             if (list.get(position) != null){
-                onBindingViewData(position);
+                onBindingViewData(holder,position);
             }
         }else {
             FooterViewHolder noneViewHolder = (FooterViewHolder) holder;
@@ -120,9 +120,10 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
     /**
      * 绑定数据
      *
+     * @param holder
      * @param position 绑定
      */
-    protected abstract void onBindingViewData(int position);
+    protected abstract void onBindingViewData(RecyclerView.ViewHolder holder, int position);
 
     /**
      * 绑定视图

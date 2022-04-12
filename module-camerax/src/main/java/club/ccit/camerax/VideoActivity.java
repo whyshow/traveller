@@ -96,6 +96,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                     try {
                         cameraProvider = cameraProviderFuture.get();
                         bindPreview(cameraProvider);
+                        initView();
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -276,9 +277,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
     /**
      * 按键监听
      */
-    @Override
     protected void initView() {
-        super.initView();
         binding.previewVideoView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

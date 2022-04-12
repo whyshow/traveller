@@ -7,9 +7,11 @@ import static club.ccit.common.AppRouter.PATH_HOME_HOME;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -59,6 +61,12 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
         LogUtils.i("接收到："+getIntent().getStringExtra("data"));
     }
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+    }
+
     public static void launch(Activity activity, String toJson) {
         Intent intent = new Intent(activity, HomeActivity.class);
         intent.putExtra("data", toJson);
@@ -74,7 +82,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
             protected void succeed(NewsListBean newsListBean) {
                 if (newsListBean.getResult().size() < pageSize){
                     isLoading = false;
-                    adapter.setFooterView(TYPE_NONE_FOOTER);
+                   // adapter.setFooterView(TYPE_NONE_FOOTER);
                 }
                 if (isReload){
                     isReload = false;
@@ -91,14 +99,13 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
                 page = page - 1;
                 binding.homeSwipeRefresh.setRefreshing(false);
                 Log.i("LOG111",message);
-                adapter.setFooterView(TYPE_ERROR_FOOTER);
+               // adapter.setFooterView(TYPE_ERROR_FOOTER);
             }
         });
     }
 
-    @Override
+
     protected void initView() {
-        super.initView();
         binding.homeSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -115,7 +122,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (isLoading){
                     if (RecyclerViewOnScrollListener.onScrollListener(recyclerView,newState)){
-                        adapter.setFooterView(TYPE_LOADING_FOOTER);
+                      //  adapter.setFooterView(TYPE_LOADING_FOOTER);
                         page = page + 1;
                         initData(page);
                     }

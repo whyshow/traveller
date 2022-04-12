@@ -3,6 +3,8 @@ package club.ccit.room.adapter;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 import club.ccit.basic.BaseAdapter;
@@ -23,7 +25,7 @@ public class RoomAdapter extends BaseAdapter<ItemRoomBinding> {
     }
 
     @Override
-    protected void onBindingViewData(int position) {
+    protected void onBindingViewData(RecyclerView.ViewHolder holder, int position) {
         TestDataModel testDataModel = (TestDataModel) list.get(position);
         binding.ageTextView.setText("年龄："+testDataModel.getTestAge());
         binding.idTextView.setText("编号："+testDataModel.getTestId());

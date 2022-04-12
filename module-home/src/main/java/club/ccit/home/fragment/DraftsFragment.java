@@ -1,8 +1,10 @@
 package club.ccit.home.fragment;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -72,12 +74,16 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
         });
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+    }
+
     /**
      * 初始化监听
      */
-    @Override
     protected void initView() {
-        super.initView();
         // 下拉刷新， 重新设置请求数据页码、是否上划刷新
         binding.draftSwipeRefresh.setOnRefreshListener(() -> {
             adapter = null;

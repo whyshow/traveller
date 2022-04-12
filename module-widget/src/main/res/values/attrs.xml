@@ -143,4 +143,6 @@
         <attr name="lineSize" format="dimension" />
 
     </declare-styleable>
+
+
 </resources>
