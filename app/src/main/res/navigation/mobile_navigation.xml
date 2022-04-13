@@ -9,17 +9,18 @@
         android:id="@+id/navigation_home"
         android:name="club.ccit.home.fragment.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_drafts"
-        android:name="club.ccit.drafts.DraftsFragment"
+        android:name="club.ccit.home.fragment.DraftsFragment"
         android:label="@string/title_drafts"
         tools:layout="@layout/fragment_drafts" />
 
     <fragment
         android:id="@+id/navigation_my"
-        android:name="club.ccit.user.MyFragment"
+        android:name="club.ccit.home.fragment.MyFragment"
         android:label="@string/title_my"
         tools:layout="@layout/fragment_my" />
 </navigation>

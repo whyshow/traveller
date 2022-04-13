@@ -13,4 +13,41 @@
         <!-- 背景图片-->
         <attr name="b_icon" format="reference" />
     </declare-styleable>
+
+    <!--可展开布局自定义属性-->
+    <declare-styleable name="ExpandTextView">
+        <!--文本最大缩略行数，对应于TextView的maxLines-->
+        <attr name="maxLines" format="integer" />
+        <!--展开时对应的图片-->
+        <attr name="expandIconResId" format="reference" />
+        <!--不展开时对应的图片-->
+        <attr name="collapseIconResId" format="reference" />
+        <!--展开时对应末尾提示的文字-->
+        <attr name="expandMoreText" format="string" />
+        <!--不展开时对应末尾提示的文字-->
+        <attr name="collapseLessText" format="string" />
+        <!--内容文字的颜色-->
+        <attr name="contentTextColor" format="reference|color" />
+        <!--更多或收起文字的颜色-->
+        <attr name="expandTextColor" format="reference|color" />
+        <!--文字大小-->
+        <attr name="contentTextSize" format="dimension" />
+        <!--更多/收起文字大小-->
+        <attr name="expandTextSize" format="dimension" />
+        <!--展开/收缩布局对应图标的宽度-->
+        <attr name="expandIconWidth" format="dimension" />
+        <!--缩略文本展示时与展开/收缩布局的间距-->
+        <attr name="spaceMargin" format="dimension" />
+        <!--文本显示的lineSpacingExtra，对应于TextView的lineSpacingExtra属性-->
+        <attr name="lineSpacingExtra" format="dimension" />
+        <!--文本显示的lineSpacingMultiplier，对应于TextView的lineSpacingMultiplier属性-->
+        <attr name="lineSpacingMultiplier" format="float" />
+        <!--展开样式-->
+        <attr name="expandStyle" format="integer">
+            <!--默认样式：图标+文字-->
+            <enum name="DEFAULT" value="0" />
+            <enum name="ICON" value="1" />
+            <enum name="TEXT" value="2" />
+        </attr>
+    </declare-styleable>
 </resources>

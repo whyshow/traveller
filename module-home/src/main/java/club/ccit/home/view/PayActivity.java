@@ -52,7 +52,7 @@ public class PayActivity extends BaseActivity<ActivityPayBinding> {
 
 
     @Override
-    protected ActivityPayBinding getViewBinding() {
+    protected ActivityPayBinding onSetViewBinding() {
         return ActivityPayBinding.inflate(getLayoutInflater());
     }
 

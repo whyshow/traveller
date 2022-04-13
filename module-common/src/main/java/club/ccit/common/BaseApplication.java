@@ -58,7 +58,7 @@ public class BaseApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        DefenseCrash.initialize(this);
+       // DefenseCrash.initialize(this);
         DefenseCrash.install(new IExceptionHandler() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override

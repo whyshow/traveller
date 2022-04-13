@@ -1,5 +1,6 @@
 package club.ccit.home.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -16,7 +17,7 @@ import java.util.TimerTask;
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.common.LogUtils;
-import club.ccit.home.HomeActivity;
+import club.ccit.home.Provinces;
 import club.ccit.home.R;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.widget.dialog.BottomDialog;
@@ -37,7 +38,7 @@ import club.ccit.widget.utils.DateFormatUtils;
  */
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     private DatePickerDialog mDatePickerDialog;
-
+    private Provinces provinces;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,13 +62,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 binding.startWaitDialog,
                 binding.payActivity,
                 binding.dateDialog,
-                binding.timeDialog);
+                binding.timeDialog,
+                binding.roomFragment,
+                binding.cityPicker);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(TitleBar titleBar) {
                myToast("点击了返回");
             }
         });
+
     }
 
     @Override
@@ -87,6 +91,21 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             MessageDialog.ensureTextView = "OK";
             MessageDialog.cancelTextView = "NO";
             MessageDialog.Builder(requireActivity(), "这是一个弹窗", (view12, dialog) -> dialog.onDialogDismiss()).show();
+            if (provinces == null){
+                provinces = new Provinces(requireActivity());
+            }
+            provinces.showData(new Provinces.OnCityItemClick() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onSelected(String name, String cityName, String districtName) {
+                    myToast(name + " " + cityName + " " + districtName);
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            });
         }
         if (view.getId() == R.id.startHomeActivity) {
           ARouter.getInstance().build(AppRouter.PATH_HOME_HOME).navigation();
@@ -103,7 +122,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         }
 
         if (view.getId() == R.id.payActivity) {
-            PayDialog.show(requireActivity(), new PayDialog.OnDialogListener() {
+            PayDialog.show(getActivity(), new PayDialog.OnDialogListener() {
                 @Override
                 public void onPassFinish(String password, PayPasswordView payPasswordView) {
                     if ("123456".equals(password)) {
@@ -130,6 +149,28 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             MessageDialog.cancelTextView = "NO";
             MessageDialog.Builder(requireActivity(), "这是一个弹窗", (view1, newMessageDialog) -> newMessageDialog.onDialogDismiss()).show();
         }
+
+        if (view.getId() == R.id.roomFragment){
+            ARouter.getInstance().build(AppRouter.PATH_ROOM_ROOM).navigation();
+        }
+
+        if (view.getId() == R.id.cityPicker){
+            if (provinces == null){
+                provinces = new Provinces(requireActivity());
+            }
+            provinces.showData(new Provinces.OnCityItemClick() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onSelected(String name, String cityName, String districtName) {
+                    myToast(name + " " + cityName + " " + districtName);
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            });
+        }
     }
 
 
@@ -150,7 +191,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     }
 
     @Override
-    protected FragmentHomeBinding getViewBinding() {
+    protected FragmentHomeBinding onSetViewBinding() {
         return FragmentHomeBinding.inflate(getLayoutInflater());
     }
 }

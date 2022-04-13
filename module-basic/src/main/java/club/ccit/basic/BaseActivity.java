@@ -1,20 +1,20 @@
 package club.ccit.basic;
 
-import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.viewbinding.ViewBinding;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import club.ccit.basic.action.ClickAction;
 
@@ -27,83 +27,43 @@ import club.ccit.basic.action.ClickAction;
 public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActivity implements ClickAction {
     protected T binding;
 
-    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 视图
-        binding = getViewBinding();
+        binding = onSetViewBinding();
         setContentView(binding.getRoot());
-//        if (setBarColor() > 0 || setBarColor() < 0){
-//            // 设置状态栏颜色
-//            Window window = this.getWindow();
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            window.setStatusBarColor(ContextCompat.getColor(this, setBarColor()));
-//        }
-//        if (setStatusBarDarkFont()){
-//            // 改变状态栏图标颜色
-//            changStatusIconColor(setStatusBarDarkFont());
-//        }
-        initView();
         // 禁止屏幕翻转
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
-
+    /** 寻找点击事件的id **/
     @Override
     public <T extends View> T findViewById(int id) {
         return binding.getRoot().findViewById(id);
     }
 
     /**
-     * 设置点击事件
-     */
-    protected void initView() {
-    }
-
-    /**
      * 视图绑定
-     *
+     * 如果子类继承没有实现此方法以及没有返回 setLayoutId()
+     * 那么将会以反射的形式进行绑定。
+     * 性能可能会降低
      * @return ActivityXXXBinding.inflate(getLayoutInflater ());
      */
-    protected abstract T getViewBinding();
-
-    /**
-     * 状态栏颜色
-     *
-     * @return
-     */
-    protected int setBarColor(){
-        return 0;
+    protected T onSetViewBinding(){
+        return reflectViewBinding();
     }
 
-    /**
-     * 是否开启状态栏图标深色
-     *
-     * @return
-     */
-    protected  boolean setStatusBarDarkFont(){
-        return false;
-    }
-
-    /**
-     * 设置状态栏图标深色
-     *
-     * @param setDark
-     */
-    public void changStatusIconColor(boolean setDark) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            View decorView = getWindow().getDecorView();
-            if (decorView != null) {
-                int vis = decorView.getSystemUiVisibility();
-                if (setDark) {
-                    vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                } else {
-                    vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                }
-                decorView.setSystemUiVisibility(vis);
-            }
+    /** 反射获取binding **/
+    private T reflectViewBinding(){
+        Type superclass = getClass().getGenericSuperclass();
+        Class<?> aClass = (Class<?>) ((ParameterizedType) superclass).getActualTypeArguments()[0];
+        try {
+            Method method = aClass.getDeclaredMethod("inflate", LayoutInflater.class);
+            binding = (T) method.invoke(null, getLayoutInflater());
+        } catch (NoSuchMethodException | IllegalAccessException| InvocationTargetException e) {
+            e.printStackTrace();
         }
+        return binding;
     }
 
     /**
@@ -124,6 +84,7 @@ public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActi
         }
     }
 
+    /** 结束回调 **/
     @Override
     protected void onDestroy() {
         super.onDestroy();

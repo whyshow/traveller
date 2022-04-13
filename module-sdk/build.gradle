@@ -16,10 +16,6 @@ android {
             }
         }
 
-        ndk {
-            // 设置APP 类型
-            abiFilters rootProject.ext.abiFilters.abi
-        }
     }
 
     buildTypes {
@@ -34,6 +30,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 }
 

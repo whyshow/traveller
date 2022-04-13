@@ -130,6 +130,7 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
                     try {
                         cameraProvider = cameraProviderFuture.get();
                         bindPreview(cameraProvider);
+                        initView();
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -204,9 +205,7 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
     /**
      * 设置对焦框
      */
-    @Override
     protected void initView() {
-        super.initView();
         binding.previewView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -267,7 +266,7 @@ public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> 
     }
 
     @Override
-    protected AvtivityPhotographBinding getViewBinding() {
+    protected AvtivityPhotographBinding onSetViewBinding() {
         return AvtivityPhotographBinding.inflate(getLayoutInflater());
     }
 

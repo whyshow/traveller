@@ -4,20 +4,17 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.util.Size;
 import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
-import android.widget.MediaController;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -99,6 +96,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                     try {
                         cameraProvider = cameraProviderFuture.get();
                         bindPreview(cameraProvider);
+                        initView();
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -168,11 +166,6 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
             }
         };
         orientationEventListener.enable();
-    }
-
-    @Override
-    protected AvtivityVideoBinding getViewBinding() {
-        return AvtivityVideoBinding.inflate(getLayoutInflater());
     }
 
     /**
@@ -284,9 +277,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
     /**
      * 按键监听
      */
-    @Override
     protected void initView() {
-        super.initView();
         binding.previewVideoView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -347,5 +338,10 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
             timer.cancel();
             timer = null;
         }
+    }
+
+    @Override
+    protected AvtivityVideoBinding onSetViewBinding() {
+        return AvtivityVideoBinding.inflate(getLayoutInflater());
     }
 }

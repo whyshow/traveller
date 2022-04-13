@@ -23,7 +23,7 @@ public class LaunchActivity extends BaseActivity<ActivityLaunchBinding>{
     }
 
     @Override
-    protected ActivityLaunchBinding getViewBinding() {
+    protected ActivityLaunchBinding onSetViewBinding() {
         return ActivityLaunchBinding.inflate(getLayoutInflater());
     }
 }

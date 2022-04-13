@@ -16,10 +16,6 @@ android {
             }
         }
 
-        ndk {
-            // 设置APP 类型
-            abiFilters rootProject.ext.abiFilters.abi
-        }
     }
 
     buildTypes {
@@ -34,6 +30,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 }
 
@@ -49,6 +46,7 @@ dependencies {
     implementation project(path: ':module-widget')
     implementation project(path: ':module-sdk')
     implementation rootProject.ext.dependencies.arouter
+    implementation 'androidx.navigation:navigation-runtime:2.4.1'
     annotationProcessor rootProject.ext.annotationProcessors.arouter
     // rxjava
     implementation rootProject.ext.dependencies.rxjava

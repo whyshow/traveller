@@ -10,6 +10,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -67,6 +68,7 @@ public class CustomImageView extends AppCompatImageView {
         @SuppressLint("Recycle") TypedArray array = context.obtainStyledAttributes(attrs,R.styleable.CustomImageView);
         radius = array.getDimensionPixelSize(R.styleable.CustomImageView_radius,defaultRadius);
         setScaleType(ScaleType.CENTER_CROP);
+
     }
 
     /**

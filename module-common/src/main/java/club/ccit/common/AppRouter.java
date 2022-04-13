@@ -27,10 +27,13 @@ public class AppRouter {
      * HomeActivity 页面
      */
     public static final String PATH_HOME_HOME = "/home/HomeActivity";
-/**
+    /**
      * HomeActivity 页面
      */
     public static final String PATH_HOME_PAY = "/home/PayActivity";
 
-
+    /**
+     * 数据库演示
+     */
+    public static final String PATH_ROOM_ROOM = "/room/RoomActivity";
 }

@@ -28,8 +28,8 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
     public static final int TYPE_NONE_FOOTER = -4;
     public static int TYPE = -4;
     public List list;
-    private int itemCount = 0;
-    private int remedy = 2;
+    private static int itemCount = 0;
+    private static int remedy = 2;
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,13 +45,13 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if ((position + remedy) <= itemCount){
             if (list.get(position) != null){
-                onBindingViewData(position);
+                onBindingViewData(holder,position);
             }
         }else {
             FooterViewHolder noneViewHolder = (FooterViewHolder) holder;
             switch (TYPE){
                 case TYPE_ERROR_FOOTER:
-                    noneViewHolder.noDataTextView.setText("加载错误");
+                    noneViewHolder.noDataTextView.setText("加载错误,上划重试。");
                     return;
                 case TYPE_LOADING_FOOTER:
                     noneViewHolder.noDataTextView.setText("加载中");
@@ -120,9 +120,10 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
     /**
      * 绑定数据
      *
+     * @param holder
      * @param position 绑定
      */
-    protected abstract void onBindingViewData(int position);
+    protected abstract void onBindingViewData(RecyclerView.ViewHolder holder, int position);
 
     /**
      * 绑定视图
@@ -155,6 +156,14 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
             return position;
         }else {
             return TYPE_FOOTER;
+        }
+    }
+
+    public static boolean isFooterView(int position){
+        if ((position + remedy) > itemCount){
+            return true;
+        }else {
+            return false;
         }
     }
 

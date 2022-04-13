@@ -1,102 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
+    <data>
 
-    <LinearLayout
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <club.ccit.widget.banner.RecyclerViewBanner
-            android:id="@+id/recyclerViewBanner"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp" />
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/cameraActivity"
+            <club.ccit.widget.banner.RecyclerViewBanner
+                android:id="@+id/recyclerViewBanner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/cameraActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="照片拍摄" />
+
+                <Button
+                    android:id="@+id/videoActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="视频录制" />
+
+                <Button
+                    android:id="@+id/startHomeActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HomeActivity" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/startBottomDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BOTTOM 弹窗" />
+
+                <Button
+                    android:id="@+id/startDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="对话框弹窗" />
+
+                <Button
+                    android:id="@+id/startWaitDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="等待加载框" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/payActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="支付弹窗" />
+                <Button
+                    android:id="@+id/dateDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日期弹窗" />
+                <Button
+                    android:id="@+id/timeDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="时间弹窗" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/roomFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="数据库" />
+                <Button
+                    android:id="@+id/cityPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="省市区联动" />
+
+            </LinearLayout>
+            <club.ccit.widget.title.TitleBar
+                android:id="@+id/titleBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="照片拍摄" />
-
-            <Button
-                android:id="@+id/videoActivity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="视频录制" />
-
-            <Button
-                android:id="@+id/startHomeActivity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="HomeActivity" />
-
+                android:layout_marginTop="20dp"
+                app:lineVisible="false"
+                app:titleSize="16dp"
+                app:titleStyle="bold"
+                app:title="实名认证 (代理人)" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+    </androidx.core.widget.NestedScrollView>
+</layout>
 
-            <Button
-                android:id="@+id/startBottomDialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BOTTOM 弹窗" />
-
-            <Button
-                android:id="@+id/startDialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="对话框弹窗" />
-
-            <Button
-                android:id="@+id/startWaitDialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="等待加载框" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <Button
-                android:id="@+id/payActivity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="支付弹窗" />
-            <Button
-                android:id="@+id/dateDialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="日期弹窗" />
-            <Button
-                android:id="@+id/timeDialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="时间弹窗" />
-        </LinearLayout>
-        <club.ccit.widget.title.TitleBar
-            android:id="@+id/titleBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:lineVisible="false"
-            app:titleSize="16dp"
-            app:titleStyle="bold"
-            app:title="实名认证 (代理人)" />
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
