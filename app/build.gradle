@@ -40,9 +40,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         //这说明，安装debug时候，主release包
-        debug {
-            signingConfig signingConfigs.release
-        }
+//        debug {
+//            signingConfig signingConfigs.release
+//        }
     }
 
     android.applicationVariants.all { variant ->
