@@ -1,20 +1,29 @@
 package club.ccit.camerax;
 
+import static club.ccit.camerax.Utils.createVideoThumbnail;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.util.Size;
 import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
+import android.widget.MediaController;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,6 +58,7 @@ import club.ccit.camerax.databinding.AvtivityVideoBinding;
 import club.ccit.camerax.permission.PermissionListener;
 import club.ccit.camerax.permission.PermissionsUtil;
 import club.ccit.common.AppRouter;
+import cn.jzvd.Jzvd;
 
 /**
  * @author: 瞌睡的牙签
@@ -65,6 +75,8 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
     private VideoCapture.OutputFileOptions build;
     private VideoCapture mVideoCapture;
     private Timer timer;
+    private String playUrl;
+
     File file = null;
     /**
      * 录像分辨率
@@ -77,7 +89,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
     /**
      * 码率
      */
-    private int bitRate = 3 * 1024 * 1024;
+    private int bitRate = 2 * 1024 * 1024;
     /**
      * 是否处于录制中
      */
@@ -109,6 +121,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
             }
         }, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO);
 
+        setOnClickListener(R.id.back,R.id.buttonCancel);
     }
 
     /**
@@ -139,6 +152,25 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
         preview.setSurfaceProvider(binding.previewVideoView.getSurfaceProvider());
 
         camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, mVideoCapture);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        int id = view.getId();
+        if (id == R.id.buttonCancel) {
+            binding.buttonCancel.setVisibility(View.GONE);
+            binding.buttonOk.setVisibility(View.GONE);
+            binding.previewVideoView.setVisibility(View.VISIBLE);
+            binding.jzVideo.setVisibility(View.GONE);
+            binding.buttonStart.setVisibility(View.VISIBLE);
+        }else if (id == R.id.buttonOk){
+            Intent intent=new Intent();
+            //设置要回传的数据
+            intent.putExtra("playUrl",playUrl);
+            setResult(403,intent);
+            finish();
+        }
     }
 
     /**
@@ -175,23 +207,16 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
      */
     @SuppressLint({"RestrictedApi", "UseCompatLoadingForDrawables"})
     public void buttonVideo(View view) {
+        binding.buttonStart.setClickable(false);
         if (isTranscribe) {
-            // 处于录制状态，停止录制视频
-            // 设置开始录制图标
-            binding.buttonStart.setBackgroundResource(R.mipmap.icon_start);
-            isTranscribe = false;
-            // 停止计时
-            timer.cancel();
-            timer = null;
-            time = -1000;
-            binding.timeTextView.setVisibility(View.GONE);
-            mVideoCapture.stopRecording();
+            stopTranscribe();
         } else {
             // 未处于录制状态，开始录制视频
             // 设置正在录制图标
-            binding.buttonStart.setBackgroundResource(R.mipmap.icon_stop);
+            binding.buttonStart.setBackgroundResource(R.drawable.icon_stop);
+            binding.jzVideo.setVisibility(View.GONE);
+            binding.previewVideoView.setVisibility(View.VISIBLE);
             isTranscribe = true;
-
             @SuppressLint("SimpleDateFormat") String imageName = "VID_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()).toString();
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
                 // 大于Android 9.0 使用新的存储方式。
@@ -203,45 +228,38 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                         getContentResolver(),
                         MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues)
                         .build();
+                playUrl = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera/" + imageName + ".mp4").getAbsolutePath();
             } else {
                 // 小于Android 10使用旧的存储方式。
                 file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera/" + imageName + ".mp4").getAbsolutePath());
                 build = new VideoCapture.OutputFileOptions.Builder(file).build();
+                playUrl = file.getAbsolutePath();
             }
             // 开始记录时间
             setTimerTask();
             binding.timeTextView.setVisibility(View.VISIBLE);
+            binding.buttonStart.setClickable(true);
             mVideoCapture.startRecording(build, CameraXExecutors.mainThreadExecutor(), new VideoCapture.OnVideoSavedCallback() {
                 @Override
                 public void onVideoSaved(@NonNull VideoCapture.OutputFileResults outputFileResults) {
-                    myToast("视频保存成功");
+                    binding.buttonStart.setVisibility(View.GONE);
+                    binding.buttonStart.setVisibility(View.GONE);
+                    binding.timeTextView.setVisibility(View.GONE);
+                    binding.buttonCancel.setVisibility(View.VISIBLE);
+                    binding.buttonOk.setVisibility(View.VISIBLE);
+                    binding.buttonStart.setBackgroundResource(R.drawable.icon_start);
                     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                         // 通知相册有照片更新
                         String[] paths = new String[]{file.getAbsolutePath()};
                         MediaScannerConnection.scanFile(VideoActivity.this, paths, null, null);
                         file = null;
                     }
-                    /**
-                     binding.previewVideoView.setVisibility(View.GONE);
-                     binding.videoVideoView.setVisibility(View.VISIBLE);
-                     binding.videoVideoView.setVideoURI(outputFileResults.getSavedUri());
-                     binding.videoVideoView.setMediaController(new MediaController(VideoActivity.this));
-
-                     binding.videoVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override public void onPrepared(MediaPlayer mp) {
-                    Log.i("tag", "--------------视频准备完毕,可以进行播放.......");
-                    }
-                    });
-
-                     binding.videoVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override public void onCompletion(MediaPlayer mp) {
-                    Log.i("tag", "------------------视频播放完毕..........");
-
-                    binding.videoVideoView.start();
-                    }
-                    });
-                     //  binding.videoVideoView.start();
-                     **/
+                    binding.previewVideoView.setVisibility(View.GONE);
+                    binding.jzVideo.setVisibility(View.VISIBLE);
+                    binding.jzVideo.setUp(playUrl, "");
+                    binding.jzVideo.posterImageView.setImageBitmap(createVideoThumbnail(playUrl,2));
+                    binding.jzVideo.fullscreenButton.setVisibility(View.VISIBLE);
+                    Jzvd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_FILL_SCROP);
                 }
 
                 @Override
@@ -249,7 +267,24 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                     myToast("视频保存失败");
                 }
             });
+
         }
+    }
+
+    /**
+     * 停止录制
+     */
+    @SuppressLint("RestrictedApi")
+    private void stopTranscribe() {
+        // 处于录制状态，停止录制视频
+        // 设置开始录制图标
+        isTranscribe = false;
+        // 停止计时
+        timer.cancel();
+        timer = null;
+        time = -1000;
+        mVideoCapture.stopRecording();
+        binding.buttonStart.setClickable(true);
     }
 
     private long time = -1000;
@@ -262,13 +297,18 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                time = time + 1000;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.timeTextView.setText(stringForTime(time));
-                    }
-                });
+                if (time >= 15 * 1000){
+                    stopTranscribe();
+                }else {
+                    time = time + 1000;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.timeTextView.setText(stringForTime(time));
+                        }
+                    });
+                }
+
             }
         };
         timer.schedule(timerTask, 0, 1000);
@@ -338,10 +378,25 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
             timer.cancel();
             timer = null;
         }
+        Jzvd.releaseAllVideos();
     }
 
     @Override
     protected AvtivityVideoBinding onSetViewBinding() {
         return AvtivityVideoBinding.inflate(getLayoutInflater());
     }
+
+    @Override
+    public void onBackPressed() {
+        if (Jzvd.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Jzvd.releaseAllVideos();
+    }
+
 }

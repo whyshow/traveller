@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:gravity="center|top">
 
-    <club.ccit.widget.CustomRecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

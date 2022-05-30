@@ -35,21 +35,21 @@ class MyFragment : KtBaseFragment<FragmentMyBinding?>() {
     }
 
     private fun initData(p: Int) {
-        AndroidObservable.create(api!!.getNewsList(p))
-            .subscribe(object : AbstractApiObserver<NewsListBean?>() {
-                protected override fun succeed(t: NewsListBean?) {
-                    if (adapter == null) {
-                        if (t != null) {
-                            adapter = MyAdapter(t.result)
-                        }
-                        binding!!.swipeRecyclerView.adapter = adapter
-                    }
-                }
-
-                override fun error(code: Int, message: String) {
-
-                }
-            })
+//        AndroidObservable.create(api!!.getNewsList(p))
+//            .subscribe(object : AbstractApiObserver<NewsListBean?>() {
+//                protected override fun succeed(t: NewsListBean?) {
+//                    if (adapter == null) {
+//                        if (t != null) {
+//                            adapter = MyAdapter(t.result)
+//                        }
+//                        binding!!.swipeRecyclerView.adapter = adapter
+//                    }
+//                }
+//
+//                override fun error(code: Int, message: String) {
+//
+//                }
+//            })
     }
 
     override fun initView() {

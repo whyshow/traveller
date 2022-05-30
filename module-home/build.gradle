@@ -39,14 +39,20 @@ dependencies {
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
     implementation rootProject.ext.dependencies.glide
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation "androidx.paging:paging-guava:3.1.1"
+    implementation "androidx.paging:paging-rxjava3:3.1.1"
+    // optional - Jetpack Compose integration
+    implementation "androidx.paging:paging-compose:1.0.0-alpha14"
 
     implementation project(path: ':module-basic')
     implementation project(path: ':module-common')
     implementation project(path: ':module-widget')
     implementation project(path: ':module-sdk')
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'androidx.navigation:navigation-runtime-ktx:2.4.2'
+    // 路由
     implementation rootProject.ext.dependencies.arouter
-    implementation 'androidx.navigation:navigation-runtime:2.4.1'
     annotationProcessor rootProject.ext.annotationProcessors.arouter
     // rxjava
     implementation rootProject.ext.dependencies.rxjava

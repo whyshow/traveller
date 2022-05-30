@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3.5"
-        android:gravity="center"
-        android:background="@color/black">
+        android:background="@color/black"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/timeTextView"
@@ -26,16 +27,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
+        android:background="@color/black"
         android:gravity="center"
-        android:background="@color/black">
+        android:orientation="vertical">
 
-        <VideoView
-            android:id="@+id/videoVideoView"
+        <cn.jzvd.JzvdStd
+            android:id="@+id/jzVideo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
 
         <androidx.camera.view.PreviewView
             android:id="@+id/previewVideoView"
@@ -48,15 +50,34 @@
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:background="@color/black"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/buttonCancel"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/ic_cancel"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/buttonStart"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginBottom="20dp"
-            android:background="@mipmap/icon_start"
+            android:background="@drawable/icon_start"
             android:onClick="buttonVideo" />
+
+        <ImageView
+            android:id="@+id/buttonOk"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/ic_ok"
+            android:visibility="gone" />
 
     </LinearLayout>
 </LinearLayout>

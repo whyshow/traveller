@@ -30,5 +30,5 @@
         android:layout_height="50dp"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="100dp"
-        android:background="@mipmap/icon_start"/>
+        android:background="@drawable/icon_start"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

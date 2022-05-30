@@ -21,13 +21,13 @@ import club.ccit.sdk.demo.NewsListBean;
  * Description:
  * Version:
  */
-public class DraftsAdapter extends BaseAdapter<ItemDraftsBinding> {
+public class ListAdapter extends BaseAdapter<ItemDraftsBinding> {
 
     /**
      * 实例化
      * @param list
      */
-    public DraftsAdapter(List list) {
+    public ListAdapter(List list) {
         this.list = list;
     }
 

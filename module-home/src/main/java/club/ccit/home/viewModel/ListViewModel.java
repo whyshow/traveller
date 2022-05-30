@@ -1,4 +1,4 @@
-package club.ccit.home.fragment;
+package club.ccit.home.viewModel;
 
 import android.os.Parcelable;
 
@@ -18,12 +18,12 @@ import club.ccit.sdk.demo.NewsListBean;
  * Description:
  * Version:
  */
-public class DraftsViewModel extends ViewModel {
+public class ListViewModel extends ViewModel {
     private final MutableLiveData<List<NewsListBean.Result>> data;
     private MutableLiveData<Integer> page;
     private Parcelable state;
 
-    public DraftsViewModel() {
+    public ListViewModel() {
         data = new MutableLiveData<>();
         page = new MutableLiveData<>();
     }

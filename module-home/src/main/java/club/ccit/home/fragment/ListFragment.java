@@ -16,8 +16,9 @@ import club.ccit.basic.BaseAdapter;
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.RecyclerViewOnScrollListener;
 import club.ccit.home.R;
-import club.ccit.home.adapter.DraftsAdapter;
-import club.ccit.home.databinding.FragmentDraftsBinding;
+import club.ccit.home.adapter.ListAdapter;
+import club.ccit.home.databinding.FragmentListBinding;
+import club.ccit.home.viewModel.ListViewModel;
 import club.ccit.sdk.demo.NewsApi;
 import club.ccit.sdk.demo.NewsApiProvider;
 import club.ccit.sdk.demo.NewsListBean;
@@ -30,9 +31,9 @@ import club.ccit.sdk.net.AndroidObservable;
  * Description:
  * Version:
  */
-public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
-    private DraftsAdapter adapter;
-    private DraftsViewModel draftsViewModel;
+public class ListFragment extends BaseFragment<FragmentListBinding> {
+    private ListAdapter adapter;
+    private ListViewModel draftsViewModel;
     private int page = 1;
     private int pageSize = 6;
     private boolean isLoading = true;
@@ -45,7 +46,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
         super.onStart();
         binding.draftSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-        draftsViewModel = new ViewModelProvider(requireActivity()).get(DraftsViewModel.class);
+        draftsViewModel = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
         // 实例化api 请求
         api = new NewsApiProvider().getNewsList();
         // 如果ViewModel中有数据有page 则还原page 数据,否则请求默认的page数据
@@ -65,19 +66,20 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
             // 获取网络数据并解析完成
             if (adapter == null) {
                 // 使用加数据和下拉加载数据则重新实例化适配器
-                adapter = new DraftsAdapter(results);
+                adapter = new ListAdapter(results);
                 binding.draftRecyclerView.setAdapter(adapter);
             } else {
                 // 加载请求的分页数据
                 adapter.onAppointAllData(results);
             }
         });
+        initView();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
+
     }
 
     /**
@@ -114,7 +116,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
      * 请求网络数据
      */
     private void initData(int p) {
-        AndroidObservable.create(api.getNewsList(p)).with(this).subscribe(new AbstractApiObserver<NewsListBean>() {
+        AndroidObservable.create(api.getNewsList2(p)).with(this).subscribe(new AbstractApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {
                 // 如果加载的数据小于6条，则不再上划加载更多。
@@ -163,7 +165,7 @@ public class DraftsFragment extends BaseFragment<FragmentDraftsBinding> {
     }
 
     @Override
-    protected FragmentDraftsBinding onSetViewBinding() {
-        return FragmentDraftsBinding.inflate(getLayoutInflater());
+    protected FragmentListBinding onSetViewBinding() {
+        return FragmentListBinding.inflate(getLayoutInflater());
     }
 }

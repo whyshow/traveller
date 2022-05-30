@@ -8,16 +8,14 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.common.LogUtils;
-import club.ccit.home.Provinces;
+import club.ccit.widget.dialog.city.Provinces;
 import club.ccit.home.R;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.widget.dialog.BottomDialog;
@@ -77,39 +75,30 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onClick(View view) {
         super.onClick(view);
+        // 拍照页面
         if (view.getId() == R.id.cameraActivity) {
             ARouter.getInstance().build(AppRouter.PATH_CAMERA_PHOTOGRAPH).navigation();
         }
+        // 录像页面
         if (view.getId() == R.id.videoActivity) {
             ARouter.getInstance().build(AppRouter.PATH_CAMERA_VIDEO).navigation();
         }
+        // 底部选择弹窗
         if (view.getId() == R.id.startBottomDialog) {
             String[] phone = {"你", "好", "呀"};
             BottomDialog.Builder(getActivity(), phone, (text, index) -> myToast(text)).show();
         }
+        // 对话弹窗
         if (view.getId() == R.id.startDialog) {
             MessageDialog.ensureTextView = "OK";
             MessageDialog.cancelTextView = "NO";
             MessageDialog.Builder(requireActivity(), "这是一个弹窗", (view12, dialog) -> dialog.onDialogDismiss()).show();
-            if (provinces == null){
-                provinces = new Provinces(requireActivity());
-            }
-            provinces.showData(new Provinces.OnCityItemClick() {
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void onSelected(String name, String cityName, String districtName) {
-                    myToast(name + " " + cityName + " " + districtName);
-                }
-
-                @Override
-                public void onCancel() {
-
-                }
-            });
         }
+        // 首页
         if (view.getId() == R.id.startHomeActivity) {
           ARouter.getInstance().build(AppRouter.PATH_HOME_HOME).navigation();
         }
+        // 等待中弹窗
         if (view.getId() == R.id.startWaitDialog) {
             WaitDialog.Builder(getActivity(), "请稍后...").show();
             Timer timer = new Timer();
@@ -120,7 +109,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 }
             }, 2000);
         }
-
+        // 支付输入密码弹窗
         if (view.getId() == R.id.payActivity) {
             PayDialog.show(getActivity(), new PayDialog.OnDialogListener() {
                 @Override
@@ -140,20 +129,22 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 }
             });
         }
+        // 日期选择弹窗
         if (view.getId() == R.id.dateDialog) {
             initDatePicker();
             mDatePickerDialog.show("2022-02-10");
         }
+        // 时间选择弹窗
         if (view.getId() == R.id.timeDialog) {
             MessageDialog.ensureTextView = "OK";
             MessageDialog.cancelTextView = "NO";
             MessageDialog.Builder(requireActivity(), "这是一个弹窗", (view1, newMessageDialog) -> newMessageDialog.onDialogDismiss()).show();
         }
-
+        // 数据库演示
         if (view.getId() == R.id.roomFragment){
             ARouter.getInstance().build(AppRouter.PATH_ROOM_ROOM).navigation();
         }
-
+        // 省市区弹窗
         if (view.getId() == R.id.cityPicker){
             if (provinces == null){
                 provinces = new Provinces(requireActivity());

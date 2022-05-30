@@ -1,7 +1,8 @@
-package club.ccit.home;
+package club.ccit.widget.dialog.city;
 
 import android.content.Context;
 
+import club.ccit.widget.R;
 import club.ccit.widget.dialog.city.CityPickerView;
 import club.ccit.widget.dialog.city.bean.CityBean;
 import club.ccit.widget.dialog.city.bean.DistrictBean;

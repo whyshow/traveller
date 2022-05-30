@@ -29,7 +29,6 @@ import club.ccit.basic.action.ClickAction;
  */
 public abstract class BaseDataBindingFragment<T extends ViewDataBinding> extends Fragment implements ClickAction {
     protected T binding;
-    public boolean isFragmentViewInit = false;
 
     @Nullable
     @Override
@@ -46,10 +45,7 @@ public abstract class BaseDataBindingFragment<T extends ViewDataBinding> extends
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        if (!isFragmentViewInit) {
             super.onViewCreated(view, savedInstanceState);
-            isFragmentViewInit = true;
-        }
     }
 
     /** 寻找点击事件的id **/

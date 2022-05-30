@@ -4,7 +4,6 @@
 
     <application
        android:label="@string/app_name">
-        <activity android:name=".adapter.HomeActivity" />
-        <activity android:name=".view.PayActivity" />
+        <activity android:name=".HomeActivity" />
     </application>
 </manifest>
