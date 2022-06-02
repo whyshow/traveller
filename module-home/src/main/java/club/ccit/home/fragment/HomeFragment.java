@@ -6,22 +6,25 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.common.LogUtils;
-import club.ccit.widget.dialog.city.Provinces;
 import club.ccit.home.R;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.widget.dialog.BottomDialog;
 import club.ccit.widget.dialog.DatePickerDialog;
 import club.ccit.widget.dialog.MessageDialog;
 import club.ccit.widget.dialog.WaitDialog;
+import club.ccit.widget.dialog.city.Provinces;
 import club.ccit.widget.pay.PayDialog;
 import club.ccit.widget.pay.PayPasswordView;
 import club.ccit.widget.title.OnTitleBarListener;

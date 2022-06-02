@@ -1,5 +1,5 @@
 package club.ccit.basic;
-
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,7 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewbinding.ViewBinding;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,22 +25,34 @@ import club.ccit.basic.action.ClickAction;
  * Description: Activity 基类
  * Version:
  */
-public abstract class BaseActivity <T extends ViewBinding> extends AppCompatActivity implements ClickAction {
+public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity implements ClickAction {
     protected T binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 视图
-        binding = onSetViewBinding();
-        setContentView(binding.getRoot());
+        if (setLayoutId() == 0){
+            binding = onSetViewBinding();
+            setContentView(binding.getRoot());
+
+        }else {
+            binding = DataBindingUtil.setContentView(this, setLayoutId());
+            binding.setLifecycleOwner(this);
+        }
         // 禁止屏幕翻转
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
+
     /** 寻找点击事件的id **/
     @Override
     public <T extends View> T findViewById(int id) {
         return binding.getRoot().findViewById(id);
+    }
+
+    /** 返回具有dataBinding的布局 **/
+    protected int setLayoutId(){
+        return 0;
     }
 
     /**

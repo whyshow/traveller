@@ -1,5 +1,7 @@
 package club.ccit.home.viewModel;
 
+import android.os.Parcelable;
+
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelKt;
 import androidx.paging.Pager;
@@ -20,12 +22,26 @@ import kotlinx.coroutines.CoroutineScope;
  * Version:
  */
 public class NewsViewModel extends ViewModel {
-   public Flowable<PagingData<NewsListBean.Result>> getPassengers(int pageSize) {
-        CoroutineScope viewModelScope = ViewModelKt.getViewModelScope(this);
-       LiveDataSource liveDataSource = new LiveDataSource();
-        Pager<Integer, NewsListBean.Result> pager = new Pager<>(new PagingConfig(pageSize,pageSize ), 1,LiveDataSource :: new );
+    private Parcelable state;
+    private Pager<Integer, NewsListBean.Result> pager;
+    private Flowable<PagingData<NewsListBean.Result>> flowable;
+    private CoroutineScope viewModelScope;
 
-        Flowable<PagingData<NewsListBean.Result>> flowable = PagingRx.getFlowable(pager);
+    public Flowable<PagingData<NewsListBean.Result>> getPassengers(int pageSize) {
+        if (pager == null) {
+            viewModelScope = ViewModelKt.getViewModelScope(this);
+            pager = new Pager<>(new PagingConfig(pageSize, pageSize), 1, LiveDataSource::new);
+            flowable = PagingRx.getFlowable(pager);
+        }
         return PagingRx.cachedIn(flowable, viewModelScope);
     }
+
+    public Parcelable getState() {
+        return state;
+    }
+
+    public void setState(Parcelable state) {
+        this.state = state;
+    }
+
 }

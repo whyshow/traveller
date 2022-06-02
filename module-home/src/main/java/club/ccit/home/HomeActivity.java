@@ -1,15 +1,14 @@
 package club.ccit.home;
+
 import static club.ccit.common.AppRouter.PATH_HOME_HOME;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.paging.CombinedLoadStates;
-import androidx.paging.LoadState;
 import androidx.paging.PagingData;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,15 +16,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import club.ccit.basic.BaseActivity;
-import club.ccit.home.adapter.HeaderLoadStateAdapter;
-import club.ccit.home.adapter.HomeAdapter;
 import club.ccit.home.adapter.FooterLoadStateAdapter;
+import club.ccit.home.adapter.HomeAdapter;
 import club.ccit.home.databinding.ActivityHomeBinding;
 import club.ccit.home.viewModel.NewsViewModel;
 import club.ccit.sdk.demo.NewsListBean;
 import io.reactivex.rxjava3.subscribers.DefaultSubscriber;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 /**
  * FileName: HomeActivity

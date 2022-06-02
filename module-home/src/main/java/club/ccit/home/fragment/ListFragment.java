@@ -1,24 +1,22 @@
 package club.ccit.home.fragment;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.paging.PagingData;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import club.ccit.basic.BaseAdapter;
 import club.ccit.basic.BaseFragment;
-import club.ccit.common.RecyclerViewOnScrollListener;
 import club.ccit.home.R;
+import club.ccit.home.adapter.FooterLoadStateAdapter;
+import club.ccit.home.adapter.HomeAdapter;
 import club.ccit.home.adapter.ListAdapter;
 import club.ccit.home.databinding.FragmentListBinding;
-import club.ccit.home.viewModel.ListViewModel;
+import club.ccit.home.viewModel.NewsViewModel;
 import club.ccit.sdk.demo.NewsApi;
 import club.ccit.sdk.demo.NewsApiProvider;
 import club.ccit.sdk.demo.NewsListBean;
@@ -33,135 +31,52 @@ import club.ccit.sdk.net.AndroidObservable;
  */
 public class ListFragment extends BaseFragment<FragmentListBinding> {
     private ListAdapter adapter;
-    private ListViewModel draftsViewModel;
-    private int page = 1;
-    private int pageSize = 6;
-    private boolean isLoading = true;
     private NewsApi api;
-    private List<NewsListBean.Result> list;
+    private final int page = 1;
+    private NewsViewModel viewModel;
 
-    @SuppressLint("ResourceAsColor")
     @Override
-    public void onStart() {
-        super.onStart();
-        binding.draftSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
-        binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-        draftsViewModel = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
-        // 实例化api 请求
+    protected void onCreate() {
+        super.onCreate();
+        viewModel = new ViewModelProvider(requireActivity()).get(NewsViewModel.class);
         api = new NewsApiProvider().getNewsList();
-        // 如果ViewModel中有数据有page 则还原page 数据,否则请求默认的page数据
-        if (draftsViewModel.getPage().getValue() != null) {
-            page = draftsViewModel.getPage().getValue();
-            binding.draftRecyclerView.getLayoutManager().onRestoreInstanceState(draftsViewModel.getState());
-        }else {
-            binding.draftSwipeRefresh.setRefreshing(true);
-            initData(page);
-        }
-
-        // 获取到数据并加载显示
-        draftsViewModel.getData().observe(getViewLifecycleOwner(), results -> {
-            if (results.size() / page != pageSize){
-                isLoading = false;
-            }
-            // 获取网络数据并解析完成
-            if (adapter == null) {
-                // 使用加数据和下拉加载数据则重新实例化适配器
-                adapter = new ListAdapter(results);
-                binding.draftRecyclerView.setAdapter(adapter);
-            } else {
-                // 加载请求的分页数据
-                adapter.onAppointAllData(results);
-            }
-        });
-        initView();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    /**
-     * 初始化监听
-     */
-    protected void initView() {
-        // 下拉刷新， 重新设置请求数据页码、是否上划刷新
-        binding.draftSwipeRefresh.setOnRefreshListener(() -> {
-            adapter = null;
-            page = 1;
-            isLoading = true;
-            initData(page);
-        });
-
-        // 上划加载更多
-        binding.draftRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (isLoading) {
-                    if (RecyclerViewOnScrollListener.onScrollListener(recyclerView, newState)) {
-                        if (adapter != null){
-                            page = page + 1;
-                            initData(page);
-                            adapter.setFooterView(BaseAdapter.TYPE_LOADING_FOOTER);
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    /**
-     * 请求网络数据
-     */
-    private void initData(int p) {
-        AndroidObservable.create(api.getNewsList2(p)).with(this).subscribe(new AbstractApiObserver<NewsListBean>() {
+        List list = new ArrayList();
+        list.add("");
+        adapter = new ListAdapter(ListFragment.this);
+        binding.draftSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        binding.draftSwipeRefresh.setRefreshing(true);
+        binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+        binding.draftRecyclerView.setAdapter(adapter);
+        AndroidObservable.create(api.getNewsList2(page)).subscribe(new AbstractApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {
-                // 如果加载的数据小于6条，则不再上划加载更多。
-                if (newsListBean.getResult().size() < pageSize) {
-                    isLoading = false;
-                    if (adapter != null){
-                        adapter.setFooterView(BaseAdapter.TYPE_NONE_FOOTER);
-                    }
-                }
-                // 设置ViewModel数据
-                if (draftsViewModel.getData().getValue() != null) {
-                    list = draftsViewModel.getData().getValue();
-                } else {
-                    list = new ArrayList<>();
-                }
-                if (p == 1) {
-                    list = newsListBean.getResult();
-                } else {
-                    for (int i = 0; i < newsListBean.getResult().size(); i++) {
-                        list.add(newsListBean.getResult().get(i));
-                    }
-                }
-                // 设置 page
-                draftsViewModel.setPage(p);
-                draftsViewModel.setValue(list);
                 binding.draftSwipeRefresh.setRefreshing(false);
+                if (newsListBean.getResult().size() > 0){
+                    adapter.onAppointData(newsListBean.getResult());
+                }else {
+                    adapter.setError(1);
+                }
             }
 
             @Override
             protected void error(int code, String message) {
-                binding.draftSwipeRefresh.setRefreshing(false);
-                // 请求出现错误
-                page = page - 1;
                 if (adapter != null){
-                    adapter.setFooterView(BaseAdapter.TYPE_ERROR_FOOTER);
+                    adapter.setError(2);
                 }
             }
         });
+
+        binding.draftSwipeRefresh.setOnRefreshListener(() -> refresh());
     }
 
+    public void refresh(){
+
+    }
     @Override
     public void onPause() {
         super.onPause();
         // 保存RecyclerView数据状态
-        draftsViewModel.setState(binding.draftRecyclerView.getLayoutManager().onSaveInstanceState());
+        viewModel.setState(binding.draftRecyclerView.getLayoutManager().onSaveInstanceState());
     }
 
     @Override

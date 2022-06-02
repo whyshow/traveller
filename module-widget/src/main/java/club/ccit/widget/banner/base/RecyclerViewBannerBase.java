@@ -23,9 +23,11 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,20 +44,16 @@ import club.ccit.widget.R;
  */
 public abstract class RecyclerViewBannerBase<L extends RecyclerView.LayoutManager, A extends RecyclerView.Adapter> extends FrameLayout {
     protected int autoPlayDuration = 4000;//刷新间隔时间
-
     protected boolean showIndicator;//是否显示指示器
     protected RecyclerView indicatorContainer;
     protected Drawable mSelectedDrawable;
     protected Drawable mUnselectedDrawable;
     protected IndicatorAdapter indicatorAdapter;
     protected int indicatorMargin;//指示器间距
-
     protected RecyclerView mRecyclerView;
     protected A adapter;
-    protected L mLayoutManager;
-
+    protected GridLayoutManager mLayoutManager;
     protected int WHAT_AUTO_PLAY = 1000;
-
     protected boolean hasInit;
     protected int bannerSize = 1;
     protected int currentIndex;
@@ -72,7 +70,6 @@ public abstract class RecyclerViewBannerBase<L extends RecyclerView.LayoutManage
                 mRecyclerView.smoothScrollToPosition(++currentIndex);
                 refreshIndicator();
                 mHandler.sendEmptyMessageDelayed(WHAT_AUTO_PLAY, autoPlayDuration);
-
             }
             return false;
         }
@@ -91,6 +88,7 @@ public abstract class RecyclerViewBannerBase<L extends RecyclerView.LayoutManage
         initView(context, attrs);
     }
 
+    @SuppressLint("WrongConstant")
     protected void initView(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RecyclerViewBannerBase);
         showIndicator = a.getBoolean(R.styleable.RecyclerViewBannerBase_showIndicator, true);
@@ -133,15 +131,16 @@ public abstract class RecyclerViewBannerBase<L extends RecyclerView.LayoutManage
         int o = a.getInt(R.styleable.RecyclerViewBannerBase_orientation, 0);
         int orientation = 0;
         if (o == 0) {
-            orientation = LinearLayoutManager.HORIZONTAL;
+            orientation = GridLayoutManager.HORIZONTAL;
         } else if (o == 1) {
-            orientation = LinearLayoutManager.VERTICAL;
+            orientation = GridLayoutManager.VERTICAL;
         }
         a.recycle();
         //recyclerView部分
         mRecyclerView = new RecyclerView(context);
         new PagerSnapHelper().attachToRecyclerView(mRecyclerView);
-        mLayoutManager = getLayoutManager(context, orientation);
+        mLayoutManager  = new GridLayoutManager(context, 1,orientation, true);
+
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -160,7 +159,6 @@ public abstract class RecyclerViewBannerBase<L extends RecyclerView.LayoutManage
         addView(mRecyclerView, vpLayoutParams);
         //指示器部分
         indicatorContainer = new RecyclerView(context);
-
         @SuppressLint("WrongConstant") LinearLayoutManager indicatorLayoutManager = new LinearLayoutManager(context, orientation, false);
         indicatorContainer.setLayoutManager(indicatorLayoutManager);
         indicatorAdapter = new IndicatorAdapter();

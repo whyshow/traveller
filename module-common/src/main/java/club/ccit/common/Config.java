@@ -1,7 +1,5 @@
 package club.ccit.common;
 
-import android.annotation.SuppressLint;
-
 /**
  * Copyright (C), 2011-2021, 万臻生态科技有限公司
  * FileName: Config

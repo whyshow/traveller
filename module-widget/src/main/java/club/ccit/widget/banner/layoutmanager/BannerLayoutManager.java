@@ -3,7 +3,6 @@ package club.ccit.widget.banner.layoutmanager;
 import static androidx.recyclerview.widget.DiffUtil.DiffResult.NO_POSITION;
 
 import android.content.Context;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.SparseArray;

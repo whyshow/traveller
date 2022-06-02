@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--没有选中的样式-->
+    <!--BottomNavigationView 没有选中的样式-->
     <style name="bottom_normal_text">
         <item name="android:textColor">@color/font_hint</item>
         <item name="android:textSize">14dp</item>
     </style>
-    <!--选中的样式-->
+    <!--BottomNavigationView 选中的样式-->
     <style name="bottom_selected_text">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">14dp</item>
@@ -19,20 +19,13 @@
         <item name="android:overScrollMode">never</item>
     </style>
 
-    <!--    启动页面-->
-    <style name="LaunchStyle" parent="AppTheme">
+    <!--    启动页主题-->
+    <style name="LaunchStyle" parent="Theme.Traveller">
         <item name="android:windowBackground">@color/white</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
         <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
-    <!--    APP-->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/white</item>
-        <item name="colorAccent">@color/white</item>
     </style>
 </resources>

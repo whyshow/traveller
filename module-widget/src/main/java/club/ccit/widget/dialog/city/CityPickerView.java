@@ -1,6 +1,7 @@
 package club.ccit.widget.dialog.city;
 
 import static club.ccit.widget.action.AnimAction.ANIM_BOTTOM;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;

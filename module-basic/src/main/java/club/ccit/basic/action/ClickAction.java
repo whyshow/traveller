@@ -1,6 +1,5 @@
 package club.ccit.basic.action;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.IdRes;

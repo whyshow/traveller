@@ -1,7 +1,6 @@
 package club.ccit.home.adapter;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.paging.PagingDataAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
 import club.ccit.common.LogUtils;
 import club.ccit.home.R;
 import club.ccit.sdk.demo.NewsListBean;

@@ -40,6 +40,11 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
             super.onViewCreated(view, savedInstanceState);
             isFragmentViewInit = true;
         }
+        onCreate();
+    }
+
+    protected void onCreate(){
+
     }
 
     /** 寻找点击事件的id **/

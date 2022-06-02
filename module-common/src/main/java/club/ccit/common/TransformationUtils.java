@@ -3,6 +3,7 @@ package club.ccit.common;
 import android.graphics.Bitmap;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.bumptech.glide.request.target.ImageViewTarget;
 
 /**

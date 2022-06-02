@@ -1,16 +1,13 @@
 package club.ccit.basic;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
+
 import java.util.List;
-import club.ccit.basic.holder.FooterViewHolder;
 
 /**
  * FileName: BaseAdapter
@@ -20,7 +17,7 @@ import club.ccit.basic.holder.FooterViewHolder;
  * Description:
  * Version:
  */
-public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected T binding;
     public static final int TYPE_FOOTER = -1;
     public static final int TYPE_ERROR_FOOTER = -2;
@@ -30,45 +27,19 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
     public List list;
     private static int itemCount = 0;
     private static int remedy = 2;
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == TYPE_FOOTER){
-            return new FooterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_footer, parent, false));
-        }else {
-            binding = getViewBinding(parent);
-            return new ViewHolder(binding);
-        }
+
+        binding = getViewBinding(parent);
+        return new ViewHolder(binding);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if ((position + remedy) <= itemCount){
-            if (list.get(position) != null){
-                onBindingViewData(holder,position);
-            }
-        }else {
-            FooterViewHolder noneViewHolder = (FooterViewHolder) holder;
-            switch (TYPE){
-                case TYPE_ERROR_FOOTER:
-                    noneViewHolder.noDataTextView.setText("加载错误,上划重试。");
-                    return;
-                case TYPE_LOADING_FOOTER:
-                    noneViewHolder.noDataTextView.setText("加载中");
-                    return;
-                case TYPE_NONE_FOOTER:
-                    noneViewHolder.noDataTextView.setText("没有更多了");
-                    return;
-                default:
-
-            }
-            noneViewHolder.noDataTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.i("LOG111","点击了");
-                }
-            });
-        }
+        onBindingViewData(holder, position);
     }
 
     /**
@@ -100,21 +71,13 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
 
     /**
      * 重新加载
+     *
      * @param list
      */
     @SuppressLint("NotifyDataSetChanged")
-    public void onReload(List list){
+    public void onReload(List list) {
         this.list = list;
         notifyDataSetChanged();
-    }
-
-    /**
-     * 设置footer提示信息
-     * @param type
-     */
-    public void setFooterView(int type){
-        TYPE = type;
-        notifyItemChanged(itemCount-1);
     }
 
     /**
@@ -141,8 +104,7 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
      */
     @Override
     public int getItemCount() {
-        itemCount = list.size() + 1;
-        return itemCount;
+        return list.size();
     }
 
     @Override
@@ -152,19 +114,7 @@ public abstract class BaseAdapter <T extends ViewBinding> extends RecyclerView.A
 
     @Override
     public int getItemViewType(int position) {
-        if ((position + remedy) <= itemCount){
-            return position;
-        }else {
-            return TYPE_FOOTER;
-        }
-    }
-
-    public static boolean isFooterView(int position){
-        if ((position + remedy) > itemCount){
-            return true;
-        }else {
-            return false;
-        }
+       return position;
     }
 
     /**

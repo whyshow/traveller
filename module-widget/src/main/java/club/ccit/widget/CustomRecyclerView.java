@@ -45,19 +45,6 @@ public class CustomRecyclerView extends RecyclerView {
     }
 
     /**
-     * 保存数据状态
-     *
-     * @return
-     */
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(SAVED_SUPER_STATE, super.onSaveInstanceState());
-        bundle.putParcelable(SAVED_LAYOUT_MANAGER, Objects.requireNonNull(this.getLayoutManager()).onSaveInstanceState());
-        return bundle;
-    }
-
-    /**
      * 恢复数据状态
      *
      * @param state

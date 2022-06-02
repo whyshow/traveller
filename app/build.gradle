@@ -72,18 +72,18 @@ dependencies {
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
     implementation "androidx.fragment:fragment:1.4.1"
-    implementation 'androidx.navigation:navigation-ui:2.4.0'
-    implementation 'androidx.navigation:navigation-fragment:2.4.0'
+    implementation 'androidx.navigation:navigation-ui:2.4.2'
+    implementation 'androidx.navigation:navigation-fragment:2.4.2'
     // 路由
     implementation rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.annotationProcessors.arouter
-
+    //内存泄漏分析工具
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
     implementation project(path: ':module-basic')
     implementation project(path: ':module-widget')
     implementation project(path: ':module-common')
     implementation project(path: ':module-home')
     implementation project(path: ':module-camerax')
     implementation project(path: ':module-room')
-    //内存泄漏分析工具
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+
 }

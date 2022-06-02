@@ -13,7 +13,7 @@ import club.ccit.databinding.ActivityLaunchBinding;
  * Description: 启动页面
  * Version:
  */
-public class LaunchActivity extends BaseActivity<ActivityLaunchBinding>{
+public class LaunchActivity extends BaseActivity<ActivityLaunchBinding> {
 
     @Override
     protected void onStart() {

@@ -7,9 +7,12 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
+
 import java.util.List;
-import club.ccit.basic.BaseDataBindingActivity;
+
+import club.ccit.basic.BaseActivity;
 import club.ccit.common.AppRouter;
 import club.ccit.common.Constant;
 import club.ccit.room.adapter.RoomAdapter;
@@ -29,7 +32,7 @@ import club.ccit.widget.title.TitleBar;
  * Version:
  */
 @Route(path = AppRouter.PATH_ROOM_ROOM)
-public class RoomActivity extends BaseDataBindingActivity<ActivityRoomBinding> {
+public class RoomActivity extends BaseActivity<ActivityRoomBinding> {
     private RoomViewModel roomViewModel;
     private RoomAdapter adapter;
     private TestApi testApi;
