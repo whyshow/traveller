@@ -149,7 +149,6 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else {
             return TYPE_FOOTER;
         }
-
     }
 
     /**
