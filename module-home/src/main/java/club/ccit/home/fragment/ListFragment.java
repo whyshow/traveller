@@ -23,7 +23,7 @@ import club.ccit.sdk.net.AndroidObservable;
  * @author: 瞌睡的牙签
  * Date: 2021/12/3 8:50 上午
  * Description:
- * Version:
+ * Version: 1.0 版本
  */
 public class ListFragment extends BaseFragment<FragmentListBinding> {
     private NewListAdapter adapter;

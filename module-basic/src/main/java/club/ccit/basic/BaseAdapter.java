@@ -1,6 +1,5 @@
 package club.ccit.basic;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ import club.ccit.basic.action.AdapterAction;
  * @author: 张帅威
  * Date: 2022/1/17 9:12 上午
  * Description:
- * Version:
+ * Version: 1.0 版本 使用viewBinding绑定控件，自动增加footer,显示加载中、没有更多了、重新加载和失败文字提示灯
  */
 public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public List list;
