@@ -1,7 +1,6 @@
 package club.ccit.home.adapter;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.paging.LoadState;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
-
 import club.ccit.common.LogUtils;
 import club.ccit.home.R;
 import club.ccit.home.fragment.ListFragment;
@@ -30,13 +26,14 @@ import club.ccit.widget.ExpandTextView;
  * Version:
  */
 public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List list;
+    public List list;
     public static final int TYPE_DATA = 1;
     public static final int TYPE_FOOTER = 2;
     public static int ERROR_NO_DATA = 0;
     private ListFragment fragment;
-    public ListAdapter(ListFragment context) {
+    public ListAdapter(ListFragment context,List list) {
         fragment = context;
+        this.list = list;
     }
 
     @NonNull
@@ -55,6 +52,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ViewHolder viewHolder = (ViewHolder) holder;
             NewsListBean.Result dataBean = (NewsListBean.Result) list.get(position);
             // 设置文本数据
+            LogUtils.i((position+1+"  "+dataBean.getArticle_title()));
+            LogUtils.i(dataBean.getArticle_text());
             viewHolder.titleTextView.setText(position+1+"  "+dataBean.getArticle_title());
             viewHolder.timeTextView.setText(dataBean.getArticle_date());
             if (!dataBean.getArticle_text().isEmpty()){
@@ -78,6 +77,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             switch (ERROR_NO_DATA) {
                 case 0:
                     footerViewHolder.progressBar.setVisibility(View.VISIBLE);
+                    fragment.onNext();
                     break;
                 case 1:
                     footerViewHolder.noData.setVisibility(View.VISIBLE);
@@ -87,6 +87,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     footerViewHolder.retryButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            list.clear();
+                            list.add("");
                             fragment.refresh();
                         }
                     });
@@ -99,20 +101,43 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return list.size() + 1;
+        return list.size();
     }
 
     /**
      * 添加item数据
      *
      * @param list 已经添加过数据列表
+     * @param page
      */
-    @SuppressLint("NotifyDataSetChanged")
-    public void onAppointData(List list) {
-        for (int i = 0; i < list.size(); i++) {
-            this.list.add(this.list.size(), (NewsListBean.Result) list.get(i));
+    public void onAppointData(List list, int page) {
+        ERROR_NO_DATA = 0;
+        if (page > 1){
+            for (int i = 0; i < list.size(); i++) {
+                this.list.add(this.list.size()-1,list.get(i));
+            }
+            notifyItemRangeInserted(this.list.size() - list.size(), list.size());
+            notifyDataSetChanged();
+        } else {
+            onRefresh(list);
         }
-        notifyItemRangeInserted(this.list.size() - list.size(), list.size());
+
+    }
+
+    /**
+     * 重新加载
+     */
+    public void onRefresh(List list){
+        if (this.list.size() > 1){
+            this.list.clear();
+            this.list.add("");
+        }
+
+        ERROR_NO_DATA = 0;
+        for (int i = 0; i < list.size(); i++) {
+            this.list.add(this.list.size()-1,list.get(i));
+        }
+        notifyItemRangeChanged(this.list.size() - list.size(), list.size());
         notifyDataSetChanged();
     }
 
@@ -132,6 +157,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      */
     public void setError(int type) {
         ERROR_NO_DATA = type;
+        notifyItemRangeInserted(list.size() - 1, list.size());
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

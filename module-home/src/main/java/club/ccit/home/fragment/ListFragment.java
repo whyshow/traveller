@@ -1,10 +1,6 @@
 package club.ccit.home.fragment;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.paging.PagingData;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
@@ -12,8 +8,6 @@ import java.util.List;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.home.R;
-import club.ccit.home.adapter.FooterLoadStateAdapter;
-import club.ccit.home.adapter.HomeAdapter;
 import club.ccit.home.adapter.ListAdapter;
 import club.ccit.home.databinding.FragmentListBinding;
 import club.ccit.home.viewModel.NewsViewModel;
@@ -32,7 +26,7 @@ import club.ccit.sdk.net.AndroidObservable;
 public class ListFragment extends BaseFragment<FragmentListBinding> {
     private ListAdapter adapter;
     private NewsApi api;
-    private final int page = 1;
+    private int page = 1;
     private NewsViewModel viewModel;
 
     @Override
@@ -42,36 +36,46 @@ public class ListFragment extends BaseFragment<FragmentListBinding> {
         api = new NewsApiProvider().getNewsList();
         List list = new ArrayList();
         list.add("");
-        adapter = new ListAdapter(ListFragment.this);
+        adapter = new ListAdapter(ListFragment.this, list);
         binding.draftSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
-        binding.draftSwipeRefresh.setRefreshing(true);
         binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         binding.draftRecyclerView.setAdapter(adapter);
+        requestData();
+        binding.draftSwipeRefresh.setOnRefreshListener(() -> refresh());
+    }
+
+    public void refresh() {
+        page = 1;
+        requestData();
+    }
+
+    public void onNext() {
+        page = page + 1;
+        requestData();
+    }
+
+    private void requestData() {
         AndroidObservable.create(api.getNewsList2(page)).subscribe(new AbstractApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {
                 binding.draftSwipeRefresh.setRefreshing(false);
-                if (newsListBean.getResult().size() > 0){
-                    adapter.onAppointData(newsListBean.getResult());
-                }else {
+                if (newsListBean.getResult().size() > 0) {
+                    adapter.onAppointData(newsListBean.getResult(), page);
+                } else {
                     adapter.setError(1);
                 }
+
             }
 
             @Override
             protected void error(int code, String message) {
-                if (adapter != null){
+                if (adapter != null) {
                     adapter.setError(2);
                 }
             }
         });
-
-        binding.draftSwipeRefresh.setOnRefreshListener(() -> refresh());
     }
 
-    public void refresh(){
-
-    }
     @Override
     public void onPause() {
         super.onPause();
