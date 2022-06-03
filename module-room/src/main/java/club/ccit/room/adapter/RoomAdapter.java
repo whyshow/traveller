@@ -25,11 +25,11 @@ public class RoomAdapter extends BaseAdapter<ItemRoomBinding> {
     }
 
     @Override
-    protected void onBindingViewData(RecyclerView.ViewHolder holder, int position) {
+    protected void onBindingViewData(BaseAdapter<ItemRoomBinding>.ViewHolder holder, int position) {
         TestDataModel testDataModel = (TestDataModel) list.get(position);
-        binding.ageTextView.setText("年龄："+testDataModel.getTestAge());
-        binding.idTextView.setText("编号："+testDataModel.getTestId());
-        binding.nameTextView.setText("名字："+testDataModel.getTestName());
+        holder.itemBinding.ageTextView.setText("年龄："+testDataModel.getTestAge());
+        holder.itemBinding.idTextView.setText("编号："+testDataModel.getTestId());
+        holder.itemBinding.nameTextView.setText("名字："+testDataModel.getTestName());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package club.ccit.home.fragment;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -7,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import club.ccit.basic.BaseFragment;
+import club.ccit.basic.action.AdapterAction;
 import club.ccit.home.R;
-import club.ccit.home.adapter.ListAdapter;
+import club.ccit.home.adapter.NewListAdapter;
 import club.ccit.home.databinding.FragmentListBinding;
-import club.ccit.home.viewModel.NewsViewModel;
+import club.ccit.home.viewModel.ListViewModel;
 import club.ccit.sdk.demo.NewsApi;
 import club.ccit.sdk.demo.NewsApiProvider;
 import club.ccit.sdk.demo.NewsListBean;
@@ -24,47 +26,72 @@ import club.ccit.sdk.net.AndroidObservable;
  * Version:
  */
 public class ListFragment extends BaseFragment<FragmentListBinding> {
-    private ListAdapter adapter;
+    private NewListAdapter adapter;
     private NewsApi api;
-    private int page = 1;
-    private NewsViewModel viewModel;
+    private int page = 0;
+    private ListViewModel viewModel;
+    private List<NewsListBean.Result> list = new ArrayList<>();
 
     @Override
     protected void onCreate() {
         super.onCreate();
-        viewModel = new ViewModelProvider(requireActivity()).get(NewsViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
         api = new NewsApiProvider().getNewsList();
-        List list = new ArrayList();
-        list.add("");
-        adapter = new ListAdapter(ListFragment.this, list);
         binding.draftSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.draftRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+        adapter = new NewListAdapter(new AdapterAction() {
+            @Override
+            public void onRefresh() {
+                requestData();
+            }
+
+            @Override
+            public void onNext() {
+                page = page + 1;
+                requestData();
+            }
+        });
         binding.draftRecyclerView.setAdapter(adapter);
-        requestData();
-        binding.draftSwipeRefresh.setOnRefreshListener(() -> refresh());
-    }
+        if (viewModel.getPage().getValue() != null) {
+            page = viewModel.getPage().getValue();
+            list = viewModel.getData().getValue();
+            binding.draftRecyclerView.getLayoutManager().onRestoreInstanceState(viewModel.getState());
+        }
 
-    public void refresh() {
-        page = 1;
-        requestData();
-    }
+        binding.draftSwipeRefresh.setOnRefreshListener(() -> {
+            page = 1;
+            requestData();
+        });
 
-    public void onNext() {
-        page = page + 1;
-        requestData();
+        viewModel.getData().observe(this, new Observer<List<NewsListBean.Result>>() {
+            @Override
+            public void onChanged(List<NewsListBean.Result> results) {
+                binding.draftSwipeRefresh.setRefreshing(false);
+                if (results.size() > 0) {
+                    adapter.onAddDataset(results, page);
+                }
+            }
+        });
     }
 
     private void requestData() {
         AndroidObservable.create(api.getNewsList2(page)).subscribe(new AbstractApiObserver<NewsListBean>() {
             @Override
             protected void succeed(NewsListBean newsListBean) {
-                binding.draftSwipeRefresh.setRefreshing(false);
+                // 设置ViewModel数据
                 if (newsListBean.getResult().size() > 0) {
-                    adapter.onAppointData(newsListBean.getResult(), page);
-                } else {
+                    if (page == 1) {
+                        list = newsListBean.getResult();
+                    } else {
+                        for (int i = 0; i < newsListBean.getResult().size(); i++) {
+                            list.add(newsListBean.getResult().get(i));
+                        }
+                    }
+                    viewModel.setValue(list);
+                }else {
+                    page = page - 1;
                     adapter.setError(1);
                 }
-
             }
 
             @Override
@@ -81,7 +108,9 @@ public class ListFragment extends BaseFragment<FragmentListBinding> {
         super.onPause();
         // 保存RecyclerView数据状态
         viewModel.setState(binding.draftRecyclerView.getLayoutManager().onSaveInstanceState());
+        viewModel.setPage(page);
     }
+
 
     @Override
     protected FragmentListBinding onSetViewBinding() {
