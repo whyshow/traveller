@@ -1,6 +1,7 @@
 package club.ccit.widget.dialog;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -44,6 +45,7 @@ public class BottomDialog extends BaseDialog{
         action = null;
         Builder = null;
         context = null;
+        Log.i("LOG111","onDialogDismiss");
     }
 
     @Override

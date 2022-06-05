@@ -1,9 +1,11 @@
 package club.ccit.widget.dialog.base;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.LayoutRes;
@@ -29,6 +31,12 @@ public abstract class BaseDialog extends AppCompatDialog implements AnimAction{
         super.onCreate(savedInstanceState);
         setContentView(setLayoutResId());
         initView();
+        setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                onDialogDismiss();
+            }
+        });
     }
 
     @Override
@@ -43,6 +51,11 @@ public abstract class BaseDialog extends AppCompatDialog implements AnimAction{
         }
         getWindow().setGravity(setDialogGravity());
         setCancelable(setDialogCancelable());
+    }
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
     }
 
     /**
@@ -63,6 +76,7 @@ public abstract class BaseDialog extends AppCompatDialog implements AnimAction{
     public abstract boolean setDialogCancelable();
 
     public void onDialogDismiss(){
+
         dismiss();
     }
 

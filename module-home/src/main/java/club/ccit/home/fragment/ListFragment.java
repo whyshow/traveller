@@ -116,4 +116,12 @@ public class ListFragment extends BaseFragment<FragmentListBinding> {
     protected FragmentListBinding onSetViewBinding() {
         return FragmentListBinding.inflate(getLayoutInflater());
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (adapter != null){
+            adapter.onDestroy();
+        }
+    }
 }

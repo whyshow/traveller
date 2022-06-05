@@ -52,4 +52,8 @@ public class NewListAdapter extends BaseAdapter<ItemHomeBinding> {
     protected ItemHomeBinding getViewBinding(ViewGroup parent) {
         return ItemHomeBinding.inflate(LayoutInflater.from(parent.getContext()));
     }
+
+    public void onDestroy() {
+        action = null;
+    }
 }
