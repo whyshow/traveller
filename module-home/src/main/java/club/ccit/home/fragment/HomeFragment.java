@@ -43,7 +43,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtils.i("onCreate");
     }
 
     @Override
@@ -182,10 +181,5 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         mDatePickerDialog.setScrollLoop(false);
         // 不允许滚动动画
         mDatePickerDialog.setCanShowAnim(false);
-    }
-
-    @Override
-    protected FragmentHomeBinding onSetViewBinding() {
-        return FragmentHomeBinding.inflate(getLayoutInflater());
     }
 }

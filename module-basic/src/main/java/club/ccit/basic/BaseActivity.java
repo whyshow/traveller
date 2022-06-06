@@ -1,6 +1,8 @@
 package club.ccit.basic;
+
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,13 +37,19 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         if (setLayoutId() == 0){
             binding = onSetViewBinding();
             setContentView(binding.getRoot());
-
         }else {
             binding = DataBindingUtil.setContentView(this, setLayoutId());
             binding.setLifecycleOwner(this);
         }
         // 禁止屏幕翻转
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Log.d("LOG111","BaseActivity onCreate");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("LOG111","BaseActivity onStart");
     }
 
     /** 寻找点击事件的id **/
