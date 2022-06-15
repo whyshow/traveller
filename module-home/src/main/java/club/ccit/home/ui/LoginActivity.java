@@ -1,7 +1,7 @@
-package club.ccit;
+package club.ccit.home.ui;
 
 import club.ccit.basic.BaseActivity;
-import club.ccit.databinding.ActivityLoginBinding;
+import club.ccit.home.databinding.ActivityLoginBinding;
 
 /**
  * FileName: LoginActivity

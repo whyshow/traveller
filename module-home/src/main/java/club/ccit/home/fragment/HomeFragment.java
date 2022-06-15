@@ -182,4 +182,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         // 不允许滚动动画
         mDatePickerDialog.setCanShowAnim(false);
     }
+
+    @Override
+    protected FragmentHomeBinding onSetViewBinding() {
+        return FragmentHomeBinding.inflate(getLayoutInflater());
+    }
 }

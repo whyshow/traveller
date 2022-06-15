@@ -1,0 +1,7 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+    <item android:width="1080dp" android:height="1920dp" android:drawable="@android:color/white"/>
+    <item android:height="120dp" android:width="120dp" android:gravity="center">
+        <bitmap
+            android:src="@drawable/ic_launcher"/>
+    </item>
+</layer-list>

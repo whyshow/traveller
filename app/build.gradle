@@ -20,7 +20,7 @@ android {
         ndk {
             // 设置APP 类型
             abiFilters rootProject.ext.abiFilters.abi
-            abiFilters rootProject.ext.abiFilters.x86
+            // abiFilters rootProject.ext.abiFilters.x86
             abiFilters rootProject.ext.abiFilters.v7
         }
     }
@@ -39,10 +39,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        //这说明，安装debug时候，主release包
-//        debug {
-//            signingConfig signingConfigs.release
-//        }
     }
 
     android.applicationVariants.all { variant ->

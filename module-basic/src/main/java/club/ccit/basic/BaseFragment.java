@@ -64,13 +64,6 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
     }
 
     /**
-     * 返回具有dataBinding的布局
-     **/
-    protected int setLayoutId() {
-        return 0;
-    }
-
-    /**
      * 视图绑定
      * 如果子类继承没有实现此方法以及没有返回 setLayoutId()
      * 那么将会以反射的形式进行绑定。

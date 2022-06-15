@@ -30,10 +30,11 @@ public class BaseApplication extends Application {
     /**
      * 维护Activity 的list
      */
-    private static final List<Activity> M_ACTIVITY = Collections.synchronizedList(new LinkedList<Activity>());
+    private static List<Activity> M_ACTIVITY;
     @Override
     public void onCreate() {
         super.onCreate();
+        LogUtils.i("BaseApplication");
         Constant.setApplication(this);
         if (isDebug()) {
             // 打印日志
@@ -44,6 +45,7 @@ public class BaseApplication extends Application {
         ARouter.init(this);
         // 注册Activity 的创建销毁的监听
         registerActivityListener();
+        M_ACTIVITY = Collections.synchronizedList(new LinkedList<Activity>());
     }
 
     private boolean isDebug() {

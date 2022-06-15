@@ -1,10 +1,11 @@
-package club.ccit;
+package club.ccit.home.ui;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import club.ccit.basic.BaseActivity;
 import club.ccit.common.AppRouter;
-import club.ccit.databinding.ActivityLaunchBinding;
+import club.ccit.common.LogUtils;
+import club.ccit.home.databinding.ActivityLaunchBinding;
 
 /**
  * FileName: LaunchActivity
@@ -18,6 +19,7 @@ public class LaunchActivity extends BaseActivity<ActivityLaunchBinding> {
     @Override
     protected void onStart() {
         super.onStart();
+        LogUtils.i("LaunchActivity onStart");
         ARouter.getInstance().build(AppRouter.PATH_APP_HOME).navigation();
         finish();
     }
