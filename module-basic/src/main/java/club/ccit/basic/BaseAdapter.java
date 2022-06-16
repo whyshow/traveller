@@ -25,7 +25,7 @@ import club.ccit.basic.action.AdapterAction;
  */
 public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public List list;
-    private  static final int TYPE_DATA = 1;
+    private static final int TYPE_DATA = 1;
     private static final int TYPE_FOOTER = 2;
     private static int FOOTER_TYPE = 0;
     public static int FOOTER_LOADING = 0;
@@ -86,16 +86,18 @@ public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Ad
      */
     public void onAddData(List list, int page) {
         if (page > 1) {
-            if (this.list.size() % list.size() == 1){
-                FOOTER_TYPE = FOOTER_NO_DATA;
-            }else {
-                FOOTER_TYPE = FOOTER_LOADING;
+            if (list != null && list.size() > 0) {
+                if (this.list.size() % list.size() == 1) {
+                    FOOTER_TYPE = FOOTER_NO_DATA;
+                } else {
+                    FOOTER_TYPE = FOOTER_LOADING;
+                }
+                for (int i = 0; i < list.size(); i++) {
+                    this.list.add(this.list.size(), list.get(i));
+                }
+                notifyItemRangeInserted(this.list.size() - list.size(), list.size());
+                notifyDataSetChanged();
             }
-            for (int i = 0; i < list.size(); i++) {
-                this.list.add(this.list.size(), list.get(i));
-            }
-            notifyItemRangeInserted(this.list.size() - list.size(), list.size());
-            notifyDataSetChanged();
         } else {
             onRefresh(list);
         }

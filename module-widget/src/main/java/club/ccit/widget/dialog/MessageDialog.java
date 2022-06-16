@@ -18,13 +18,14 @@ import club.ccit.widget.dialog.base.BaseDialog;
  * Description:
  * Version:
  */
-public class MessageDialog extends BaseDialog implements View.OnClickListener{
+public class MessageDialog extends BaseDialog implements View.OnClickListener {
     public static String cancelTextView = "取消";
     public static String ensureTextView = "确定";
     private static String messageTextView = "";
     private static Context context;
     private static OnClickAction action;
     public static MessageDialog Builder;
+
     public MessageDialog(Context context, OnClickAction a) {
         super(context);
         action = a;
@@ -74,13 +75,17 @@ public class MessageDialog extends BaseDialog implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-       action.onClickListener(view, MessageDialog.this);
+        if (view.getId() == R.id.dialogCancel) {
+            onDialogDismiss();
+        } else if (view.getId() == R.id.dialogEnsure) {
+            action.onClickListener(view, MessageDialog.this);
+        }
     }
 
-    public static BaseDialog Builder(Context c,String message, OnClickAction a){
+    public static BaseDialog Builder(Context c, String message, OnClickAction a) {
         context = c;
         messageTextView = message;
-        new MessageDialog(context,a);
+        new MessageDialog(context, a);
         return Builder;
     }
 

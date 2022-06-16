@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
 }
-apply plugin: 'kotlin-android'
 
 android {
     compileSdk rootProject.ext.android.compileSdkVersion
@@ -49,8 +48,6 @@ dependencies {
     implementation project(path: ':module-basic')
     implementation project(path: ':module-common')
     implementation 'com.quickbirdstudios:opencv:4.5.2'
-    implementation "androidx.core:core-ktx:+"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     // 视频播放器
     implementation 'cn.jzvd:jiaozivideoplayer:7.5.0'
 
