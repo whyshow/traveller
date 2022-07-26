@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewbinding.ViewBinding;
+import androidx.databinding.ViewDataBinding;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -26,7 +26,7 @@ import club.ccit.basic.action.ClickAction;
  * Description: Activity 基类
  * Version:
  */
-public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActivity implements ClickAction {
+public abstract class BaseDataBindingActivity<T extends ViewDataBinding> extends AppCompatActivity implements ClickAction {
     protected T binding;
 
     @Override

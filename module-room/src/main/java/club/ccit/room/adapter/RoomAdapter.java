@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import club.ccit.basic.BaseAdapter;
+import club.ccit.basic.action.AdapterAction;
 import club.ccit.room.databinding.ItemRoomBinding;
 import club.ccit.room.model.TestDataModel;
 
@@ -20,8 +21,9 @@ import club.ccit.room.model.TestDataModel;
  * Version:
  */
 public class RoomAdapter extends BaseAdapter<ItemRoomBinding> {
-    public RoomAdapter(List list) {
+    public RoomAdapter(List list, AdapterAction action) {
         this.list = list;
+        this.action = action;
     }
 
     @Override

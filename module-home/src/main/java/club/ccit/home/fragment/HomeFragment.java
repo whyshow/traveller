@@ -49,9 +49,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     public void onStart() {
         super.onStart();
         List<String> list = new ArrayList<>();
-        list.add("http://img0.imgtn.bdimg.com/it/u=1352823040,1166166164&fm=27&gp=0.jpg");
-        list.add("http://img0.imgtn.bdimg.com/it/u=3184221534,2238244948&fm=27&gp=0.jpg");
-        list.add("http://img4.imgtn.bdimg.com/it/u=1794621527,1964098559&fm=27&gp=0.jpg");
+        list.add("https://t7.baidu.com/it/u=1819248061,230866778&fm=193&f=GIF");
+        list.add("https://t7.baidu.com/it/u=3078321260,3840584311&fm=193&f=GIF");
+        list.add("https://t7.baidu.com/it/u=2605426091,1199286953&fm=193&f=GIF");
         binding.recyclerViewBanner.initBannerImageView(list, position -> Toast.makeText(requireActivity(), "clicked:" + position, Toast.LENGTH_SHORT).show());
         setOnClickListener(
                 binding.cameraActivity,

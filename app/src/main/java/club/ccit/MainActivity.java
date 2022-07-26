@@ -10,7 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
-import club.ccit.basic.BaseActivity;
+import club.ccit.basic.BaseDataBindingActivity;
 import club.ccit.common.AppRouter;
 import club.ccit.common.LogUtils;
 import club.ccit.databinding.ActivityMainBinding;
@@ -22,7 +22,7 @@ import club.ccit.databinding.ActivityMainBinding;
  * Version:
  */
 @Route(path = AppRouter.PATH_APP_HOME)
-public class MainActivity extends BaseActivity<ActivityMainBinding> {
+public class MainActivity extends BaseDataBindingActivity<ActivityMainBinding> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -62,7 +62,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import club.ccit.basic.BaseActivity;
+import club.ccit.basic.BaseDataBindingActivity;
 import club.ccit.camerax.databinding.AvtivityPhotographBinding;
 import club.ccit.camerax.permission.PermissionListener;
 import club.ccit.camerax.permission.PermissionsUtil;
@@ -75,7 +75,7 @@ import club.ccit.common.AppRouter;
  * Version:
  */
 @Route(path = AppRouter.PATH_CAMERA_PHOTOGRAPH)
-public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> implements ImageAnalysis.Analyzer {
+public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotographBinding> implements ImageAnalysis.Analyzer {
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private Camera camera;
     private Preview preview;

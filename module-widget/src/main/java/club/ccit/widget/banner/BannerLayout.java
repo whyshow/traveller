@@ -135,7 +135,7 @@ public class BannerLayout extends FrameLayout {
 
         indicatorMargin = dp2px(4);
         int marginLeft = dp2px(16);
-        int marginRight = dp2px(0);
+        int marginRight = dp2px(36);
         int marginBottom = dp2px(11);
         int gravity = GravityCompat.START;
         int o = a.getInt(R.styleable.BannerLayout_orientation, 0);
@@ -165,10 +165,10 @@ public class BannerLayout extends FrameLayout {
         indicatorContainer.setLayoutManager(indicatorLayoutManager);
         indicatorAdapter = new IndicatorAdapter();
         indicatorContainer.setAdapter(indicatorAdapter);
-        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.BOTTOM |Gravity.CENTER;
-        //params.setMargins(marginLeft, 0, marginRight, marginBottom);
+        params.gravity = Gravity.BOTTOM | Gravity.CENTER;
+        params.setMargins(10, 10, 10, 10);
         addView(indicatorContainer, params);
         if (!showIndicator) {
             indicatorContainer.setVisibility(GONE);
