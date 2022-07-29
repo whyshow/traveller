@@ -6,7 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/12/1 9:00 上午
  * Description: 新闻列表接口
  * Version:

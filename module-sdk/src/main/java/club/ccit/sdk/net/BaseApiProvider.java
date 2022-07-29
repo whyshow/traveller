@@ -14,7 +14,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/12/1 4:37 下午
  * Description: 请求网络
  * Version:

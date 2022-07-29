@@ -1,7 +1,7 @@
 package club.ccit.common;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/11/23 13:32
  * Description: App路由
  * Version:

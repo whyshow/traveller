@@ -6,7 +6,7 @@ import club.ccit.home.databinding.ActivityLoginBinding;
 /**
  * FileName: LoginActivity
  *
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/12/24 9:16 上午
  * Description: 登录页面
  * Version:

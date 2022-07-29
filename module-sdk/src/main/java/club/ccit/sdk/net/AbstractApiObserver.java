@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.observers.DisposableObserver;
 import retrofit2.HttpException;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/12/2 9:54 上午
  * Description: 接口回调 处理401 等代码
  * Version:

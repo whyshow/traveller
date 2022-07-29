@@ -20,7 +20,7 @@ import club.ccit.widget.dialog.base.BaseDialog;
 /**
  * FileName: BottomDialog
  *
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/12/17 9:58 上午
  * Description: 底部弹窗选择
  * Version:

@@ -55,7 +55,7 @@ import club.ccit.common.AppRouter;
 import cn.jzvd.Jzvd;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/11/30 9:36 上午
  * Description: 录制视频
  * Version:

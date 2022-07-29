@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.internal.fuseable.HasUpstreamObservableSource;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/12/1 1:44 下午
  * Description: Android 生命周期进行关联
  * Version:

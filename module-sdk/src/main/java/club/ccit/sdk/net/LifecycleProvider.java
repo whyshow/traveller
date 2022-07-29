@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Consumer;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/12/1 3:51 下午
  * Description: 生命周期控制，如果生命周期结束，未处理完的事件会自动解绑以避免内存泄漏。
  * Version: 1.0

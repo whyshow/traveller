@@ -69,7 +69,7 @@ import club.ccit.camerax.permission.PermissionsUtil;
 import club.ccit.common.AppRouter;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/11/29 9:07 上午
  * Description: 相机预览
  * Version:

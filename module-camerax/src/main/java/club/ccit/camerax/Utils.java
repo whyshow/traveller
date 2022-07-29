@@ -56,8 +56,8 @@ public class Utils {
         if (bitmap == null) {
             return null;
         }
-
-        if (kind == MediaStore.Images.Thumbnails.MINI_KIND) {//压缩图片 开始处
+//压缩图片 开始处
+        if (kind == MediaStore.Images.Thumbnails.MINI_KIND) {
             // Scale down the bitmap if it's too large.
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();

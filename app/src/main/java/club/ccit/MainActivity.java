@@ -16,7 +16,7 @@ import club.ccit.common.LogUtils;
 import club.ccit.databinding.ActivityMainBinding;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/11/18 13:17
  * Description:
  * Version:

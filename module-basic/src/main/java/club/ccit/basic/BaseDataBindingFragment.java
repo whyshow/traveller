@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
@@ -22,7 +21,7 @@ import java.lang.reflect.Type;
 import club.ccit.basic.action.ClickAction;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/11/23 08:16
  * Description: Fragment 基类
  * Version:
@@ -33,13 +32,7 @@ public abstract class BaseDataBindingFragment<T extends ViewDataBinding> extends
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        if (setLayoutId() == 0){
-            binding = onSetViewBinding();
-        }else {
-            binding = DataBindingUtil.setContentView(requireActivity(), setLayoutId());
-            binding.setLifecycleOwner(this);
-        }
+        binding = onSetViewBinding();
         return binding.getRoot();
     }
 
@@ -52,11 +45,6 @@ public abstract class BaseDataBindingFragment<T extends ViewDataBinding> extends
     @Override
     public <T extends View> T findViewById(int id) {
         return getView().findViewById(id);
-    }
-
-    /** 返回具有dataBinding的布局 **/
-    protected int setLayoutId(){
-        return 0;
     }
 
     /**

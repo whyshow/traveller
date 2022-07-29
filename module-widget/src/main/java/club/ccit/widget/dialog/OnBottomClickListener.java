@@ -3,7 +3,7 @@ package club.ccit.widget.dialog;
 /**
  * FileName: OnBottomClickListener
  *
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/12/17 2:50 下午
  * Description:
  * Version:

@@ -20,7 +20,7 @@ import club.ccit.sdk.net.AbstractApiObserver;
 import club.ccit.sdk.net.AndroidObservable;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/12/3 8:50 上午
  * Description:
  * Version: 1.0 版本

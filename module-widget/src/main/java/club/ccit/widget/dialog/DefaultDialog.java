@@ -9,7 +9,7 @@ import club.ccit.widget.dialog.base.BaseDialog;
 /**
  * FileName: InputDialog
  *
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2022/1/4 2:22 下午
  * Description: 输入对话框
  * Version:

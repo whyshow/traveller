@@ -17,7 +17,7 @@ import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatImageView;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/11/17 15:53
  * Description: 自定义圆角ImageView
  *              目前支持圆角

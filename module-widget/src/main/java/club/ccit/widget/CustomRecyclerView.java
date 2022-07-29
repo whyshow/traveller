@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * FileName: CustomRecyclerView
  *
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2022年01月18日10:46:23
  * Description: RecyclerView 封装
  * Version:

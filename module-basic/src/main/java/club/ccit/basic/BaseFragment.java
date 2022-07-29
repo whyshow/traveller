@@ -22,7 +22,7 @@ import java.lang.reflect.Type;
 import club.ccit.basic.action.ClickAction;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/11/23 08:16
  * Description: Fragment 基类
  * Version:

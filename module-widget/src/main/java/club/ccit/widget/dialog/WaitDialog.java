@@ -9,7 +9,7 @@ import club.ccit.widget.R;
 import club.ccit.widget.dialog.base.BaseDialog;
 
 /**
- * @author: 瞌睡的牙签
+ * @author: 张帅威
  * Date: 2021/11/24 10:19
  * Description: 等待弹窗
  * Version:
