@@ -1,4 +1,4 @@
-package club.ccit.camerax;
+package club.ccit.camerax.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

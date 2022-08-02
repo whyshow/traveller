@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 public interface ClickAction extends View.OnClickListener {
     /**
      * 寻找控件id
+     *
      * @param id
      * @param <V>
      * @return
@@ -24,6 +25,7 @@ public interface ClickAction extends View.OnClickListener {
 
     /**
      * 设置监听事件
+     *
      * @param ids
      */
     default void setOnClickListener(@IdRes int... ids) {
@@ -32,6 +34,7 @@ public interface ClickAction extends View.OnClickListener {
 
     /**
      * 循环添加监听事件
+     *
      * @param listener
      * @param ids
      */
@@ -43,6 +46,7 @@ public interface ClickAction extends View.OnClickListener {
 
     /**
      * 设置监听事件的view
+     *
      * @param views
      */
     default void setOnClickListener(View... views) {
@@ -51,6 +55,7 @@ public interface ClickAction extends View.OnClickListener {
 
     /**
      * 循环添加监听事件
+     *
      * @param listener
      * @param views
      */

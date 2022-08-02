@@ -1,4 +1,4 @@
-package club.ccit.camerax;
+package club.ccit.camerax.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -63,6 +63,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import club.ccit.basic.BaseDataBindingActivity;
+import club.ccit.camerax.view.CameraFocusView;
+import club.ccit.camerax.R;
 import club.ccit.camerax.databinding.AvtivityPhotographBinding;
 import club.ccit.camerax.permission.PermissionListener;
 import club.ccit.camerax.permission.PermissionsUtil;

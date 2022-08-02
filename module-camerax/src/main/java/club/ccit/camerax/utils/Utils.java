@@ -1,4 +1,4 @@
-package club.ccit.camerax;
+package club.ccit.camerax.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

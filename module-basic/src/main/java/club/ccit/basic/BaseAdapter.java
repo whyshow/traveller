@@ -84,7 +84,7 @@ public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Ad
      * @param list 已经添加过数据列表
      * @param page
      */
-    public void onAddData(List list, int page) {
+    public void setItemData(List list, int page) {
         if (page > 1) {
             if (list != null && list.size() > 0) {
                 if (this.list.size() % list.size() == 1) {
@@ -109,7 +109,7 @@ public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Ad
      * @param list 已经添加过数据列表
      * @param page
      */
-    public void onAddDataset(List list, int page) {
+    public void onAppendData(List list, int page) {
         FOOTER_TYPE = FOOTER_LOADING;
         if (page > 1) {
             this.list = list;

@@ -37,39 +37,45 @@ public abstract class BaseDataBindingActivity<T extends ViewDataBinding> extends
         setContentView(binding.getRoot());
         // 禁止屏幕翻转
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        Log.d("LOG111","BaseActivity onCreate");
+        Log.d("LOG111", "BaseActivity onCreate");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("LOG111","BaseActivity onStart");
+        Log.d("LOG111", "BaseActivity onStart");
     }
 
-    /** 寻找点击事件的id **/
+    /**
+     * 寻找点击事件的id
+     **/
     @Override
     public <T extends View> T findViewById(int id) {
         return binding.getRoot().findViewById(id);
     }
+
     /**
      * 视图绑定
      * 如果子类继承没有实现此方法以及没有返回 setLayoutId()
      * 那么将会以反射的形式进行绑定。
      * 性能可能会降低
+     *
      * @return ActivityXXXBinding.inflate(getLayoutInflater ());
      */
-    protected T onSetViewBinding(){
+    protected T onSetViewBinding() {
         return reflectViewBinding();
     }
 
-    /** 反射获取binding **/
-    private T reflectViewBinding(){
+    /**
+     * 反射获取binding
+     **/
+    private T reflectViewBinding() {
         Type superclass = getClass().getGenericSuperclass();
         Class<?> aClass = (Class<?>) ((ParameterizedType) superclass).getActualTypeArguments()[0];
         try {
             Method method = aClass.getDeclaredMethod("inflate", LayoutInflater.class);
             binding = (T) method.invoke(null, getLayoutInflater());
-        } catch (NoSuchMethodException | IllegalAccessException| InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return binding;
@@ -93,7 +99,9 @@ public abstract class BaseDataBindingActivity<T extends ViewDataBinding> extends
         }
     }
 
-    /** 结束回调 **/
+    /**
+     * 结束回调
+     **/
     @Override
     protected void onDestroy() {
         super.onDestroy();

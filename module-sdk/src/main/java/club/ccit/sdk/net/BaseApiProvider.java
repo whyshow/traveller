@@ -58,6 +58,8 @@ public abstract class BaseApiProvider {
                 .baseUrl(baseUrl())
                 // 绑定RxJava
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                // 处理body为空而报 End of input at line 1 column 1
+                .addConverterFactory(new NullOnEmptyConverterFactory())
                 // 使用gson 自动解析数据
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -20,7 +20,7 @@ android {
         ndk {
             // 设置APP 类型
             abiFilters rootProject.ext.abiFilters.abi
-            // abiFilters rootProject.ext.abiFilters.x86
+            abiFilters rootProject.ext.abiFilters.x86
             abiFilters rootProject.ext.abiFilters.v7
         }
     }
@@ -43,11 +43,11 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            def date = new Date().format("yyyyMMddHHmm" , TimeZone.getTimeZone("GMT+08"))
-            if(variant.buildType.name.equals('debug')){
+            def date = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08"))
+            if (variant.buildType.name.equals('debug')) {
                 outputFileName = "traveller_${versionName}_${date}.apk"
             }
-            if(variant.buildType.name.equals('release')){
+            if (variant.buildType.name.equals('release')) {
                 outputFileName = "traveller_${versionName}_${date}.apk"
             }
         }

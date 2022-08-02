@@ -34,7 +34,6 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = onSetViewBinding();
-        Log.d("LOG111", "BaseFragment onCreateView");
         return binding.getRoot();
     }
 
@@ -42,17 +41,10 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         onCreate();
-        Log.d("LOG111", "BaseFragment onViewCreated");
     }
 
     protected void onCreate() {
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("LOG111", "BaseFragment onStart");
     }
 
     /**
@@ -69,7 +61,7 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
      * 那么将会以反射的形式进行绑定。
      * 性能可能会降低
      *
-     * @return ActivityXXXBinding.inflate(getLayoutInflater ());
+     * @return ActivityXXXBinding.inflate(getLayoutInflater());
      */
     protected T onSetViewBinding() {
         return reflectViewBinding();

@@ -10,9 +10,9 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <application>
         <!--        拍照页面-->
-        <activity android:name=".PhotographActivity" />
+        <activity android:name=".ui.PhotographActivity" />
         <!--        录制视频页面-->
-        <activity android:name=".VideoActivity"
+        <activity android:name=".ui.VideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".permission.PermissionActivity" />

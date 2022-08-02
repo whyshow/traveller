@@ -38,10 +38,12 @@ public abstract class BaseDataBindingFragment<T extends ViewDataBinding> extends
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
     }
 
-    /** 寻找点击事件的id **/
+    /**
+     * 寻找点击事件的id
+     **/
     @Override
     public <T extends View> T findViewById(int id) {
         return getView().findViewById(id);
@@ -52,20 +54,23 @@ public abstract class BaseDataBindingFragment<T extends ViewDataBinding> extends
      * 如果子类继承没有实现此方法以及没有返回 setLayoutId()
      * 那么将会以反射的形式进行绑定。
      * 性能可能会降低
+     *
      * @return ActivityXXXBinding.inflate(getLayoutInflater ());
      */
-    protected T onSetViewBinding(){
+    protected T onSetViewBinding() {
         return reflectViewBinding();
     }
 
-    /** 反射获取binding **/
-    private T reflectViewBinding(){
+    /**
+     * 反射获取binding
+     **/
+    private T reflectViewBinding() {
         Type superclass = getClass().getGenericSuperclass();
         Class<?> aClass = (Class<?>) ((ParameterizedType) superclass).getActualTypeArguments()[0];
         try {
             Method method = aClass.getDeclaredMethod("inflate", LayoutInflater.class);
             binding = (T) method.invoke(null, getLayoutInflater());
-        } catch (NoSuchMethodException | IllegalAccessException| InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return binding;
@@ -89,7 +94,9 @@ public abstract class BaseDataBindingFragment<T extends ViewDataBinding> extends
         }
     }
 
-    /** 结束回调 **/
+    /**
+     * 结束回调
+     **/
     @Override
     public void onDestroyView() {
         super.onDestroyView();

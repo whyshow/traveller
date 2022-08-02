@@ -8,10 +8,14 @@ package club.ccit.basic.action;
  * Description:
  * Version:
  */
-public interface  AdapterAction {
-    /** 刷新 **/
+public interface AdapterAction {
+    /**
+     * 刷新
+     **/
     void onRefresh();
-    /** 下一页 **/
-    void onNext();
 
+    /**
+     * 下一页
+     **/
+    void onNext();
 }
