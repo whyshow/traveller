@@ -1,6 +1,5 @@
 package club.ccit;
 
-import android.os.Bundle;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -12,7 +11,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 
 import club.ccit.basic.BaseDataBindingActivity;
 import club.ccit.common.AppRouter;
-import club.ccit.common.LogUtils;
 import club.ccit.databinding.ActivityMainBinding;
 
 /**
@@ -25,9 +23,8 @@ import club.ccit.databinding.ActivityMainBinding;
 public class MainActivity extends BaseDataBindingActivity<ActivityMainBinding> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        LogUtils.i("MainActivity onCreate");
+    protected void onCreate() {
+        super.onCreate();
         // 去除item长按显示 toast
         cleanToast();
         new AppBarConfiguration.Builder(

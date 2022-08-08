@@ -16,6 +16,5 @@ public class BaseViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        Log.i("LOG111", "");
     }
 }

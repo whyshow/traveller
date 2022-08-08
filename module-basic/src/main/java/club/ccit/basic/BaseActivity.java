@@ -37,13 +37,11 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
         setContentView(binding.getRoot());
         // 禁止屏幕翻转
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        Log.d("LOG111", "BaseActivity onCreate");
+        onCreate();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("LOG111", "BaseActivity onStart");
+    protected void onCreate() {
+
     }
 
     /**

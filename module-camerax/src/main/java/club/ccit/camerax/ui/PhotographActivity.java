@@ -51,6 +51,8 @@ import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
@@ -69,6 +71,7 @@ import club.ccit.camerax.databinding.AvtivityPhotographBinding;
 import club.ccit.camerax.permission.PermissionListener;
 import club.ccit.camerax.permission.PermissionsUtil;
 import club.ccit.common.AppRouter;
+import club.ccit.common.LogUtils;
 
 /**
  * @author: 张帅威
@@ -86,7 +89,7 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
     private File file;
     private int rotation;
     private ImageAnalysis imageAnalysis;
-    private Size size = new Size(1080,1920);
+    private Size size = new Size(1080, 1920);
     private Bitmap bitmap = null;
     /**
      * 线程池
@@ -104,9 +107,9 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         boolean load = OpenCVLoader.initDebug();
-        if(load) {
+        if (load) {
             Log.i("CV", "OpenCV init success");
-        }else {
+        } else {
             Log.e("CV", "OpenCV init failed");
         }
         mImageView = binding.myImageView;
@@ -138,10 +141,12 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
 
     /**
      * 绑定预览视图
+     *
      * @param cameraProvider
      */
     @SuppressLint("UnsafeOptInUsageError")
     private void bindPreview(ProcessCameraProvider cameraProvider) {
+        // 创建线程
         cameraExecutor = Executors.newFixedThreadPool(4);
         // 创建 Preview
         preview = new Preview.Builder()
@@ -156,17 +161,18 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
 
         @SuppressLint("UnsafeOptInUsageError") UseCaseGroup useCaseGroup = new UseCaseGroup.Builder()
                 .addUseCase(preview)
-                .addUseCase(setImageAnalysis())
-                .addUseCase(setImageCapture())
+                .addUseCase(setImageAnalysis()).addUseCase(setImageCapture())
                 .build();
-        camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector,useCaseGroup);
+        setImageAnalysis();
+        camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, useCaseGroup);
     }
 
     /**
      * 设置拍摄配置
+     *
      * @return
      */
-    private ImageCapture setImageCapture(){
+    private ImageCapture setImageCapture() {
         imageCapture = new ImageCapture.Builder()
                 .setTargetRotation(binding.previewView.getDisplay().getRotation())
                 // 设置照片大小
@@ -176,19 +182,20 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
                 //设置闪光灯
                 .setFlashMode(ImageCapture.FLASH_MODE_AUTO)
                 .build();
-         initRevolve();
+        initRevolve();
         return imageCapture;
     }
 
     /**
      * 设置分析配置
+     *
      * @return
      */
-    private ImageAnalysis setImageAnalysis(){
+    private ImageAnalysis setImageAnalysis() {
         imageAnalysis = new ImageAnalysis.Builder()
-                .setTargetResolution(new Size(1080,1920))
-                        .build();
-        imageAnalysis.setAnalyzer(cameraExecutor,this);
+                .setTargetResolution(new Size(1080, 1920))
+                .build();
+        imageAnalysis.setAnalyzer(cameraExecutor, this);
         return imageAnalysis;
     }
 
@@ -206,7 +213,7 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
                 PreviewView previewView = (PreviewView) findViewById(R.id.previewView);
                 CameraFocusView cameraFocusView = new CameraFocusView(PhotographActivity.this);
                 previewView.addView(cameraFocusView);
-                cameraFocusView.setTouchFocusRect(x,y);
+                cameraFocusView.setTouchFocusRect(x, y);
                 // 创建监听
                 CameraControl cameraControl = camera.getCameraControl();
                 MeteringPointFactory factory = new SurfaceOrientedMeteringPointFactory(binding.previewView.getWidth(), binding.previewView.getHeight());
@@ -218,13 +225,13 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
                         .build();
 
                 ListenableFuture future = cameraControl.startFocusAndMetering(action);
-                future.addListener( () -> {
+                future.addListener(() -> {
                     try {
                         cameraFocusView.disDrawTouchFocusRect();
                         // process the result
                     } catch (Exception e) {
                     }
-                } , ContextCompat.getMainExecutor(PhotographActivity.this));
+                }, ContextCompat.getMainExecutor(PhotographActivity.this));
 
 
                 return false;
@@ -236,7 +243,7 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
      * 设置旋转
      */
     private void initRevolve() {
-        OrientationEventListener orientationEventListener = new OrientationEventListener((Context)this) {
+        OrientationEventListener orientationEventListener = new OrientationEventListener((Context) this) {
             @Override
             public void onOrientationChanged(int orientation) {
                 // 监视方向值以确定目标旋转值
@@ -263,23 +270,23 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
     @Override
     public void onClick(View view) {
         super.onClick(view);
-        if (view.getId() == R.id.buttonImageView){
+        if (view.getId() == R.id.buttonImageView) {
             ImageCapture.OutputFileOptions outputFileOptions;
             // 文件名
-            @SuppressLint("SimpleDateFormat") String imageName = "IMG_"+new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()).toString();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            @SuppressLint("SimpleDateFormat") String imageName = "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()).toString();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 // 大于等于Android 10 保存在系统相册目录中。
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, imageName+".jpg");
+                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, imageName + ".jpg");
                 contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
                 contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/Camera/");
-                outputFileOptions =  new ImageCapture.OutputFileOptions.Builder(
+                outputFileOptions = new ImageCapture.OutputFileOptions.Builder(
                         getContentResolver(),
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
                         .build();
-            }else {
+            } else {
                 // 小于Android 10保存在系统相册目录中。
-                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM+"/Camera/"+imageName+".jpg").getAbsolutePath());
+                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera/" + imageName + ".jpg").getAbsolutePath());
                 outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
             }
             // 保存
@@ -289,17 +296,17 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
                         public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                             // insert your code here.
                             myToast("成功");
-                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
+                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                                 // 通知相册有照片更新
                                 String[] paths = new String[]{file.getAbsolutePath()};
                                 MediaScannerConnection.scanFile(PhotographActivity.this, paths, null, null);
                                 file = null;
                             }
                         }
+
                         @Override
                         public void onError(@NonNull ImageCaptureException error) {
                             // insert your code here.
-                            Log.i("LOG111",error.toString());
                             myToast("失败");
                         }
                     }
@@ -310,17 +317,23 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (cameraExecutor != null){
+        if (cameraExecutor != null) {
             cameraExecutor.shutdown();
         }
-        if (imageAnalysis != null){
+        if (imageAnalysis != null) {
             imageAnalysis.clearAnalyzer();
         }
 
     }
 
+    /**
+     * 色彩转换
+     *
+     * @param image
+     */
     @Override
     public void analyze(@NonNull ImageProxy image) {
+        LogUtils.i("开始");
         @SuppressLint("UnsafeOptInUsageError") Image image1 = image.getImage();
         Mat src = imageToMat(image1);
         Mat temp = new Mat();
@@ -331,14 +344,18 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
         Imgproc.cvtColor(temp, dst, Imgproc.COLOR_BGR2GRAY);
         Mat newMat = rotateRight(src);
         //矩阵 转 bitmap
-        if (bitmap == null){
+        if (bitmap == null) {
             bitmap = Bitmap.createBitmap(newMat.width(), newMat.height(), Bitmap.Config.ARGB_8888);
         }
         Utils.matToBitmap(newMat, bitmap);
+        LogUtils.i("结束");
         mImageView.post(new Runnable() {
             @Override
             public void run() {
+                // 显示在屏幕上
                 mImageView.setImageBitmap(bitmap);
+
+                // 关闭释放内存
                 image.close();
             }
         });
@@ -346,6 +363,7 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
 
     /**
      * Mat 逆时针旋转
+     *
      * @param src
      * @return
      */
@@ -363,6 +381,7 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
 
     /**
      * Image 转 OpenCV Mat
+     *
      * @param image
      * @return
      */
@@ -403,7 +422,7 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
                 }
             }
         }
-        Mat mat = new Mat(height , width, CvType.CV_8UC1);
+        Mat mat = new Mat(height, width, CvType.CV_8UC1);
         mat.put(0, 0, data);
         return mat;
     }
