@@ -3,7 +3,6 @@ package club.ccit.common;
 import android.util.Log;
 
 /**
- * Copyright (C), 2011-2021, 万臻生态科技有限公司
  * FileName: LogUtils
  *
  * @author swzhang
@@ -13,9 +12,9 @@ import android.util.Log;
  */
 public class LogUtils {
     public static void i(String message){
-        if (Config.isLog){
+        if (BuildConfig.DEBUG){
             if (message == null){
-                Log.i("LOG111","");
+                Log.i("LOG111","null");
             }else {
                 Log.i("LOG111",message);
             }

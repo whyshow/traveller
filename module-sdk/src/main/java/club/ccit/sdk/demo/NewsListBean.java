@@ -3,7 +3,6 @@ package club.ccit.sdk.demo;
 import java.util.List;
 
 /**
- * Copyright (C), 2011-2021, 万臻生态科技有限公司
  * FileName: NewsListBean
  *
  * @author: swzhang3

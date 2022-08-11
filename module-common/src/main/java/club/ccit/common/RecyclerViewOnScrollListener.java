@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 /**
- * Copyright (C), 2011-2021, 万臻生态科技有限公司
  * FileName: RecyclerViewOnScrollListener
  *
  * @author: swzhang3
