@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import club.ccit.basic.action.AdapterAction;
+import club.ccit.basic.widget.ToastWidget;
 
 /**
  * FileName: BaseAdapter
@@ -23,7 +24,7 @@ import club.ccit.basic.action.AdapterAction;
  * Description:
  * Version: 1.0 版本 使用viewBinding绑定控件，自动增加footer,显示加载中、没有更多了、重新加载和失败文字提示灯
  */
-public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ToastWidget {
     public List list;
     private static final int TYPE_DATA = 1;
     private static final int TYPE_FOOTER = 2;

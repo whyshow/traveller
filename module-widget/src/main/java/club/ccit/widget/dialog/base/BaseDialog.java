@@ -31,6 +31,7 @@ public abstract class BaseDialog extends AppCompatDialog implements AnimAction{
         super.onCreate(savedInstanceState);
         setContentView(setLayoutResId());
         initView();
+        // 当弹窗关闭时触发、避免内存泄漏
         setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {

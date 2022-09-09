@@ -68,7 +68,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(TitleBar titleBar) {
-               myToast("点击了返回");
+               toastShow("点击了返回");
             }
         });
 
@@ -88,7 +88,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         // 底部选择弹窗
         if (view.getId() == R.id.startBottomDialog) {
             String[] phone = {"你", "好", "呀"};
-            BottomDialog.Builder(getActivity(), phone, (text, index) -> myToast(text)).show();
+            BottomDialog.Builder(getActivity(), phone, (text, index) -> toastShow(text)).show();
         }
         // 对话弹窗
         if (view.getId() == R.id.startDialog) {
@@ -117,10 +117,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 @Override
                 public void onPassFinish(String password, PayPasswordView payPasswordView) {
                     if ("123456".equals(password)) {
-                        myToast("密码正确");
+                        toastShow("密码正确");
                         PayDialog.onDismiss();
                     } else {
-                        myToast("密码不正确");
+                        toastShow("密码不正确");
                         payPasswordView.setErrorStyle();
                     }
                 }
@@ -155,7 +155,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void onSelected(String name, String cityName, String districtName) {
-                    myToast(name + " " + cityName + " " + districtName);
+                    toastShow(name + " " + cityName + " " + districtName);
                 }
 
                 @Override
@@ -172,7 +172,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         long endTimestamp = DateFormatUtils.str2Long("2050-05-01", false);
 
         // 通过时间戳初始化日期，毫秒级别
-        mDatePickerDialog = new DatePickerDialog(requireActivity(), timestamp -> myToast(DateFormatUtils.long2Str(timestamp, false)), beginTimestamp, endTimestamp);
+        mDatePickerDialog = new DatePickerDialog(requireActivity(), timestamp -> toastShow(DateFormatUtils.long2Str(timestamp, false)), beginTimestamp, endTimestamp);
         // 不允许点击屏幕或物理返回键关闭
         mDatePickerDialog.setCancelable(false);
         // 不显示时和分

@@ -19,6 +19,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import club.ccit.basic.action.ClickAction;
+import club.ccit.basic.widget.ToastWidget;
 
 /**
  * @author: 张帅威
@@ -26,7 +27,7 @@ import club.ccit.basic.action.ClickAction;
  * Description: Activity 基类
  * Version:
  */
-public abstract class BaseDataBindingActivity<T extends ViewDataBinding> extends AppCompatActivity implements ClickAction {
+public abstract class BaseDataBindingActivity<T extends ViewDataBinding> extends AppCompatActivity implements ClickAction, ToastWidget {
     protected T binding;
 
     @Override
@@ -77,24 +78,6 @@ public abstract class BaseDataBindingActivity<T extends ViewDataBinding> extends
             e.printStackTrace();
         }
         return binding;
-    }
-
-    /**
-     * 自定义Toast
-     *
-     * @param message
-     */
-    public void myToast(String message) {
-        if (message != null) {
-            View view = LayoutInflater.from(getApplication()).inflate(R.layout.layout_toast, null);
-            TextView text = view.findViewById(R.id.toastTextView);
-            text.setText(message);
-            Toast toast = new Toast(getApplication());
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setView(view);
-            toast.show();
-        }
     }
 
     /**

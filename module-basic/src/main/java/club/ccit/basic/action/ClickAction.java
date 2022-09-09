@@ -65,6 +65,10 @@ public interface ClickAction extends View.OnClickListener {
         }
     }
 
+    /**
+     * 点击事件
+     * @param view
+     */
     @Override
     default void onClick(View view) {
         // 默认不实现，让子类实现

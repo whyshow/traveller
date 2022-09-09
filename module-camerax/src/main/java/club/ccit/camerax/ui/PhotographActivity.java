@@ -295,7 +295,7 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
                         @Override
                         public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                             // insert your code here.
-                            myToast("成功");
+                            toastShow("成功");
                             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                                 // 通知相册有照片更新
                                 String[] paths = new String[]{file.getAbsolutePath()};
@@ -307,7 +307,7 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
                         @Override
                         public void onError(@NonNull ImageCaptureException error) {
                             // insert your code here.
-                            myToast("失败");
+                            toastShow("失败");
                         }
                     }
             );

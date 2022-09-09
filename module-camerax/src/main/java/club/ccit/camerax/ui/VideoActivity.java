@@ -260,7 +260,7 @@ public class VideoActivity extends BaseDataBindingActivity<AvtivityVideoBinding>
 
                 @Override
                 public void onError(int videoCaptureError, @NonNull String message, @Nullable Throwable cause) {
-                    myToast("视频保存失败");
+                    toastShow("视频保存失败");
                 }
             });
 
