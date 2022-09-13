@@ -51,8 +51,6 @@ import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
@@ -64,7 +62,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import club.ccit.basic.BaseDataBindingActivity;
+import club.ccit.basic.BaseActivity;
 import club.ccit.camerax.view.CameraFocusView;
 import club.ccit.camerax.R;
 import club.ccit.camerax.databinding.AvtivityPhotographBinding;
@@ -80,7 +78,7 @@ import club.ccit.common.LogUtils;
  * Version:
  */
 @Route(path = AppRouter.PATH_CAMERA_PHOTOGRAPH)
-public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotographBinding> implements ImageAnalysis.Analyzer {
+public class PhotographActivity extends BaseActivity<AvtivityPhotographBinding> implements ImageAnalysis.Analyzer {
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private Camera camera;
     private Preview preview;
@@ -354,7 +352,6 @@ public class PhotographActivity extends BaseDataBindingActivity<AvtivityPhotogra
             public void run() {
                 // 显示在屏幕上
                 mImageView.setImageBitmap(bitmap);
-
                 // 关闭释放内存
                 image.close();
             }

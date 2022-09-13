@@ -20,6 +20,7 @@ import club.ccit.basic.R;
  * Version:
  */
 public interface ToastWidget {
+
     /**
      * 自定义toast
      *
@@ -49,15 +50,12 @@ public interface ToastWidget {
         synchronized (ToastWidget.class) {
             try {
                 Class<?> ActivityThread = Class.forName("android.app.ActivityThread");
-
                 Method method = ActivityThread.getMethod("currentActivityThread");
                 //获取currentActivityThread 对象
                 Object currentActivityThread = method.invoke(ActivityThread);
-
                 Method method2 = currentActivityThread.getClass().getMethod("getApplication");
                 //获取 Context对象
                 return (Context) method2.invoke(currentActivityThread);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

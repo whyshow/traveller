@@ -47,7 +47,7 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import club.ccit.basic.BaseDataBindingActivity;
+import club.ccit.basic.BaseActivity;
 import club.ccit.camerax.view.CameraFocusView;
 import club.ccit.camerax.R;
 import club.ccit.camerax.databinding.AvtivityVideoBinding;
@@ -64,7 +64,7 @@ import cn.jzvd.Jzvd;
  */
 
 @Route(path = AppRouter.PATH_CAMERA_VIDEO)
-public class VideoActivity extends BaseDataBindingActivity<AvtivityVideoBinding> {
+public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private Camera camera;
     private Preview preview;

@@ -9,7 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
-import club.ccit.basic.BaseDataBindingActivity;
+import club.ccit.basic.BaseActivity;
 import club.ccit.common.AppRouter;
 import club.ccit.databinding.ActivityMainBinding;
 
@@ -20,7 +20,7 @@ import club.ccit.databinding.ActivityMainBinding;
  * Version:
  */
 @Route(path = AppRouter.PATH_APP_HOME)
-public class MainActivity extends BaseDataBindingActivity<ActivityMainBinding> {
+public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void onCreate() {
@@ -30,7 +30,7 @@ public class MainActivity extends BaseDataBindingActivity<ActivityMainBinding> {
         new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_list, R.id.navigation_my)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavController navController = Navigation.findNavController(this, R.id.nav_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
@@ -44,8 +44,4 @@ public class MainActivity extends BaseDataBindingActivity<ActivityMainBinding> {
         bottomBarView.findViewById(R.id.navigation_my).setOnLongClickListener(v -> true);
     }
 
-    @Override
-    protected ActivityMainBinding onSetViewBinding() {
-        return ActivityMainBinding.inflate(getLayoutInflater());
-    }
 }
