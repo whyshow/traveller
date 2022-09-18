@@ -23,6 +23,11 @@ public class AppRouter {
      * 录制视频页面
      */
     public static final String PATH_CAMERA_VIDEO = "/camera/VideoActivity";
+     /**
+     * 人脸识别页面
+     */
+    public static final String PATH_FACIAL_FEATURE = "/camera/FacialFeatureActivity";
+
     /**
      * HomeActivity 页面
      */

@@ -1,5 +1,6 @@
 package club.ccit.widget.banner.base;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -162,7 +163,7 @@ public abstract class RecyclerViewBannerBase<L extends RecyclerView.LayoutManage
         //指示器部分
         indicatorContainer = new RecyclerView(context);
 
-        LinearLayoutManager indicatorLayoutManager = new LinearLayoutManager(context, orientation, false);
+        @SuppressLint("WrongConstant") LinearLayoutManager indicatorLayoutManager = new LinearLayoutManager(context, orientation, false);
         indicatorContainer.setLayoutManager(indicatorLayoutManager);
         indicatorAdapter = new IndicatorAdapter();
         indicatorContainer.setAdapter(indicatorAdapter);

@@ -1,7 +1,5 @@
 package club.ccit.camerax.ui;
 
-import static club.ccit.camerax.utils.Utils.createVideoThumbnail;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -10,7 +8,6 @@ import android.content.Intent;
 import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Size;
@@ -18,10 +15,8 @@ import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.camera.core.Camera;
 import androidx.camera.core.CameraControl;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.FocusMeteringAction;
@@ -48,30 +43,34 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import club.ccit.basic.BaseActivity;
-import club.ccit.camerax.view.CameraFocusView;
 import club.ccit.camerax.R;
-import club.ccit.camerax.databinding.AvtivityVideoBinding;
+import club.ccit.camerax.databinding.ActivityFacialFeatureBinding;
 import club.ccit.camerax.permission.PermissionListener;
 import club.ccit.camerax.permission.PermissionsUtil;
+import club.ccit.camerax.view.CameraFocusView;
+
+import club.ccit.camerax.view.FacePreviewView;
 import club.ccit.common.AppRouter;
-import cn.jzvd.Jzvd;
+import club.ccit.common.LogUtils;
 
 /**
+ * FileName: FacialFeatureActivity
+ *
  * @author: 张帅威
- * Date: 2021/11/30 9:36 上午
- * Description: 录制视频
+ * Date: 2022/9/15 09:45
+ * Description: 人脸认证
  * Version:
  */
-
-@Route(path = AppRouter.PATH_CAMERA_VIDEO)
-public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
+@Route(path = AppRouter.PATH_FACIAL_FEATURE)
+public class FacialFeatureActivity extends BaseActivity<ActivityFacialFeatureBinding> {
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-    private Camera camera;
+    private androidx.camera.core.Camera camera;
     private Preview preview;
     private VideoCapture.OutputFileOptions build;
     private VideoCapture mVideoCapture;
     private Timer timer;
     private String playUrl;
+    FacePreviewView facePreviewView;
 
     File file = null;
     /**
@@ -91,14 +90,15 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
      */
     private boolean isTranscribe = false;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate() {
+        super.onCreate();
         // 申请拍照和录音权限
         PermissionsUtil.requestPermission(getApplicationContext(), new PermissionListener() {
             @Override
             public void permissionGranted(@NonNull String[] permission) {
-                cameraProviderFuture = ProcessCameraProvider.getInstance(VideoActivity.this);
+                cameraProviderFuture = ProcessCameraProvider.getInstance(FacialFeatureActivity.this);
                 cameraProviderFuture.addListener(() -> {
                     ProcessCameraProvider cameraProvider = null;
                     try {
@@ -108,7 +108,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }
-                }, ContextCompat.getMainExecutor(VideoActivity.this));
+                }, ContextCompat.getMainExecutor(FacialFeatureActivity.this));
             }
 
             @Override
@@ -116,8 +116,8 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                 finish();
             }
         }, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO);
-
-        setOnClickListener(R.id.back,R.id.buttonCancel);
+        facePreviewView = findViewById(R.id.facePreviewView);
+        setOnClickListener(R.id.button);
     }
 
     /**
@@ -154,18 +154,9 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
     public void onClick(View view) {
         super.onClick(view);
         int id = view.getId();
-        if (id == R.id.buttonCancel) {
-            binding.buttonCancel.setVisibility(View.GONE);
-            binding.buttonOk.setVisibility(View.GONE);
-            binding.previewVideoView.setVisibility(View.VISIBLE);
-            binding.jzVideo.setVisibility(View.GONE);
-            binding.buttonStart.setVisibility(View.VISIBLE);
-        }else if (id == R.id.buttonOk){
-            Intent intent=new Intent();
-            //设置要回传的数据
-            intent.putExtra("playUrl",playUrl);
-            setResult(403,intent);
-            finish();
+        if (id == R.id.button) {
+            buttonVideo();
+            facePreviewView.resetPositionStart();
         }
     }
 
@@ -199,18 +190,17 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
     /**
      * 录制按钮
      *
-     * @param view
      */
-    @SuppressLint({"RestrictedApi", "UseCompatLoadingForDrawables"})
-    public void buttonVideo(View view) {
-        binding.buttonStart.setClickable(false);
+
+    @SuppressLint("RestrictedApi")
+    public void buttonVideo() {
+       // binding.buttonStart.setClickable(false);
         if (isTranscribe) {
             stopTranscribe();
         } else {
             // 未处于录制状态，开始录制视频
             // 设置正在录制图标
-            binding.buttonStart.setBackgroundResource(R.drawable.icon_stop);
-            binding.jzVideo.setVisibility(View.GONE);
+       //     binding.buttonStart.setText("正在录制");
             binding.previewVideoView.setVisibility(View.VISIBLE);
             isTranscribe = true;
             @SuppressLint("SimpleDateFormat") String imageName = "VID_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()).toString();
@@ -233,29 +223,21 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
             }
             // 开始记录时间
             setTimerTask();
-            binding.timeTextView.setVisibility(View.VISIBLE);
-            binding.buttonStart.setClickable(true);
+        //    binding.timeTextView.setVisibility(View.VISIBLE);
+         //   binding.buttonStart.setClickable(true);
             mVideoCapture.startRecording(build, CameraXExecutors.mainThreadExecutor(), new VideoCapture.OnVideoSavedCallback() {
                 @Override
                 public void onVideoSaved(@NonNull VideoCapture.OutputFileResults outputFileResults) {
-                    binding.buttonStart.setVisibility(View.GONE);
-                    binding.buttonStart.setVisibility(View.GONE);
-                    binding.timeTextView.setVisibility(View.GONE);
-                    binding.buttonCancel.setVisibility(View.VISIBLE);
-                    binding.buttonOk.setVisibility(View.VISIBLE);
-                    binding.buttonStart.setBackgroundResource(R.drawable.icon_start);
+            //        binding.timeTextView.setVisibility(View.GONE);
+
+           //         binding.buttonStart.setText("开始");
                     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                         // 通知相册有照片更新
                         String[] paths = new String[]{file.getAbsolutePath()};
-                        MediaScannerConnection.scanFile(VideoActivity.this, paths, null, null);
+                        MediaScannerConnection.scanFile(FacialFeatureActivity.this, paths, null, null);
                         file = null;
                     }
-                    binding.previewVideoView.setVisibility(View.GONE);
-                    binding.jzVideo.setVisibility(View.VISIBLE);
-                    binding.jzVideo.setUp(playUrl, "");
-                    binding.jzVideo.posterImageView.setImageBitmap(createVideoThumbnail(playUrl,2));
-                    binding.jzVideo.fullscreenButton.setVisibility(View.VISIBLE);
-                    Jzvd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_FILL_SCROP);
+                   // binding.previewVideoView.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -280,7 +262,10 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
         timer = null;
         time = -1000;
         mVideoCapture.stopRecording();
-        binding.buttonStart.setClickable(true);
+        LogUtils.i("完成");
+        toastShow("完成");
+
+     //   binding.buttonStart.setClickable(true);
     }
 
     private long time = -1000;
@@ -293,14 +278,14 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                if (time >= 15 * 1000){
+                if (time >= 10 * 1000){
                     stopTranscribe();
                 }else {
                     time = time + 1000;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.timeTextView.setText(stringForTime(time));
+                      //      binding.timeTextView.setText(stringForTime(time));
                         }
                     });
                 }
@@ -322,7 +307,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                 float y = event.getY();
                 // 将对焦框以触摸坐标为中心显示出来。
                 PreviewView previewView = (PreviewView) findViewById(R.id.previewVideoView);
-                CameraFocusView cameraFocusView = new CameraFocusView(VideoActivity.this);
+                CameraFocusView cameraFocusView = new CameraFocusView(FacialFeatureActivity.this);
                 previewView.addView(cameraFocusView);
                 cameraFocusView.setTouchFocusRect(x, y);
                 // 创建监听
@@ -342,7 +327,7 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
                         // process the result
                     } catch (Exception e) {
                     }
-                }, ContextCompat.getMainExecutor(VideoActivity.this));
+                }, ContextCompat.getMainExecutor(FacialFeatureActivity.this));
                 return false;
             }
         });
@@ -374,25 +359,21 @@ public class VideoActivity extends BaseActivity<AvtivityVideoBinding> {
             timer.cancel();
             timer = null;
         }
-        Jzvd.releaseAllVideos();
-    }
+        if (facePreviewView != null){
+            facePreviewView.destroyView();
+        }
 
-    @Override
-    protected AvtivityVideoBinding onSetViewBinding() {
-        return AvtivityVideoBinding.inflate(getLayoutInflater());
     }
 
     @Override
     public void onBackPressed() {
-        if (Jzvd.backPress()) {
-            return;
-        }
         super.onBackPressed();
     }
     @Override
     protected void onPause() {
         super.onPause();
-        Jzvd.releaseAllVideos();
+
     }
+
 
 }

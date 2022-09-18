@@ -1,6 +1,8 @@
 package club.ccit.basic.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,11 +34,13 @@ public interface ToastWidget {
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_toast, null);
                 TextView text = view.findViewById(R.id.toastTextView);
                 text.setText(message);
+                Looper.prepare();
                 Toast toast = new Toast(getContext());
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.setDuration(Toast.LENGTH_SHORT);
                 toast.setView(view);
                 toast.show();
+                Looper.loop();
             }
         }
     }
@@ -49,7 +53,7 @@ public interface ToastWidget {
     default Context getContext() {
         synchronized (ToastWidget.class) {
             try {
-                Class<?> ActivityThread = Class.forName("android.app.ActivityThread");
+                @SuppressLint("PrivateApi") Class<?> ActivityThread = Class.forName("android.app.ActivityThread");
                 Method method = ActivityThread.getMethod("currentActivityThread");
                 //获取currentActivityThread 对象
                 Object currentActivityThread = method.invoke(ActivityThread);

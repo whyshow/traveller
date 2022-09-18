@@ -12,9 +12,12 @@
         <!--        拍照页面-->
         <activity android:name=".ui.PhotographActivity" />
         <!--        录制视频页面-->
-        <activity android:name=".ui.VideoActivity"
+        <activity
+            android:name=".ui.VideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity android:name=".permission.PermissionActivity" />
+        <!--        人脸识别-->
+        <activity android:name=".ui.FacialFeatureActivity" />
     </application>
 </manifest>

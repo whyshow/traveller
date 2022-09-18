@@ -138,9 +138,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         }
         // 时间选择弹窗
         if (view.getId() == R.id.timeDialog) {
-            MessageDialog.ensureTextView = "OK";
-            MessageDialog.cancelTextView = "NO";
-            MessageDialog.Builder(requireActivity(), "这是一个弹窗", (view1, newMessageDialog) -> newMessageDialog.onDialogDismiss()).show();
+            ARouter.getInstance().build(AppRouter.PATH_FACIAL_FEATURE).navigation();
         }
         // 数据库演示
         if (view.getId() == R.id.roomFragment){

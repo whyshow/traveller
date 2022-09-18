@@ -92,7 +92,7 @@
                     android:id="@+id/timeDialog"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="时间弹窗" />
+                    android:text="人脸认证" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
