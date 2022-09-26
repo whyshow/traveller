@@ -5,6 +5,8 @@ buildscript {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
+        maven { url 'https://developer.huawei.com/repo/' }
+        maven { url "https://maven.aliyun.com/repository/public" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.2'

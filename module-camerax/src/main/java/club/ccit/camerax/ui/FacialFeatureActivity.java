@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
 import android.os.Build;
@@ -242,7 +241,7 @@ public class FacialFeatureActivity extends BaseActivity<ActivityFacialFeatureBin
 
                 @Override
                 public void onError(int videoCaptureError, @NonNull String message, @Nullable Throwable cause) {
-                    toastShow("视频保存失败");
+                    showToast("视频保存失败");
                 }
             });
 
@@ -263,7 +262,7 @@ public class FacialFeatureActivity extends BaseActivity<ActivityFacialFeatureBin
         time = -1000;
         mVideoCapture.stopRecording();
         LogUtils.i("完成");
-        toastShow("完成");
+        showToast("完成");
 
      //   binding.buttonStart.setClickable(true);
     }

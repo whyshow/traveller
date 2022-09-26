@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import club.ccit.basic.action.AdapterAction;
-import club.ccit.basic.widget.ToastWidget;
 
 /**
  * FileName: BaseAdapter
@@ -24,7 +23,7 @@ import club.ccit.basic.widget.ToastWidget;
  * Description:
  * Version: 1.0 版本 使用viewBinding绑定控件，自动增加footer,显示加载中、没有更多了、重新加载和失败文字提示灯
  */
-public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ToastWidget {
+public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public List list;
     private static final int TYPE_DATA = 1;
     private static final int TYPE_FOOTER = 2;
@@ -56,8 +55,12 @@ public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Ad
             footerViewHolder.retryButton.setVisibility(View.GONE);
             switch (FOOTER_TYPE) {
                 case 0:
-                    footerViewHolder.progressBar.setVisibility(View.VISIBLE);
-                    action.onNext();
+                    if (position > 1) {
+                        footerViewHolder.progressBar.setVisibility(View.VISIBLE);
+                        action.onNext();
+                    }else {
+                        footerViewHolder.progressBar.setVisibility(View.VISIBLE);
+                    }
                     break;
                 case 1:
                     footerViewHolder.noData.setVisibility(View.VISIBLE);
@@ -85,7 +88,7 @@ public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Ad
      * @param list 已经添加过数据列表
      * @param page
      */
-    public void setItemData(List list, int page) {
+    public void onAddData(List list, int page) {
         if (page > 1) {
             if (list != null && list.size() > 0) {
                 if (this.list.size() % list.size() == 1) {
@@ -97,8 +100,10 @@ public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Ad
                     this.list.add(this.list.size(), list.get(i));
                 }
                 notifyItemRangeInserted(this.list.size() - list.size(), list.size());
-                notifyDataSetChanged();
+            } else {
+                FOOTER_TYPE = FOOTER_NO_DATA;
             }
+            notifyDataSetChanged();
         } else {
             onRefresh(list);
         }
@@ -110,7 +115,7 @@ public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Ad
      * @param list 已经添加过数据列表
      * @param page
      */
-    public void onAppendData(List list, int page) {
+    public void onAddDataset(List list, int page) {
         FOOTER_TYPE = FOOTER_LOADING;
         if (page > 1) {
             this.list = list;
@@ -161,6 +166,7 @@ public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Ad
 
     /**
      * 获取item类型
+     * 如果相等则是显示footer
      *
      * @param position item 游标
      * @return

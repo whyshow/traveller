@@ -13,14 +13,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_list"
-        android:name="club.ccit.home.fragment.ListFragment"
-        android:label="@string/title_list"
-        tools:layout="@layout/fragment_list" />
+        android:id="@+id/navigation_chart"
+        android:name="club.ccit.home.fragment.ChartFragment"
+        android:label="@string/title_chart"
+        tools:layout="@layout/fragment_chart" />
 
     <fragment
-        android:id="@+id/navigation_my"
-        android:name="club.ccit.home.fragment.MyFragment"
-        android:label="@string/title_my"
-        tools:layout="@layout/fragment_my" />
+        android:id="@+id/navigation_me"
+        android:name="club.ccit.home.fragment.MeFragment"
+        android:label="@string/title_me"
+        tools:layout="@layout/fragment_me" />
 </navigation>

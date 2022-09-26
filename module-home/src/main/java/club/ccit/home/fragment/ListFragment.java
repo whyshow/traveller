@@ -68,7 +68,7 @@ public class ListFragment extends BaseFragment<FragmentListBinding> {
             public void onChanged(List<NewsListBean.Result> results) {
                 binding.draftSwipeRefresh.setRefreshing(false);
                 if (results.size() > 0) {
-                    adapter.onAppendData(results, page);
+                    adapter.onAddData(results, page);
                 }
             }
         });
@@ -109,12 +109,6 @@ public class ListFragment extends BaseFragment<FragmentListBinding> {
         // 保存RecyclerView数据状态
         viewModel.setState(binding.draftRecyclerView.getLayoutManager().onSaveInstanceState());
         viewModel.setPage(page);
-    }
-
-
-    @Override
-    protected FragmentListBinding onSetViewBinding() {
-        return FragmentListBinding.inflate(getLayoutInflater());
     }
 
     @Override

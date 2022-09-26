@@ -28,19 +28,17 @@ public interface ToastWidget {
      *
      * @param message 内容
      */
-    default void toastShow(String message) {
+    default void showToast(String message) {
         if (message != null ) {
             if (getContext() != null){
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_toast, null);
                 TextView text = view.findViewById(R.id.toastTextView);
                 text.setText(message);
-                Looper.prepare();
                 Toast toast = new Toast(getContext());
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.setDuration(Toast.LENGTH_SHORT);
                 toast.setView(view);
                 toast.show();
-                Looper.loop();
             }
         }
     }

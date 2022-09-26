@@ -50,7 +50,7 @@ public class RoomActivity extends BaseActivity<ActivityRoomBinding> {
                 if (aBoolean){
                     TestApi testApi = AbstractRoomData.getRoomDataBase(Constant.getApplication()).getTestApi();
                     List<TestDataModel> list = testApi.queryAll();
-                    toastShow("添加成功");
+                    showToast("添加成功");
                     binding.roomRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
                     adapter = new RoomAdapter(list, new AdapterAction() {
                         @Override
@@ -65,7 +65,7 @@ public class RoomActivity extends BaseActivity<ActivityRoomBinding> {
                     });
                     binding.roomRecyclerView.setAdapter(adapter);
                 }else {
-                    toastShow("请检查数据完整性");
+                    showToast("请检查数据完整性");
                 }
             }
         });

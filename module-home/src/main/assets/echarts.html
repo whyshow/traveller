@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 200px"></div>
+<script type="text/javascript" src="./echarts.min.js"></script>
+<script type="text/javascript" src="./jquery.min.js"></script>
+<script type="text/javascript">
+
+    var option;
+
+    function setOption(tooltipName, x, y) {
+        option = {
+            "tooltip": {
+                "trigger": "axis"
+            },
+            grid: {
+                y: 15,
+                left: '3%',
+                right: '4%',
+                bottom: '10%',
+                containLabel: true
+            },
+            "xAxis": {
+                "type": "category",
+                "boundaryGap": false,
+                "data": x
+              //  "data": ["06-16","08-21","08-28","09-04","09-11","09-18"]
+            },
+            "yAxis": {
+                "type": "value",
+                axisLine: {
+                    show: true
+                },
+            },
+            "series": [
+                {
+                    "areaStyle": {
+                        "color": "#E9FAF7",
+                        "type": "default"
+                    },
+                    "smooth": false,
+                    "itemStyle": {
+                        "normal": {
+                            "color": "#2AD1B5",
+                            "lineStyle": {
+                                "color": "#2AD1B5"
+                            }
+                        }
+                    },
+                    "name": tooltipName,
+                    "type": "line",
+                    "stack": "Total",
+                   // "data": [2300000.0,5340000.0,4300000.0,3300000.0,6300000.0,3200000.0]
+                    "data": y
+                }
+            ]
+        };
+    }
+
+    function loadData(tooltipName, x, y) {
+        window.toAndroid.toast(tooltipName, x.length, y.length)
+        setOption(tooltipName, x, y)
+        if (option && typeof option === 'object') {
+            var dom = document.getElementById('container');
+            var myChart = echarts.init(dom);
+            myChart.setOption(option);
+        }else {
+             window.toAndroid.toast("a", "a", "a")
+        }
+      //  window.addEventListener('resize', myChart.resize);
+
+    }
+    //loadData('紫薇', ["06-16", "08-21", "08-28", "09-04", "09-11", "09-18"],[2300000.0,5340000.0,4300000.0,3300000.0,6300000.0,3200000.0])
+
+</script>
+</body>
+</html>

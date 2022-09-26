@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         // 去除item长按显示 toast
         cleanToast();
         new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_list, R.id.navigation_my)
+                R.id.navigation_home, R.id.navigation_home, R.id.navigation_me)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
@@ -40,8 +40,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private void cleanToast() {
         View bottomBarView = binding.navView.getChildAt(0);
         bottomBarView.findViewById(R.id.navigation_home).setOnLongClickListener(v -> true);
-        bottomBarView.findViewById(R.id.navigation_list).setOnLongClickListener(v -> true);
-        bottomBarView.findViewById(R.id.navigation_my).setOnLongClickListener(v -> true);
+        bottomBarView.findViewById(R.id.navigation_chart).setOnLongClickListener(v -> true);
+        bottomBarView.findViewById(R.id.navigation_me).setOnLongClickListener(v -> true);
     }
 
+    @Override
+    protected ActivityMainBinding onSetViewBinding() {
+        return ActivityMainBinding.inflate(getLayoutInflater ());
+    }
 }

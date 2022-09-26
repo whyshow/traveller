@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
@@ -17,7 +16,6 @@ import java.util.TimerTask;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
-import club.ccit.common.LogUtils;
 import club.ccit.home.R;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.widget.dialog.BottomDialog;
@@ -68,7 +66,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(TitleBar titleBar) {
-               toastShow("点击了返回");
+               showToast("点击了返回");
             }
         });
 
@@ -88,7 +86,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         // 底部选择弹窗
         if (view.getId() == R.id.startBottomDialog) {
             String[] phone = {"你", "好", "呀"};
-            BottomDialog.Builder(getActivity(), phone, (text, index) -> toastShow(text)).show();
+            BottomDialog.Builder(getActivity(), phone, (text, index) -> showToast(text)).show();
         }
         // 对话弹窗
         if (view.getId() == R.id.startDialog) {
@@ -117,10 +115,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 @Override
                 public void onPassFinish(String password, PayPasswordView payPasswordView) {
                     if ("123456".equals(password)) {
-                        toastShow("密码正确");
+                        showToast("密码正确");
                         PayDialog.onDismiss();
                     } else {
-                        toastShow("密码不正确");
+                        showToast("密码不正确");
                         payPasswordView.setErrorStyle();
                     }
                 }
@@ -153,7 +151,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void onSelected(String name, String cityName, String districtName) {
-                    toastShow(name + " " + cityName + " " + districtName);
+                    showToast(name + " " + cityName + " " + districtName);
                 }
 
                 @Override
@@ -170,7 +168,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         long endTimestamp = DateFormatUtils.str2Long("2050-05-01", false);
 
         // 通过时间戳初始化日期，毫秒级别
-        mDatePickerDialog = new DatePickerDialog(requireActivity(), timestamp -> toastShow(DateFormatUtils.long2Str(timestamp, false)), beginTimestamp, endTimestamp);
+        mDatePickerDialog = new DatePickerDialog(requireActivity(), timestamp -> showToast(DateFormatUtils.long2Str(timestamp, false)), beginTimestamp, endTimestamp);
         // 不允许点击屏幕或物理返回键关闭
         mDatePickerDialog.setCancelable(false);
         // 不显示时和分
