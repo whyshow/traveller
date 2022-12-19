@@ -264,7 +264,7 @@ public class FacePreviewView extends SurfaceView implements SurfaceHolder.Callba
 
         //获取圆的相关参数
         mCenterPoint.x = mViewWidth / 2;
-        mCenterPoint.y = mViewHeight / 3;
+        mCenterPoint.y = mViewHeight / 2;
 
         //外环圆的半径
         mRadius = mCenterPoint.x - margin - 80;

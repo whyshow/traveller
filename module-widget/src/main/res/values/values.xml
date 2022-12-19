@@ -8,6 +8,7 @@
     <declare-styleable name="CustomEditText">
         <!-- 是否允许粘贴-->
         <attr name="stick" format="boolean" />
+        <attr name="ic_delete" format="reference"/>
     </declare-styleable>
     <declare-styleable name="CustomButton">
         <!-- 背景图片-->

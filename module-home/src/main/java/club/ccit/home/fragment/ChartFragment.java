@@ -11,7 +11,6 @@ import club.ccit.common.LogUtils;
 import club.ccit.home.R;
 import club.ccit.home.databinding.FragmentChartBinding;
 
-
 /**
  * @author: 张帅威
  * Date: 2021/12/3 8:50 上午
@@ -21,7 +20,6 @@ import club.ccit.home.databinding.FragmentChartBinding;
 public class ChartFragment extends BaseFragment<FragmentChartBinding> {
 
     WebView webView;
-
     @SuppressLint({"SetJavaScriptEnabled", "JavascriptInterface"})
     @Override
     protected void onCreate() {
@@ -74,8 +72,6 @@ public class ChartFragment extends BaseFragment<FragmentChartBinding> {
             LogUtils.i("name:"+name+"X:"+x.toString()+"Y:"+y.toString());
         }
     }
-
-
 
     @Override
     public void onDestroyView() {

@@ -27,10 +27,10 @@ public abstract class BaseAdapter<T extends ViewBinding> extends RecyclerView.Ad
     public List list;
     private static final int TYPE_DATA = 1;
     private static final int TYPE_FOOTER = 2;
-    private static int FOOTER_TYPE = 0;
-    public static int FOOTER_LOADING = 0;
-    public static int FOOTER_NO_DATA = 1;
-    public static int FOOTER_RETRY = 2;
+    private int FOOTER_TYPE = 0;
+    public int FOOTER_LOADING = 0;
+    public int FOOTER_NO_DATA = 1;
+    public int FOOTER_RETRY = 2;
     public AdapterAction action;
 
     @NonNull
