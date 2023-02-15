@@ -15,5 +15,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.LoginActivity"/>
+        <activity android:name=".ui.GridViewActivity" />
     </application>
 </manifest>

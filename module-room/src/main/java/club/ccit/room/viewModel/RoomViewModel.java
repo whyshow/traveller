@@ -34,12 +34,12 @@ public class RoomViewModel extends ViewModel {
      * 添加数据
      */
     @SuppressLint("CheckResult")
-    public void addData(){
-        if (name.get() == null){
+    public void addData() {
+        if (name.get() != null) {
             success.setValue(false);
-        }else if (age.get() == null){
+        } else if (age.get() != null) {
             success.setValue(false);
-        } else{
+        } else {
             TestApi testApi = AbstractRoomData.getRoomDataBase(Constant.getApplication()).getTestApi();
             TestDataModel dataModel = new TestDataModel();
             dataModel.setTestAge(age.get());

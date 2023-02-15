@@ -144,5 +144,12 @@
 
     </declare-styleable>
 
-
+    <declare-styleable name="NineImageLayout">
+        <!-- 控件宽高 -->
+        <attr name="nine_layoutWidth" format="dimension"/>
+        <!-- 单张图片时的最大宽高范围-->
+        <attr name="nine_singleImageWidth" format="dimension" />
+        <!-- 图片之间间隙大小 -->
+        <attr name="nine_imageGap" format="dimension" />
+    </declare-styleable>
 </resources>

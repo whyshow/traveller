@@ -1,9 +1,14 @@
 package club.ccit.widget.dialog;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import club.ccit.widget.R;
 import club.ccit.widget.dialog.base.BaseDialog;
@@ -17,6 +22,7 @@ import club.ccit.widget.dialog.base.BaseDialog;
 public class WaitDialog extends BaseDialog {
     private static String message;
     public static WaitDialog Builder;
+    public static Timer timer;
 
     public WaitDialog(Context context) {
         super(context);
@@ -24,13 +30,20 @@ public class WaitDialog extends BaseDialog {
     }
 
     public static WaitDialog Builder(Context context, String m) {
-        message = m;
-        new WaitDialog(context);
+        if (Builder == null) {
+            message = m;
+            new WaitDialog(context);
+            setTiming();
+        }
         return Builder;
     }
 
-    public static void onDismiss(){
-        if (Builder != null){
+    public static void onDismiss() {
+        if (Builder != null) {
+            if (timer != null) {
+                timer.cancel();
+                timer = null;
+            }
             Builder.onDialogDismiss();
         }
     }
@@ -38,7 +51,17 @@ public class WaitDialog extends BaseDialog {
     @Override
     public void onDialogDismiss() {
         super.onDialogDismiss();
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
         Builder = null;
+    }
+
+    @Override
+    public void showDialog() {
+        super.showDialog();
+        show();
     }
 
     @Override
@@ -90,6 +113,28 @@ public class WaitDialog extends BaseDialog {
     @Override
     protected int setLayoutResId() {
         return R.layout.layout_wait_dialog;
+    }
+
+    private static void setTiming() {
+        if (timer == null) {
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Builder.setOnKeyListener(new OnKeyListener() {
+                        @Override
+                        public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                            if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+                                onDismiss();
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    });
+                }
+            }, 3000);
+        }
     }
 
 }

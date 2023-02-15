@@ -1,6 +1,7 @@
 package club.ccit.home.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.home.R;
 import club.ccit.home.databinding.FragmentHomeBinding;
+import club.ccit.home.ui.GridViewActivity;
 import club.ccit.widget.dialog.BottomDialog;
 import club.ccit.widget.dialog.DatePickerDialog;
 import club.ccit.widget.dialog.MessageDialog;
@@ -62,7 +64,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 binding.dateDialog,
                 binding.timeDialog,
                 binding.roomFragment,
-                binding.cityPicker);
+                binding.cityPicker,
+                binding.gridViewButton);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(TitleBar titleBar) {
@@ -98,8 +101,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         if (view.getId() == R.id.startHomeActivity) {
           ARouter.getInstance().build(AppRouter.PATH_HOME_HOME).navigation();
         }
+        if (view.getId() == R.id.gridViewButton) {
+          startActivity(new Intent(requireContext(), GridViewActivity.class));
+        }
         // 等待中弹窗
         if (view.getId() == R.id.startWaitDialog) {
+            WaitDialog.Builder(getActivity(), "请稍后...").show();
             WaitDialog.Builder(getActivity(), "请稍后...").show();
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {

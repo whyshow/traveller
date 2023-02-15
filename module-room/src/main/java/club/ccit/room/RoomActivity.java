@@ -11,6 +11,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import java.util.List;
 
 import club.ccit.basic.BaseActivity;
+import club.ccit.basic.BaseAdapter;
+import club.ccit.basic.BaseViewDataActivity;
 import club.ccit.basic.action.AdapterAction;
 import club.ccit.common.AppRouter;
 import club.ccit.common.Constant;
@@ -31,7 +33,7 @@ import club.ccit.widget.title.TitleBar;
  * Version:
  */
 @Route(path = AppRouter.PATH_ROOM_ROOM)
-public class RoomActivity extends BaseActivity<ActivityRoomBinding> {
+public class RoomActivity extends BaseViewDataActivity<ActivityRoomBinding> {
     private RoomViewModel roomViewModel;
     private RoomAdapter adapter;
     private TestApi testApi;
@@ -42,6 +44,8 @@ public class RoomActivity extends BaseActivity<ActivityRoomBinding> {
         super.onStart();
         setOnClickListener(R.id.roomButton);
         roomViewModel = new ViewModelProvider(RoomActivity.this).get(RoomViewModel.class);
+        binding.setLifecycleOwner(this);
+        binding.setData(roomViewModel);
         // 获取数据库数据
         initData();
         roomViewModel.success.observe(this, new Observer<Boolean>() {
@@ -51,19 +55,7 @@ public class RoomActivity extends BaseActivity<ActivityRoomBinding> {
                     TestApi testApi = AbstractRoomData.getRoomDataBase(Constant.getApplication()).getTestApi();
                     List<TestDataModel> list = testApi.queryAll();
                     showToast("添加成功");
-                    binding.roomRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-                    adapter = new RoomAdapter(list, new AdapterAction() {
-                        @Override
-                        public void onRefresh() {
-
-                        }
-
-                        @Override
-                        public void onNext() {
-
-                        }
-                    });
-                    binding.roomRecyclerView.setAdapter(adapter);
+                    adapter.putData(list,1);
                 }else {
                     showToast("请检查数据完整性");
                 }
@@ -97,6 +89,7 @@ public class RoomActivity extends BaseActivity<ActivityRoomBinding> {
             }
         });
         binding.roomRecyclerView.setAdapter(adapter);
+        adapter.setError(BaseAdapter.FOOTER_NO_DATA);
     }
 
     @Override

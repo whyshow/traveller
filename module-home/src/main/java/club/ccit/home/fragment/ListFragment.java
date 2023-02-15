@@ -68,7 +68,7 @@ public class ListFragment extends BaseFragment<FragmentListBinding> {
             public void onChanged(List<NewsListBean.Result> results) {
                 binding.draftSwipeRefresh.setRefreshing(false);
                 if (results.size() > 0) {
-                    adapter.onAddData(results, page);
+                    adapter.putData(results, page);
                 }
             }
         });

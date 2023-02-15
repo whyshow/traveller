@@ -22,10 +22,11 @@ import club.ccit.widget.action.AnimAction;
  * Description: Dialog基类
  * Version: 1.0
  */
-public abstract class BaseDialog extends AppCompatDialog implements AnimAction{
+public abstract class BaseDialog extends AppCompatDialog implements AnimAction {
     public BaseDialog(Context context) {
-        super(context,R.style.BaseDialogStyle);
+        super(context, R.style.BaseDialogStyle);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +45,10 @@ public abstract class BaseDialog extends AppCompatDialog implements AnimAction{
     protected void onStart() {
         super.onStart();
         getWindow().setWindowAnimations(setDialogAnimations());
-        getWindow().setLayout(setWidth(),setHeight());
-        if (setDialogTransparent()){
+        getWindow().setLayout(setWidth(), setHeight());
+        if (setDialogTransparent()) {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }else {
+        } else {
             getWindow().setBackgroundDrawableResource(setDialogBackgroundResId());
         }
         getWindow().setGravity(setDialogGravity());
@@ -61,52 +62,67 @@ public abstract class BaseDialog extends AppCompatDialog implements AnimAction{
 
     /**
      * 设置是否透明
+     *
      * @return
      */
     protected abstract boolean setDialogTransparent();
+
     /**
      * 出现的位置
+     *
      * @return
      */
     protected abstract int setDialogGravity();
 
     /**
      * 设置是否允许点击其他区域取消
+     *
      * @return
      */
     public abstract boolean setDialogCancelable();
 
-    public void onDialogDismiss(){
+
+
+    public void onDialogDismiss() {
 
         dismiss();
     }
 
+    public void showDialog() {
+
+    }
+
     /**
      * 动画资源
+     *
      * @return
      */
     protected abstract int setDialogAnimations();
 
     /**
      * 宽度
+     *
      * @return
      */
     protected abstract int setWidth();
 
     /**
      * 高度
+     *
      * @return
      */
     protected abstract int setHeight();
 
     /**
      * 背景资源文件
+     *
      * @return
      */
     protected abstract int setDialogBackgroundResId();
 
     /**
      * 监听事件
+     *
      * @param view
      */
     public abstract void onClick(View view);
@@ -118,7 +134,9 @@ public abstract class BaseDialog extends AppCompatDialog implements AnimAction{
 
     /**
      * 布局文件
+     *
      * @return
      */
-    protected abstract @LayoutRes int setLayoutResId();
+    protected abstract @LayoutRes
+    int setLayoutResId();
 }

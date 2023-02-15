@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <club.ccit.widget.title.TitleBar
-        android:id="@+id/titleBar"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:title="数据库演示" />
+    <data>
+        <variable
+            name="data"
+            type="club.ccit.room.viewModel.RoomViewModel" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/roomNameEditText"
+        <club.ccit.widget.title.TitleBar
+            android:id="@+id/titleBar"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="1"
-            android:hint="输入名字"
-            android:text="@={data.name}" />
+            app:title="数据库演示" />
 
-        <EditText
-            android:id="@+id/roomAgeEditText"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:hint="输入年龄"
-            android:text="@={data.age}" />
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/roomNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:hint="输入名字"
+                android:text="@={data.name}" />
+
+            <EditText
+                android:id="@+id/roomAgeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:hint="输入年龄"
+                android:text="@={data.age}" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/roomButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="添加" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/roomRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/roomButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="添加" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/roomRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+</layout>

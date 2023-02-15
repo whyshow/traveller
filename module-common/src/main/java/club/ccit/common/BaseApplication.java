@@ -34,7 +34,6 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LogUtils.i("BaseApplication");
         Constant.setApplication(this);
         if (isDebug()) {
             // 打印日志
@@ -60,7 +59,7 @@ public class BaseApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        // DefenseCrash.initialize(this);
+         DefenseCrash.initialize(this);
         DefenseCrash.install(new IExceptionHandler() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
