@@ -35,7 +35,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Constant.setApplication(this);
-        if (isDebug()) {
+        if (BuildConfig.DEBUG) {
             // 打印日志
             ARouter.openLog();
             // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
@@ -45,15 +45,11 @@ public class BaseApplication extends Application {
         // 注册Activity 的创建销毁的监听
         registerActivityListener();
         M_ACTIVITY = Collections.synchronizedList(new LinkedList<Activity>());
+        onStart();
     }
 
-    private boolean isDebug() {
-        try {
-            ApplicationInfo info = getApplicationInfo();
-            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        } catch (Exception x) {
-            return false;
-        }
+    protected void onStart() {
+
     }
 
     @Override

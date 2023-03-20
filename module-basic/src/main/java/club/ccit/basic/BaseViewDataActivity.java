@@ -29,7 +29,6 @@ import club.ccit.basic.widget.ToastWidget;
  */
 public abstract class BaseViewDataActivity<T extends ViewDataBinding> extends AppCompatActivity implements ClickAction, ToastWidget {
     protected T binding;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -67,11 +67,12 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
-    implementation "androidx.fragment:fragment:1.5.2"
-    implementation 'androidx.navigation:navigation-ui:2.5.2'
-    implementation 'androidx.navigation:navigation-fragment:2.5.2'
+    implementation "androidx.fragment:fragment:1.5.5"
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
     // 路由
     implementation rootProject.ext.dependencies.arouter
+    implementation project(path: ':flutter')
     annotationProcessor rootProject.ext.annotationProcessors.arouter
     //内存泄漏分析工具
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'

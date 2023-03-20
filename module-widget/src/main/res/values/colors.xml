@@ -13,4 +13,6 @@
     <color name="date_picker_text_dark">#333333</color>
     <color name="colorPrimary">#ff40c2fc</color>
     <color name="province_line_border">#C7C7C7</color>
+    <color name="green">#6EC914</color>
+    <color name="orang">#E76D4E</color>
 </resources>

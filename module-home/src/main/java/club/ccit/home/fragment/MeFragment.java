@@ -8,6 +8,5 @@ public class MeFragment extends BaseFragment<FragmentMeBinding> {
     @Override
     protected void onCreate() {
         super.onCreate();
-
     }
 }

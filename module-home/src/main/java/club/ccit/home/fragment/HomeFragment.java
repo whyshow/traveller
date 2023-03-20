@@ -17,6 +17,7 @@ import java.util.TimerTask;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
+import club.ccit.common.LogUtils;
 import club.ccit.home.R;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.home.ui.GridViewActivity;
@@ -30,6 +31,10 @@ import club.ccit.widget.pay.PayPasswordView;
 import club.ccit.widget.title.OnTitleBarListener;
 import club.ccit.widget.title.TitleBar;
 import club.ccit.widget.utils.DateFormatUtils;
+import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
 
 /**
  * @author: 张帅威
@@ -40,19 +45,23 @@ import club.ccit.widget.utils.DateFormatUtils;
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     private DatePickerDialog mDatePickerDialog;
     private Provinces provinces;
+    private FlutterEngine flutterEngine;
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate() {
+        super.onCreate();
+        //Flutter引擎
+        flutterEngine = new FlutterEngine(requireActivity());
+        flutterEngine.getNavigationChannel().setInitialRoute("/flutter_home");
+        //通过engine_id唯一标识来缓存
+        flutterEngine.getDartExecutor().executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault());
+        FlutterEngineCache
+                .getInstance()
+                .put("engine_id", flutterEngine);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        List<String> list = new ArrayList<>();
-        list.add("https://t7.baidu.com/it/u=1819248061,230866778&fm=193&f=GIF");
-        list.add("https://t7.baidu.com/it/u=3078321260,3840584311&fm=193&f=GIF");
-        list.add("https://t7.baidu.com/it/u=2605426091,1199286953&fm=193&f=GIF");
-        binding.recyclerViewBanner.initBannerImageView(list, position -> Toast.makeText(requireActivity(), "clicked:" + position, Toast.LENGTH_SHORT).show());
         setOnClickListener(
                 binding.cameraActivity,
                 binding.videoActivity,
@@ -65,11 +74,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 binding.timeDialog,
                 binding.roomFragment,
                 binding.cityPicker,
-                binding.gridViewButton);
+                binding.gridViewButton,
+                binding.startFlutter);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(TitleBar titleBar) {
-               showToast("点击了返回");
+                showToast("点击了返回");
             }
         });
 
@@ -99,10 +109,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         }
         // 首页
         if (view.getId() == R.id.startHomeActivity) {
-          ARouter.getInstance().build(AppRouter.PATH_HOME_HOME).navigation();
+            ARouter.getInstance().build(AppRouter.PATH_HOME_HOME).navigation();
         }
         if (view.getId() == R.id.gridViewButton) {
-          startActivity(new Intent(requireContext(), GridViewActivity.class));
+            startActivity(new Intent(requireContext(), GridViewActivity.class));
         }
         // 等待中弹窗
         if (view.getId() == R.id.startWaitDialog) {
@@ -146,12 +156,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             ARouter.getInstance().build(AppRouter.PATH_FACIAL_FEATURE).navigation();
         }
         // 数据库演示
-        if (view.getId() == R.id.roomFragment){
+        if (view.getId() == R.id.roomFragment) {
             ARouter.getInstance().build(AppRouter.PATH_ROOM_ROOM).navigation();
         }
         // 省市区弹窗
-        if (view.getId() == R.id.cityPicker){
-            if (provinces == null){
+        if (view.getId() == R.id.cityPicker) {
+            if (provinces == null) {
                 provinces = new Provinces(requireActivity());
             }
             provinces.showData(new Provinces.OnCityItemClick() {
@@ -166,6 +176,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
                 }
             });
+        }
+        // 跳转flutter页面
+        if (view.getId() == R.id.startFlutter){
+            LogUtils.i("startFlutter");
+            startActivity(FlutterActivity.withCachedEngine("engine_id").build(requireActivity()));
         }
     }
 
@@ -189,5 +204,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     protected FragmentHomeBinding onSetViewBinding() {
         return FragmentHomeBinding.inflate(getLayoutInflater());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        flutterEngine.destroy();
     }
 }
