@@ -1,8 +1,6 @@
 .DS_Store
 .dart_tool/
 
-.packages
-.pub/
 
 .idea/
 .vagrant/
@@ -38,10 +36,6 @@ Icon?
 .tags*
 
 build/
-.android/
-.ios/
-.flutter-plugins
-.flutter-plugins-dependencies
 
 # Symbolication related
 app.*.symbols
