@@ -1,6 +1,6 @@
 .DS_Store
-.dart_tool/
-
+.dart_tool/flutter_build/
+.ios/Flutter/engine/
 
 .idea/
 .vagrant/
