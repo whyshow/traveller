@@ -116,8 +116,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         }
         // 等待中弹窗
         if (view.getId() == R.id.startWaitDialog) {
-            WaitDialog.Builder(getActivity(), "请稍后...").show();
-            WaitDialog.Builder(getActivity(), "请稍后...").show();
+            WaitDialog.Builder(getActivity(), "请稍后...").showDialog();
+            WaitDialog.Builder(getActivity(), "请稍后...").showDialog();
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
