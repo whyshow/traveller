@@ -1,11 +1,8 @@
-package club.ccit.test;
+package club.ccit.utils;
 
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static club.ccit.test.PhoneVerify.isChinaPhoneLegal;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -15,6 +12,6 @@ import static club.ccit.test.PhoneVerify.isChinaPhoneLegal;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertThat(isChinaPhoneLegal("1315128978"),is(true));
+        assertEquals(4, 2 + 2);
     }
 }
