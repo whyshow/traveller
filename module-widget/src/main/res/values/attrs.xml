@@ -152,4 +152,9 @@
         <!-- 图片之间间隙大小 -->
         <attr name="nine_imageGap" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="CircleProgressBar">
+        <attr name="progressColor" format="color" />
+        <attr name="progress" format="integer" />
+    </declare-styleable>
 </resources>

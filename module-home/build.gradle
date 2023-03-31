@@ -48,6 +48,7 @@ dependencies {
     implementation project(path: ':module-common')
     implementation project(path: ':module-widget')
     implementation project(path: ':module-sdk')
+    implementation project(path: ':module-view')
     implementation project(path: ':flutter')
 
     implementation 'com.squareup.picasso:picasso:2.71828'

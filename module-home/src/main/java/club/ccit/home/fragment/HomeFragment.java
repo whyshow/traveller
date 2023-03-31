@@ -21,11 +21,13 @@ import club.ccit.common.LogUtils;
 import club.ccit.home.R;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.home.ui.GridViewActivity;
+import club.ccit.home.ui.LoginActivity;
 import club.ccit.widget.dialog.BottomDialog;
 import club.ccit.widget.dialog.DatePickerDialog;
 import club.ccit.widget.dialog.MessageDialog;
 import club.ccit.widget.dialog.WaitDialog;
 import club.ccit.widget.dialog.city.Provinces;
+import club.ccit.widget.dialog.fragment.MeFragmentDialog;
 import club.ccit.widget.pay.PayDialog;
 import club.ccit.widget.pay.PayPasswordView;
 import club.ccit.widget.title.OnTitleBarListener;
@@ -46,6 +48,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     private DatePickerDialog mDatePickerDialog;
     private Provinces provinces;
     private FlutterEngine flutterEngine;
+
     @Override
     protected void onCreate() {
         super.onCreate();
@@ -75,6 +78,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 binding.roomFragment,
                 binding.cityPicker,
                 binding.gridViewButton,
+                binding.fragmentDialogButton,
+                binding.loginActivity,
                 binding.startFlutter);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -178,9 +183,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             });
         }
         // 跳转flutter页面
-        if (view.getId() == R.id.startFlutter){
+        if (view.getId() == R.id.startFlutter) {
             LogUtils.i("startFlutter");
             startActivity(FlutterActivity.withCachedEngine("engine_id").build(requireActivity()));
+        }
+
+        if (R.id.fragmentDialogButton == view.getId()){
+            MeFragmentDialog dialog = new MeFragmentDialog();
+            dialog.show(requireActivity().getSupportFragmentManager(), "MyDialogFragment");
+        } if (R.id.loginActivity == view.getId()){
+          startActivity(new Intent(requireContext(), LoginActivity.class));
         }
     }
 

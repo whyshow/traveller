@@ -104,6 +104,7 @@
                     android:id="@+id/cityPicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="false"
                     android:text="省市区联动" />
 
                 <Button
@@ -111,6 +112,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="仿微信朋友圈" />
+
+                <Button
+                    android:id="@+id/fragmentDialogButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:text="FragmentDialog" />
             </LinearLayout>
 
             <LinearLayout
@@ -124,22 +132,39 @@
                     android:id="@+id/startHomeActivity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="false"
                     android:text="HomeActivity" />
 
                 <Button
                     android:id="@+id/startBottomDialog"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="false"
                     android:text="BOTTOM 弹窗" />
 
                 <Button
                     android:id="@+id/startFlutter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="false"
                     android:text="Flitter" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:paddingStart="10dp">
 
+                <Button
+                    android:id="@+id/loginActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:text="登录页面" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

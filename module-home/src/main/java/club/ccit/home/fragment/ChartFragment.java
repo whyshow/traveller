@@ -53,15 +53,15 @@ public class ChartFragment extends BaseFragment<FragmentChartBinding> {
             }
         });
 
-        binding.webView2.loadUrl("file:///android_asset/webview.html");
-        binding.webView2.addJavascriptInterface(new FromJs(), "testJs");
+        binding.webView2.loadUrl("file:///android_asset/face.html");
+        binding.webView2.addJavascriptInterface(new FromJs(), "successJs");
         binding.webView2.getSettings().setJavaScriptEnabled(true);
     }
 
     public class FromJs {
         @JavascriptInterface
-        public void toast() {
-            Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
+        public void authSuccess() {
+            Toast.makeText(getActivity(), "Success! 认证完成", Toast.LENGTH_SHORT).show();
         }
     }
 

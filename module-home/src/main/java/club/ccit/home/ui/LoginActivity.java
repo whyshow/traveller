@@ -1,5 +1,7 @@
 package club.ccit.home.ui;
 
+import android.view.View;
+
 import club.ccit.basic.BaseActivity;
 import club.ccit.home.databinding.ActivityLoginBinding;
 
@@ -17,6 +19,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     protected void onStart() {
         super.onStart();
 
+
+
     }
 
     @Override
@@ -24,4 +28,10 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         return ActivityLoginBinding.inflate(getLayoutInflater());
     }
 
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+
+
+    }
 }

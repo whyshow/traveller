@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn{
+            background: linear-gradient(207deg, #fedd6f 0%, #f7b809 100%);
+            width: 40%;
+            height: 5vh;
+            border-radius: 30px;
+            border: none;
+            color: white;
+            letter-spacing: 4px;
+            margin-top: 40px;
+            font-size: 18px;
+        }
+        .box{
+            text-align: center;
+            margin-top: 100px;
+        }
+        .txt{
+            font-size: 26px;
+            margin-top: 60px;
+        }
+        .box2{
+            background: linear-gradient(207deg, #cefddb 0%, #bbf1e3 100%);
+            border-radius: 100%;
+            width: 100px;
+            height: 100px;
+        }
+        .box3{
+            background: linear-gradient(207deg, #7afd9c 0%, #45d7b5 100%);
+            border-radius: 100%;
+            width: 70px;
+            height: 70px;
+            position: relative;
+            top: 15px;
+            left: 15px;
+            color: white;
+            text-align: center;
+            font-weight: 700;
+            font-size: 44px;
+        }
+        .right {
+        width: 58px;
+        height: 58px;
+        line-height: 26px;
+        position: relative;
+        cursor: pointer;
+        font-weight: 600;
+        }
+
+        .right::before {
+        position: absolute;
+        content: " ";
+        width: 22px;
+        height: 36px;
+        transform: rotate(45deg);
+        border-right: 5px solid #fff;
+        border-bottom: 5px solid #fff;
+        top: 8px;
+        left: 22px;
+        }
+
+    </style>
+</head>
+<body>
+   <div class="box">
+     <!-- <img src="./img/编组.png" alt=""> -->
+     <div style="margin-left: 38%;">
+        <div class="box2">
+            <div class="box3">
+                <!-- ✓ -->
+                <div class="right"></div>
+            </div>
+        </div>
+     </div>
+    <p class="txt">认证完成 等待审核</p>
+    <button id="button" onclick="authSuccess()" class="btn">返回</button>
+   </div>
+</body>
+<script>
+    function authSuccess() {
+        const userAgent = navigator.userAgent;
+        const isiOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // 匹配 iOS
+        if(isiOS){
+
+        }else{
+            window.successJs.authSuccess()
+        }
+    }
+</script>
+</html>
