@@ -26,7 +26,7 @@ android {
     }
 
     signingConfigs {
-        release {
+        debug {
             storeFile file('/Users/swzhang3/debug/test.jks')
             storePassword '123456'
             keyPassword '123456'
@@ -72,7 +72,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     // 路由
     implementation rootProject.ext.dependencies.arouter
-    implementation project(path: ':flutter')
     annotationProcessor rootProject.ext.annotationProcessors.arouter
     //内存泄漏分析工具
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'

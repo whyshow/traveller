@@ -2,22 +2,14 @@ package club.ccit.home.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
-import club.ccit.common.LogUtils;
 import club.ccit.home.R;
 import club.ccit.home.databinding.FragmentHomeBinding;
 import club.ccit.home.ui.GridViewActivity;
@@ -33,10 +25,6 @@ import club.ccit.widget.pay.PayPasswordView;
 import club.ccit.widget.title.OnTitleBarListener;
 import club.ccit.widget.title.TitleBar;
 import club.ccit.widget.utils.DateFormatUtils;
-import io.flutter.embedding.android.FlutterActivity;
-import io.flutter.embedding.engine.FlutterEngine;
-import io.flutter.embedding.engine.FlutterEngineCache;
-import io.flutter.embedding.engine.dart.DartExecutor;
 
 /**
  * @author: 张帅威
@@ -47,19 +35,10 @@ import io.flutter.embedding.engine.dart.DartExecutor;
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     private DatePickerDialog mDatePickerDialog;
     private Provinces provinces;
-    private FlutterEngine flutterEngine;
 
     @Override
     protected void onCreate() {
         super.onCreate();
-        //Flutter引擎
-        flutterEngine = new FlutterEngine(requireActivity());
-        flutterEngine.getNavigationChannel().setInitialRoute("/flutter_home");
-        //通过engine_id唯一标识来缓存
-        flutterEngine.getDartExecutor().executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault());
-        FlutterEngineCache
-                .getInstance()
-                .put("engine_id", flutterEngine);
     }
 
     @Override
@@ -182,11 +161,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 }
             });
         }
-        // 跳转flutter页面
-        if (view.getId() == R.id.startFlutter) {
-            LogUtils.i("startFlutter");
-            startActivity(FlutterActivity.withCachedEngine("engine_id").build(requireActivity()));
-        }
+
 
         if (R.id.fragmentDialogButton == view.getId()){
             MeFragmentDialog dialog = new MeFragmentDialog();
@@ -221,6 +196,5 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        flutterEngine.destroy();
     }
 }
