@@ -25,14 +25,14 @@ android {
         }
     }
 
-    signingConfigs {
-        debug {
-            storeFile file('/Users/swzhang3/debug/test.jks')
-            storePassword '123456'
-            keyPassword '123456'
-            keyAlias 'test'
-        }
-    }
+//    signingConfigs {
+//        debug {
+//            storeFile file('/Users/zhangshuaiwei/Desktop/traveller.jks')
+//            storePassword '123456'
+//            keyPassword '123456'
+//            keyAlias 'traveller'
+//        }
+//    }
 
     buildTypes {
         release {
