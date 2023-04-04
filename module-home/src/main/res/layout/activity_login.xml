@@ -1,99 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:padding="32dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
 
- <LinearLayout
-     android:id="@+id/login_form"
+ <club.ccit.widget.CircleProgressBar
      android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:layout_marginBottom="64dp"
-     android:background="@drawable/rounded_corners_background"
-     android:orientation="vertical"
-     android:padding="32dp">
-
-  <TextView
-      android:id="@+id/app_name"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Login"
-      android:textColor="@android:color/white"
-      android:textSize="36sp"
-      android:textStyle="bold" />
-
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/email_input_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="手机号"
-      app:boxBackgroundColor="@android:color/white"
-      app:boxBackgroundMode="filled"
-      app:boxCornerRadiusBottomEnd="24dp"
-      app:boxCornerRadiusBottomStart="24dp"
-      app:boxCornerRadiusTopEnd="24dp"
-      app:boxCornerRadiusTopStart="24dp"
-      app:boxStrokeColor="@android:color/transparent"
-      app:hintTextColor="@color/gray">
-
-   <com.google.android.material.textfield.TextInputEditText
-       android:id="@+id/phoneEditText"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="5dp"
-       android:background="@android:color/transparent"
-       android:inputType="textEmailAddress"
-       android:padding="16dp"
-       android:textSize="18sp" />
-
-  </com.google.android.material.textfield.TextInputLayout>
-
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/passwordInputLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="密码"
-      app:boxBackgroundColor="@android:color/white"
-      app:boxBackgroundMode="filled"
-      app:boxCornerRadiusBottomEnd="24dp"
-      app:boxCornerRadiusBottomStart="24dp"
-      app:boxCornerRadiusTopEnd="24dp"
-      app:boxCornerRadiusTopStart="24dp"
-      app:boxStrokeColor="@android:color/transparent"
-      app:hintTextColor="@color/gray"
-      app:passwordToggleEnabled="true"
-      app:passwordToggleTint="@android:color/darker_gray"
-      app:startIconTint="@android:color/darker_gray"
-      app:endIconTint="@android:color/darker_gray"
-      app:endIconMode="password_toggle">
-
-   <com.google.android.material.textfield.TextInputEditText
-       android:id="@+id/passwordEditText"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:background="@android:color/transparent"
-       android:inputType="textPassword"
-       android:padding="16dp"
-       android:textSize="18sp" />
-
-  </com.google.android.material.textfield.TextInputLayout>
-
-  <Button
-      android:id="@+id/loginButton"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
-      android:background="@drawable/button_background"
-      android:text="登录"
-      android:textColor="@android:color/white"
-      android:textSize="18sp"
-      android:textStyle="bold" />
-
- </LinearLayout>
-
-
-</RelativeLayout>
+     android:layout_height="wrap_content"
+     app:progressColor="@color/blue"
+     app:progress="50" />
+</LinearLayout>
