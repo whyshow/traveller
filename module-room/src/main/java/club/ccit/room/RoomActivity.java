@@ -56,6 +56,7 @@ public class RoomActivity extends BaseViewDataActivity<ActivityRoomBinding> {
                     List<TestDataModel> list = testApi.queryAll();
                     showToast("添加成功");
                     adapter.putData(list,1);
+                    adapter.setError(BaseAdapter.FOOTER_NO_DATA);
                 }else {
                     showToast("请检查数据完整性");
                 }

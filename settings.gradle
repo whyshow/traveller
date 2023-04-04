@@ -11,11 +11,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "traveller"
 include ':app'
-setBinding(new Binding([gradle: this]))
-evaluate(new File(
-  settingsDir,
-  'flutter_module/.android/include_flutter.groovy'
-))
 include ':module-common'
 include ':module-basic'
 include ':module-widget'

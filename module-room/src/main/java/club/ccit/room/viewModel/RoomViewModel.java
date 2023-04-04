@@ -35,9 +35,9 @@ public class RoomViewModel extends ViewModel {
      */
     @SuppressLint("CheckResult")
     public void addData() {
-        if (name.get() != null) {
+        if (name.get() == null) {
             success.setValue(false);
-        } else if (age.get() != null) {
+        } else if (age.get() == null) {
             success.setValue(false);
         } else {
             TestApi testApi = AbstractRoomData.getRoomDataBase(Constant.getApplication()).getTestApi();
