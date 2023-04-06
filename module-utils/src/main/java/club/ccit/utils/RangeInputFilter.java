@@ -53,5 +53,6 @@ public class RangeInputFilter implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
+
     }
 }

@@ -6,5 +6,8 @@
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="colorPrimary">@color/colorPrimary</item>
+        <!--        字体-->
+        <item name="fontFamily">@font/font_style</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 </resources>
