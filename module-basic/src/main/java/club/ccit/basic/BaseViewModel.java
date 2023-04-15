@@ -1,5 +1,6 @@
 package club.ccit.basic;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 /**
@@ -11,6 +12,9 @@ import androidx.lifecycle.ViewModel;
  * Version:
  */
 public class BaseViewModel extends ViewModel {
+    public MutableLiveData<String> message = new MutableLiveData<>();
+    public MutableLiveData<Boolean> ok = new MutableLiveData<>();
+
     @Override
     protected void onCleared() {
         super.onCleared();

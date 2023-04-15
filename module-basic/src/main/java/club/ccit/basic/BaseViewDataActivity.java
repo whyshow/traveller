@@ -2,7 +2,6 @@ package club.ccit.basic;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -46,6 +45,7 @@ public abstract class BaseViewDataActivity<T extends ViewDataBinding> extends Ap
     }
 
     protected void onCreate() {
+
     }
 
     /**

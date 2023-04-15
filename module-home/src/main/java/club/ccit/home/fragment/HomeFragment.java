@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -59,7 +60,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 binding.gridViewButton,
                 binding.fragmentDialogButton,
                 binding.loginActivity,
-                binding.startFlutter);
+                binding.startFlutter,
+                binding.singleClick);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(TitleBar titleBar) {
@@ -68,6 +70,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         });
 
     }
+
 
     @Override
     public void onClick(View view) {
@@ -163,11 +166,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         }
 
 
-        if (R.id.fragmentDialogButton == view.getId()){
+        if (R.id.fragmentDialogButton == view.getId()) {
             MeFragmentDialog dialog = new MeFragmentDialog();
             dialog.show(requireActivity().getSupportFragmentManager(), "MyDialogFragment");
-        } if (R.id.loginActivity == view.getId()){
-          startActivity(new Intent(requireContext(), LoginActivity.class));
+        }
+        if (R.id.loginActivity == view.getId()) {
+            startActivity(new Intent(requireContext(), LoginActivity.class));
+        }
+
+        if (R.id.singleClick == view.getId()) {
+           showToast("点击了一次");
         }
     }
 

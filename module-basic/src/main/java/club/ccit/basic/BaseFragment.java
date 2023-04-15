@@ -37,6 +37,7 @@ public abstract class BaseFragment<T extends ViewBinding> extends Fragment imple
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         onCreate();
+
     }
 
     protected void onCreate() {

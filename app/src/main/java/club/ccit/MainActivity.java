@@ -21,7 +21,6 @@ import club.ccit.databinding.ActivityMainBinding;
  */
 @Route(path = AppRouter.PATH_APP_HOME)
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
-
     @Override
     protected void onCreate() {
         super.onCreate();
