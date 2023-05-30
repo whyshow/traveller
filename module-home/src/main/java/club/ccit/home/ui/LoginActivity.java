@@ -87,11 +87,6 @@ public class LoginActivity extends BaseViewDataActivity<ActivityLoginBinding> {
     }
 
     @Override
-    protected ActivityLoginBinding onSetViewBinding() {
-        return ActivityLoginBinding.inflate(getLayoutInflater());
-    }
-
-    @Override
     public void onClick(View view) {
         super.onClick(view);
         if (view.getId() == R.id.buttonLogin) {

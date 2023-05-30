@@ -39,3 +39,8 @@
 -keep class tv.danmaku.ijk.media.player.** {*; }
 -dontwarn tv.danmaku.ijk.media.player.*
 -keep interface tv.danmaku.ijk.media.player.** { *; }
+
+# 防止ViewBinding被混淆
+-keep class * implements androidx.viewbinding.ViewBinding {
+    public static ** inflate(**);
+}
