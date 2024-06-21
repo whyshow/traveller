@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.nepviewer.aop.click.SingleClick;
+import club.ccit.aop.click.SingleClick;
 
 import java.util.Timer;
 import java.util.TimerTask;
