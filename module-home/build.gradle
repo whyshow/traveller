@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
 }
-
 android {
     compileSdk rootProject.ext.android.compileSdkVersion
 
@@ -14,7 +13,6 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-
     }
 
     buildTypes {
@@ -34,6 +32,9 @@ android {
 }
 
 dependencies {
+    api files('libs/neplibaop_0.0.3.aar')
+    implementation 'org.aspectj:aspectjrt:1.9.8'
+
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.constraintlayout
@@ -53,5 +54,5 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
     implementation "androidx.paging:paging-guava:3.1.1"
     implementation "androidx.paging:paging-rxjava3:3.1.1"
-
 }
+apply from: "../aspectj.gradle"

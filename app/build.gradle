@@ -43,7 +43,7 @@ android {
         }
 
         debug {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
@@ -90,5 +90,5 @@ dependencies {
     implementation project(path: ':module-home')
     implementation project(path: ':module-camerax')
     implementation project(path: ':module-room')
-
 }
+apply from: "../aspectj.gradle"

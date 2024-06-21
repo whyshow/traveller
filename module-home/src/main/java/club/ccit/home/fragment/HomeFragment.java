@@ -2,9 +2,11 @@ package club.ccit.home.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.nepviewer.aop.click.SingleClick;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -71,7 +73,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
     }
 
-
+    @SingleClick(1000)
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -175,7 +177,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         }
 
         if (R.id.singleClick == view.getId()) {
-           showToast("点击了一次");
+            showToast("点击了一次");
+            Log.i("LOG111", "点击了一次");
         }
     }
 
