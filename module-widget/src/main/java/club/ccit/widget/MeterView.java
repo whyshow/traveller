@@ -1,5 +1,6 @@
 package club.ccit.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -85,6 +86,7 @@ public class MeterView extends View {
 
     }
 
+    @SuppressLint("DrawAllocation")
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -125,7 +127,7 @@ public class MeterView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        RectF oval2 = new RectF(0, 0, sideLength, sideLength);//绘制区域
+        @SuppressLint("DrawAllocation") RectF oval2 = new RectF(0, 0, sideLength, sideLength);//绘制区域
         canvas.drawArc(oval2, 135, 270, true, quenLinePaint);//绘制圆弧从135度开始绘制270度
         canvas.drawCircle(sideLength/2, sideLength/2, sideLength/2-20, paint1);//绘制圆,重叠达到环形边框的效果
         //绘制刻度线,通过两次不同大小圆的遮罩,达到刻度的长短粗细效果

@@ -12,7 +12,6 @@ import club.ccit.common.BaseApplication;
  */
 public class MyApplication extends BaseApplication {
 
-
     @Override
     protected void onStart() {
         super.onStart();

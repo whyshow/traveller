@@ -6,11 +6,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import club.ccit.aop.click.SingleClick;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import club.ccit.aop.click.SingleClick;
 import club.ccit.basic.BaseFragment;
 import club.ccit.common.AppRouter;
 import club.ccit.home.R;

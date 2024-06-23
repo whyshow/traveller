@@ -82,9 +82,7 @@ public abstract class BaseDialog extends AppCompatDialog implements AnimAction {
     public abstract boolean setDialogCancelable();
 
 
-
     public void onDialogDismiss() {
-
         dismiss();
     }
 
@@ -137,6 +135,5 @@ public abstract class BaseDialog extends AppCompatDialog implements AnimAction {
      *
      * @return
      */
-    protected abstract @LayoutRes
-    int setLayoutResId();
+    protected abstract @LayoutRes int setLayoutResId();
 }
